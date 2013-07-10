@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<form action="{{url_for('job',id=form.jobid.data)}}" method="post">
+			{{ form.hidden_tag() }}
+			{% for error in form.jobid.errors %}
+			<p>{{ error }}</p>
+			{% endfor %}
+			<p>
+				{{ form.jobid() }}				
+			</p>
+			<p>
+				{{form.description()}}	
+			</p>
+			{% if edit %}
+			    <input type="submit" value="Edit">
+			{% else %}
+			    <input type="submit" value="Submit" formaction="{{url_for('jobs')}}">
+			{%endif%}
+
+		</form> 
+
+
+	</body>
+</html>
+
