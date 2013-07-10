@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<form action="{{url_for('job',id=form.jobid.data)}}" method="post">
+		<form method="post">
 			{{ form.hidden_tag() }}
 			{% for error in form.jobid.errors %}
 			<p>{{ error }}</p>
@@ -12,8 +12,11 @@
 			<p>
 				{{form.description()}}	
 			</p>
+			<p>
+				{{form.reward()}}
+			</p>
 			{% if edit %}
-			    <input type="submit" value="Edit">
+			    <input type="submit" value="Edit" formaction="{{url_for('job',id=form.jobid.data)}}">
 			{% else %}
 			    <input type="submit" value="Submit" formaction="{{url_for('jobs')}}">
 			{%endif%}

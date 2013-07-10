@@ -17,14 +17,19 @@ app.config['MONGODB_PORT'] = 27017
 @app.route('/')
 @login_required
 def home():
+	urls = []
+	for rule in app.url_map.iter_rules():
+		urls.append(str(rule).replace('<','(').replace('>',')'))
+	urls.sort()
 	content = '<p><h1>Welcome to Referral Rewards</h1></p>'
 	content += '<ul>'
-	for rule in app.url_map.iter_rules():
+	for url in urls:
 		content += '<li>'
-		content += str(rule).replace('<','(').replace('>',')')
+		content += url
 		content += '</li>'
 	content += '</ul>'  
   	return content
 
-import refrew.views
 import refrew.models
+import refrew.jobs
+import refrew.rewards

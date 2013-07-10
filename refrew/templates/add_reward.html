@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<form method="post">
+			{{ form.hidden_tag() }}
+			{% for error in form.itemid.errors %}
+			<p>{{ error }}</p>
+			{% endfor %}
+			<p>
+				{{ form.itemid() }}				
+			</p>
+			<p>
+				{{form.description()}}	
+			</p>
+			{% if edit %}
+			    <input type="submit" value="Edit" formaction="{{url_for('reward',id=form.itemid.data)}}">
+			{% else %}
+			    <input type="submit" value="Submit" formaction="{{url_for('rewards')}}">
+			{%endif%}
+
+		</form> 
+
+
+	</body>
+</html>
+

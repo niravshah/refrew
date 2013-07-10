@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.ext.wtf import Form
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, \
@@ -22,8 +23,16 @@ class User(db.Document, UserMixin):
 class Job(db.Document):
 	jobid = db.StringField(max_length=3)
 	description = db.StringField()
+	reward = db.ReferenceField('Reward')
+
+class Reward(db.Document):
+        itemid = db.StringField(max_length=3)
+        description = db.StringField()
+	def __str__(self):
+		return self.description
 
 AddJobForm = model_form(Job)
+RewardForm = model_form(Reward)
 
 user_datastore = MongoEngineUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
