@@ -24,6 +24,8 @@ class Job(db.Document):
 	jobid = db.StringField(max_length=3)
 	description = db.StringField()
 	reward = db.ReferenceField('Reward')
+	def __str__(self):
+                return self.description
 
 class Reward(db.Document):
         itemid = db.StringField(max_length=3)
@@ -31,8 +33,15 @@ class Reward(db.Document):
 	def __str__(self):
 		return self.description
 
+class Refer(db.Document):
+	itemid = db.StringField(max_length=3)
+	job =  db.ReferenceField('Job')
+	reference = db.URLField()
+
+
 AddJobForm = model_form(Job)
 RewardForm = model_form(Reward)
+ReferForm = model_form(Refer)
 
 user_datastore = MongoEngineUserDatastore(db, User, Role)
 security = Security(app, user_datastore)

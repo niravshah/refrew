@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<!-- Load in the JavaScript framework and register a callback function when it's loaded -->
+<script type="text/javascript" src="http://platform.linkedin.com/in.js">/*
+api_key: 3ntk7givavqe
+onLoad: onLinkedInLoad
+authorize: true
+*/</script>
+ 
+<script type="text/javascript">
+function onLinkedInLoad() {
+     // Listen for an auth event to occur
+     IN.Event.on(IN, "auth", onLinkedInAuth);
+}
+ 
+function onLinkedInAuth() {
+
+}
+ 
+function PeopleSearch(keywords) {
+     // Call the PeopleSearch API with the viewer's keywords
+     // Ask for 4 fields to be returned: first name, last name, distance, and Profile URL
+     // Limit results to 10 and sort by distance
+     // On success, call displayPeopleSearch(); On failure, do nothing.
+     var keywords = document.getElementById('keywords').value; 
+     IN.API.PeopleSearch()
+         .fields("firstName", "lastName", "distance", "siteStandardProfileRequest")
+         .params({"keywords": keywords, "count": 10, "sort": "distance"})
+         .result(displayPeopleSearch)
+         .error(function error(e) { /* do nothing */ }
+     );
+}
+ 
+function displayPeopleSearch(peopleSearch) {
+	var sel = document.getElementById("reference");
+	var members = peopleSearch.people.values;
+     	for (var member in members) {
+         var nameText = members[member].firstName + " " + members[member].lastName;
+         var url = members[member].siteStandardProfileRequest.url;
+         var distance = members[member].distance;
+         switch (distance) {
+         case 0:
+             	break;
+         case 1:
+		var opt = document.createElement('option');
+		opt.text = nameText;
+		opt.value = url;
+		sel.add(opt,null);
+		break;
+         case 2: 
+         case 3:
+         case 100:
+         case -1:
+         }
+     }
+}
+</script>
+</head>
+<body>
+<script type="IN/Login"></script>
+<div id="peopleSearchResults">
+	<form method="post">
+		{% if form.errors %}
+		    <ul class="errors">
+		        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+	            	{% for error in field_errors %}
+                	<li>{{ form[field_name].label }}: {{ error }}</li>
+            		{% endfor %}
+        		{% endfor %}
+    		    </ul>
+		{% endif %}
+		{{form.hidden_tag()}}	
+ 		<input id="keywords" size="30" value="Java" type="text">
+                <a href="javascript:PeopleSearch();">Search</a>
+                <p>{{form.job()}}</p>
+                <select id="reference" name="reference"></select>
+                <input type="submit" value="Submit" formaction="{{url_for('refer')}}"/>
+        </form>
+</div>
+</body>
+</html>
