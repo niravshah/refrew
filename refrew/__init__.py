@@ -33,4 +33,4 @@ def home():
 import refrew.models
 import refrew.jobs
 import refrew.rewards
-import refrew.refer
+import refrew.referrals
