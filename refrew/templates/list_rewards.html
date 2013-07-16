@@ -1,0 +1,23 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>
+<script>
+  simpleCart({
+    checkout: {
+      type: "PayPal",
+      email: "you@yours.com"
+    }
+  });
+</script>
+
+<div>
+<span class="simpleCart_quantity"></span> items - <span class="simpleCart_total"></span>
+<a href="javascript:;" class="simpleCart_checkout">Checkout</a>
+</div>
+
+{% for item in items %}
+	<div class="simpleCart_shelfItem">
+	<span class="item_price">$12.99</span>
+	<a class="item_add" href="javascript:;">Add to Cart</a>
+	<span class="item_name">{{item.itemid }} : {{item.description }}</span>
+	</div>
+{% endfor %}

@@ -77,7 +77,7 @@ def get_items(request, items):
 	 if request_wants_json():
                   return jsonify_items(items)
          else:
-                  return render_template('list_items.html',items=items)
+                  return render_template('list_rewards.html',items=items)
 
 def jsonify_items(items):
 	return jsonify(item=[it.to_json() for it in items])
