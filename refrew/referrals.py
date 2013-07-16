@@ -24,7 +24,7 @@ def edit_referral_form(id):
    return render_template('add_referral.html',form=form, edit=True)	
 
 
-@app.route('/referrals/deleteall')
+@app.route('/referrals/delete/all')
 def delete_all_refs():
 	Referral.objects().delete()
 	return list_referrals()

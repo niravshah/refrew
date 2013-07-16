@@ -8,7 +8,7 @@ from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, Ro
 from flask_negotiate import consumes, produces
 from bson import json_util
 
-from models import db, user_datastore, security, Job, Role, User, AddJobForm, Reward
+from models import db, user_datastore, security, Job, Role, User, AddJobForm, Reward, Referral, StageForm, Stage
 
 @app.route('/jobs/add/',methods=['GET'])
 @login_required
@@ -20,8 +20,9 @@ def add_job_form():
 @login_required
 def edit_job_form(id):
    job = Job.objects(jobid=id).first()
-   form = AddJobForm(request.form, obj=job)
-   return render_template('add_job.html',form=form, edit=True)	
+   stages = Stage.objects(job=job)
+   form = AddJobForm(request.form, obj=job,)
+   return render_template('add_job.html',form=form, edit=True,stages=stages)	
 
 @app.route('/jobs',methods=['GET','POST'])
 @login_required
@@ -49,11 +50,13 @@ def jobs():
 @login_required
 def job(id):
         if request.method == 'GET':
-		jobs = Job.objects(jobid=id)
+		job = Job.objects(jobid=id).first()
+		stage = Stage.objects(job=job)
+		ref = Referral.objects(job=job)
 	        if request_wants_json():
-		  return jsonify(item=[job.to_json() for job in jobs])
+		  return jsonify(item=job)
 	        else:
-        	  return render_template('list_jobs.html',jobs=jobs)
+        	  return render_template('list_job.html',job=job,referrals=ref,stages=stage)
 	if request.method == 'POST':
 		job = Job.objects(jobid=id).first()
 	        if request_has_json():
@@ -64,8 +67,25 @@ def job(id):
                         form = AddJobForm(request.form)
 		        form.populate_obj(job)
 			job.save()
-			return render_template('list_jobs.html',jobs=[job])
-			
+			return render_template('list_job.html',jobs=[job])
+
+
+@app.route('/jobs/<id>/stages',methods=['GET','POST'])
+@login_required
+def stages(id):
+    if request.method == 'GET':	
+      stage = StageForm()	
+      stage.job.data = Job.objects(jobid=id).first().id	
+      return render_template('add_stage.html',form=stage)
+    if request.method == 'POST':
+      stage = StageForm(request.form)
+      if stage.validate():
+	      stage.save()
+	      stages = Stage.objects(job=stage.job.data)
+	      return render_template('list_stages.html',stages=stages)		      
+      else:
+	print stage.errors
+    
 	
 @app.route('/joblist',methods=['GET'])
 def list_jobs():
@@ -73,6 +93,13 @@ def list_jobs():
 	if request_wants_json():
         	return jsonify(items=[job.to_json() for job in jobs])
 	return render_template('list_jobs.html',jobs=jobs)
+
+
+@app.route('/jobs/delete/all',methods=['GET'])
+def delete_all_jobs():
+	Job.objects.delete()
+	return 'Done'
+
 
 def request_wants_json():
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])

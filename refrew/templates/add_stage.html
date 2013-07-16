@@ -1,0 +1,18 @@
+<div>			
+			<form id='{{form.job.data}}_stage1'>
+			{{form.hidden_tag()}}
+			{% for error in form.errors %}
+			<p>{{ error }}</p>
+			{% endfor %}
+			<p>
+				{{ form.description() }}				
+			</p>
+			<p>
+				{{form.reward()}}	
+			</p>
+			<p>
+				<input type="hidden" id="job" name="job" value="{{form.job.data}}"/>
+			</p>
+		        <a href="javascript:postStageForm('#{{form.job.data}}_stage1');">Save</a>
+			</form>
+</div>

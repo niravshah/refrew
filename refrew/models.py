@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext.wtf import Form, TextField, BooleanField, Required
+from flask.ext.wtf import Form, TextField, BooleanField, Required, widgets
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, \
@@ -25,10 +25,16 @@ class User(db.Document, UserMixin):
     first_name = db.StringField(max_length=255)
     last_name = db.StringField(max_length=255)
 
+class Stage(db.Document):
+        job = db.ReferenceField('Job')
+	description = db.StringField()
+        reward = db.ReferenceField('Reward')
+        def __str__(self):
+                return self.description
+
 class Job(db.Document):
 	jobid = db.StringField(max_length=3)
 	description = db.StringField()
-	reward = db.ReferenceField('Reward')
 	def __str__(self):
                 return self.description
 
@@ -54,6 +60,8 @@ class ExtendedRegisterForm(RegisterForm):
 AddJobForm = model_form(Job)
 RewardForm = model_form(Reward)
 ReferralForm = model_form(Referral)
+StageForm = model_form(Stage)
+
 
 user_datastore = MongoEngineUserDatastore(db, User, Role)
 security = Security(app, user_datastore, register_form=ExtendedRegisterForm)

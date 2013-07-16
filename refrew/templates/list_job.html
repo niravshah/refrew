@@ -1,0 +1,19 @@
+<ul>
+    <li>{{job.jobid }} : {{job.description }}</li>
+    {% if stages %}
+	<ul>
+	<p> Stages : Rewards </p>
+	{% for stage in stages %}
+	<li>{{stage.description}} : {{stage.reward}}</li>
+	{% endfor %}
+	</ul>
+    {% endif %}	
+</ul>
+
+{% if referrals%}
+<p>Referrals</p>
+<ul>
+{% for ref in referrals%}
+	<li><a href={{ref.reference}}>{{ref.referenceName}}</a></li>
+{% endfor %}
+{% endif %}

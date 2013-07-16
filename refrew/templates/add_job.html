@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		function getStageForm(){
+			$.get("{{url_for('stages',id=form.jobid.data)}}", function(data) {
+				$('#add-stage').html(data);
+			});
+		}
+		function postStageForm(formid){
+			$.post("{{url_for('stages',id=form.jobid.data)}}", $(formid).serialize())
+			.done(
+				function(data){
+					$('#stages').html(data);
+					$('#add-stage').hide();
+				});
+		}
+	</script>
 	<body>
 		<form method="post">
 			{{ form.hidden_tag() }}
@@ -12,16 +28,25 @@
 			<p>
 				{{form.description()}}	
 			</p>
-			<p>
-				{{form.reward()}}
-			</p>
 			{% if edit %}
 			    <input type="submit" value="Edit" formaction="{{url_for('job',id=form.jobid.data)}}">
+			    <input type="button" value="Add Stage" formaction="{{url_for('stages',id=form.jobid.data)}}" onclick="getStageForm();">
 			{% else %}
 			    <input type="submit" value="Submit" formaction="{{url_for('jobs')}}">
 			{%endif%}
-
-		</form> 
+		</form>
+		<div id="add-stage"></div>
+		<div id="stages">
+		{% if edit %}
+			{% if stages %}
+				<ul>
+			{% for stage in stages %}
+			     <li> {{stage.description}}:{{stage.reward}}</li>
+			{% endfor %}
+				</ul>
+			{% endif %}
+		{% endif %}
+		</div> 
 
 
 	</body>
