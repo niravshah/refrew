@@ -85,6 +85,7 @@ function displayPeopleSearch(peopleSearch) {
                 <p>Jobs: {{form.job()}}</p>
 		<p>Referral Name: {{form.referenceName}}</p>
 		<p>Referral Link: {{form.reference()}}</p>
+		<p><input type="hidden" id="status" name="status" value="new"/></p>
 		{% if edit %}
 		<input type="submit" value="Edit" formaction="{{url_for('referral',id=form.itemid.data)}}"/>
 		{% else %}

@@ -49,6 +49,7 @@ class Referral(db.Document):
 	job =  db.ReferenceField('Job')
 	reference = db.URLField()
 	referenceName = db.StringField()
+	status = db.StringField()
 
 class ExtendedRegisterForm(RegisterForm):
     first_name = TextField('First Name', [Required()])

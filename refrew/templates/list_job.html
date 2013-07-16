@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	function rejectReferral(refid){
+		
+	}
+</script>
 <ul>
     <li>{{job.jobid }} : {{job.description }}</li>
     {% if stages %}
@@ -14,6 +19,18 @@
 <p>Referrals</p>
 <ul>
 {% for ref in referrals%}
-	<li><a href={{ref.reference}}>{{ref.referenceName}}</a></li>
+	<li>
+		<a href={{ref.reference}}>{{ref.referenceName}}</a>
+		{% if ref.status == 'new' %}
+			<p>[
+			{% if stages%}
+				<a href="">Promote to - {{stages[0].description}}</a>
+			{% else %}
+				<a href="">Promote to - Next Stage</a>
+			{% endif %}
+				 <a href="javascript:rejectReferral({{ref.itemid}});">Reject Referral</a>
+			]</p>
+		{% endif %}
+	</li>
 {% endfor %}
 {% endif %}

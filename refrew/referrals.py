@@ -16,6 +16,18 @@ def add_referral_form():
   form = ReferralForm()
   return render_template('add_referral.html',form=form)
 
+
+
+@app.route('/referrals/<id>/reject',methods=['POST'])
+@login_required
+def reject_referral_(id):
+   item = Referral.objects(itemid=id).first()
+   item.status = 'rejected'
+   item.save()
+   return 'Done'
+
+
+
 @app.route('/referrals/<id>/edit',methods=['GET'])
 @login_required
 def edit_referral_form(id):
