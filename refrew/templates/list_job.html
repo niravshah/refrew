@@ -1,6 +1,9 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
 	function rejectReferral(refid){
-		
+		$.get("/referrals/" + refid + "/status/rejected", function(data) {
+                	        alert('Status Updated');
+		});
 	}
 </script>
 <ul>
@@ -19,6 +22,7 @@
 <p>Referrals</p>
 <ul>
 {% for ref in referrals%}
+	{% if ref.status != 'rejected'%}
 	<li>
 		<a href={{ref.reference}}>{{ref.referenceName}}</a>
 		{% if ref.status == 'new' %}
@@ -28,9 +32,10 @@
 			{% else %}
 				<a href="">Promote to - Next Stage</a>
 			{% endif %}
-				 <a href="javascript:rejectReferral({{ref.itemid}});">Reject Referral</a>
+				 <a href="javascript:rejectReferral('{{ref.itemid}}');">Reject Referral</a>
 			]</p>
 		{% endif %}
 	</li>
+	{% endif %}
 {% endfor %}
 {% endif %}

@@ -7,7 +7,6 @@ from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, RoleMixin, login_required
 from flask_negotiate import consumes, produces
 from bson import json_util
-
 from models import db, user_datastore, security, Role, User, Reward, ReferralForm, Referral
 
 @app.route('/referrals/add/',methods=['GET'])
@@ -16,17 +15,13 @@ def add_referral_form():
   form = ReferralForm()
   return render_template('add_referral.html',form=form)
 
-
-
-@app.route('/referrals/<id>/reject',methods=['POST'])
+@app.route('/referrals/<id>/status/<value>',methods=['GET'])
 @login_required
-def reject_referral_(id):
+def reject_referral(id,value):
    item = Referral.objects(itemid=id).first()
-   item.status = 'rejected'
+   item.status = value;
    item.save()
    return 'Done'
-
-
 
 @app.route('/referrals/<id>/edit',methods=['GET'])
 @login_required
@@ -34,7 +29,6 @@ def edit_referral_form(id):
    item = Referral.objects(itemid=id).first()
    form = ReferralForm(request.form, obj=item)
    return render_template('add_referral.html',form=form, edit=True)	
-
 
 @app.route('/referrals/delete/all')
 def delete_all_refs():
@@ -61,7 +55,6 @@ def referrals():
 		return list_referrals()
 	else:
    		return list_referrals()
-
 
 @app.route('/referrals/<id>',methods=['GET','POST'])
 @login_required

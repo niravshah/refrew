@@ -2,9 +2,11 @@
 <html>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript">
+		{% if edit%}
 		function getStageForm(){
 			$.get("{{url_for('stages',id=form.jobid.data)}}", function(data) {
 				$('#add-stage').html(data);
+				$('#add-stage').show();
 			});
 		}
 		function postStageForm(formid){
@@ -15,6 +17,7 @@
 					$('#add-stage').hide();
 				});
 		}
+		{% endif %}
 	</script>
 	<body>
 		<form method="post">

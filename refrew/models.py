@@ -80,3 +80,8 @@ def list_users():
 def delete_all_users():
 	User.objects().delete()
 	return list_users()
+
+@app.before_first_request
+def create_user():
+    user_datastore.create_user(email='nirav', password='password')
+
