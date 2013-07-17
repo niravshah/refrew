@@ -85,7 +85,23 @@ def stages(id):
 	      return render_template('list_stages.html',stages=stages)		      
       else:
 	print stage.errors
-    
+
+
+@app.route('/jobs/<jobid>/referrals')
+@login_required
+def job_referral(jobid):
+	job = Job.objects(jobid=jobid).first()
+	referrals = Referral.objects(job=job)
+	return render_template('_referrals.html',referrals=referrals)
+
+@app.route('/jobs/<jobid>/referrals/<refid>/status/<value>',methods=['GET'])
+@login_required
+def change_job_referral_status(jobid, refid, value):
+	job = Job.objects(jobid=jobid).first()
+	referral = Referral.objects(job=job, itemid=refid).first()
+	referral.status = value
+	referral.save()
+	return job_referral(jobid)
 	
 @app.route('/joblist',methods=['GET'])
 def list_jobs():

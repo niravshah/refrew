@@ -17,7 +17,7 @@ def add_referral_form():
 
 @app.route('/referrals/<id>/status/<value>',methods=['GET'])
 @login_required
-def reject_referral(id,value):
+def change_referral_status(id,value):
    item = Referral.objects(itemid=id).first()
    item.status = value;
    item.save()

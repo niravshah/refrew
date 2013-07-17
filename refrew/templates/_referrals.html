@@ -1,0 +1,20 @@
+<p>Referrals</p>
+<ul>
+{% for ref in referrals%}
+        {% if ref.status != 'rejected'%}
+        <li>
+                <a href={{ref.reference}}>{{ref.referenceName}}</a>
+                {% if ref.status == 'new' %}
+                        <p>[
+                        {% if stages%}
+                                <a href="javascript:change_referral_status({{ref.job.jobid}},{{ref.itemid}},'stage1')">Promote to - {{stages[0].description}}</a>
+                        {% else %}
+                                <a href="javascript:change_referral_status({{ref.job.jobid}},{{ref.itemid}},'stage1')">Promote to - Next Stage</a>
+                        {% endif %}
+                                 <a href="javascript:change_referral_status('{{ref.job.jobid}}','{{ref.itemid}}','rejected')">Reject Referral</a>
+                        ]</p>
+                {% endif %}
+        </li>
+        {% endif %}
+{% endfor %}
+

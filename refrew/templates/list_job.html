@@ -1,8 +1,17 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
-	function rejectReferral(refid){
-		$.get("/referrals/" + refid + "/status/rejected", function(data) {
-				$('#' + refid).remove()
+	$(document).ready(function(){
+		 get_job_referrals('{{job.jobid}}');
+	})
+
+	function get_job_referrals(jobid){
+		$.get("/jobs/" + jobid + "/referrals", function(data) {
+                        $('#job_referrals').html(data);
+                });
+	}
+	function change_referral_status(jobid,refid, value){
+		$.get("/jobs/" + jobid + "/referrals/" + refid + "/status/" + value, function(data) {
+			$('#job_referrals').html(data);
 		});
 	}
 </script>
@@ -19,23 +28,6 @@
 </ul>
 
 {% if referrals%}
-<p>Referrals</p>
-<ul>
-{% for ref in referrals%}
-	{% if ref.status != 'rejected'%}
-	<li id={{ref.itemid}}>
-		<a href={{ref.reference}}>{{ref.referenceName}}</a>
-		{% if ref.status == 'new' %}
-			<p>[
-			{% if stages%}
-				<a href="">Promote to - {{stages[0].description}}</a>
-			{% else %}
-				<a href="">Promote to - Next Stage</a>
-			{% endif %}
-				 <a href="javascript:rejectReferral('{{ref.itemid}}');">Reject Referral</a>
-			]</p>
-		{% endif %}
-	</li>
-	{% endif %}
-{% endfor %}
+<div id='job_referrals'>
+</div>
 {% endif %}
