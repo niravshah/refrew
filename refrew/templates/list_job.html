@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	function rejectReferral(refid){
 		$.get("/referrals/" + refid + "/status/rejected", function(data) {
-                	        alert('Status Updated');
+				$('#' + refid).remove()
 		});
 	}
 </script>
@@ -23,7 +23,7 @@
 <ul>
 {% for ref in referrals%}
 	{% if ref.status != 'rejected'%}
-	<li>
+	<li id={{ref.itemid}}>
 		<a href={{ref.reference}}>{{ref.referenceName}}</a>
 		{% if ref.status == 'new' %}
 			<p>[
