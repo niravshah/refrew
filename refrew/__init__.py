@@ -1,4 +1,4 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, send_from_directory
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, \
@@ -22,8 +22,16 @@ app.config['MAIL_PORT']=465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'nirav.shah83@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Alpha6383'
+app.url_map.strict_slashes = False
+
 
 mail = Mail(app)
+
+@app.route('/hosto/<path:filename>')
+def serve_hosto(filename):
+	print 'Inside serve_hosto'
+	return send_from_directory('/home/vagrant/tmp/refrew/refrew/refrew/static/hosto/', filename)
+
 
 @app.route('/')
 @login_required
