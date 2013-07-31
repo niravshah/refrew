@@ -1,4 +1,4 @@
-from flask import Flask, url_for, send_from_directory
+from flask import Flask, url_for, send_from_directory, render_template
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, \
@@ -24,19 +24,12 @@ app.config['MAIL_USERNAME'] = 'nirav.shah83@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Alpha6383'
 app.url_map.strict_slashes = False
 
-
 mail = Mail(app)
-
-@app.route('/hosto/<path:filename>')
-def serve_hosto(filename):
-	print 'Inside serve_hosto'
-	return send_from_directory('/home/vagrant/tmp/refrew/refrew/refrew/static/hosto/', filename)
-
 
 @app.route('/')
 @login_required
 def home():
-	urls = []
+	""" urls = []
 	for rule in app.url_map.iter_rules():
 		urls.append(str(rule).replace('<','(').replace('>',')'))
 	urls.sort()
@@ -52,7 +45,8 @@ def home():
 		content += url
 		content += '</li>'
 	content += '</ul>'  
-  	return content
+  	return content """
+	return render_template("left.html")
 
 import refrew.models
 import refrew.jobs
