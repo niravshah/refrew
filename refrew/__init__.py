@@ -29,24 +29,32 @@ mail = Mail(app)
 @app.route('/')
 @login_required
 def home():
-	""" urls = []
-	for rule in app.url_map.iter_rules():
-		urls.append(str(rule).replace('<','(').replace('>',')'))
-	urls.sort()
-	content = '<p><h1>Welcome '
-	if current_user.incognito == False:
-		content += current_user.first_name + current_user.last_name
-	else:
-		content += current_user.screen_name
-	content += '<p></h1>'
-	content += '<ul>'
-	for url in urls:
-		content += '<li>'
-		content += url
-		content += '</li>'
-	content += '</ul>'  
-  	return content """
-	return render_template("left.html")
+	return render_template("index.html")
+
+
+@app.route('/urlmap')
+@login_required
+def urlmap():
+	urls = []
+        for rule in app.url_map.iter_rules():
+                urls.append(str(rule).replace('<','(').replace('>',')'))
+        urls.sort()
+        content = '<p><h1>Welcome '
+        if current_user.incognito == False:
+                content += current_user.first_name + current_user.last_name
+        else:
+                content += current_user.screen_name
+        content += '<p></h1>'
+        content += '<ul>'
+        for url in urls:
+                content += '<li>'
+                content += url
+                content += '</li>'
+        content += '</ul>'
+        return content
+
+
+
 
 import refrew.models
 import refrew.jobs

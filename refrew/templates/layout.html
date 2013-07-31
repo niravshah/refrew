@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head> 
+        <title>R3</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
+		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
+		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/offcanvas.css')}}" />
+		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
+		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="{{url_for('static', filename='js/jquery.offcanvas.min.js')}}"></script>
+		<script>
+			jQuery(document).ready(function($) {
+				$('html').offcanvas();
+			});
+		</script>	
+		<!-- If browser is internet explorer run HTML5 compatibility code -->		
+		<!--[if IE]>
+		    <script src="js/html5.js"></script>  
+		<![endif]-->
+	</head>
+	<body>
+		<aside id="sidebarLeft" class="sidebarLeft">
+			<div class="scrollableArea">
+			<a class="shutLeft" href="">&#10006;</a>			
+			</div>
+		</aside>	
+		<section id="page" class="page">
+			<header class="topBar">					
+					<a id="leftBurger" class="slideRight" href="">R3</a></span>				
+			</header>
+			<div class="scrollableArea">
+			{% block body %}{% endblock %}
+			</div>
+		</section>
+		<script src="{{url_for('static', filename='js/overthrow.js')}}"></script>
+		<script src="{{url_for('static', filename='js/hammer.js')}}"></script>
+		<script src="{{url_for('static', filename='js/jquery.hammer.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/json2.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/underscore-1.4.3.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/backbone-0.9.10.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.babysitter-0.0.4.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
+		<script>   
+		$(function(){
+		var options = {
+		menuItems: [
+		],
+		toolItems: [
+		]		
+		};
+		gmm.Viewer.start(options);
+		});
+		</script>		
+	</body>
+</html>
