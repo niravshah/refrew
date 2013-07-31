@@ -13,6 +13,8 @@ db = MongoEngine(app)
 class Role(db.Document, RoleMixin):
     name = db.StringField(max_length=80, unique=True)
     description = db.StringField(max_length=255)
+    def __str__(self):
+	return self.name
 
 class User(db.Document, UserMixin):
     email = db.StringField(max_length=255)
@@ -72,7 +74,12 @@ def list_users():
 	users = User.objects()
 	content = '<p><ul>'
 	for user in users:
-	  content += '<li>' + user.email + '</li>'
+	  content += '<li>' + user.first_name + user.last_name + ' : ' + user.email + ' : '
+	  if not user.roles:
+		 content +=  'No Roles Assigned'
+	  for role in user.roles:
+		content += ' - ' + role + ' - '
+	  content += '</li>'
 	content += '</ul></p>'
 	return content
 
@@ -81,7 +88,7 @@ def delete_all_users():
 	User.objects().delete()
 	return list_users()
 
-@app.before_first_request
+"""@app.before_first_request
 def create_user():
-    user_datastore.create_user(email='nirav', password='password')
+    user_datastore.create_user(email='nirav', password='password')"""
 

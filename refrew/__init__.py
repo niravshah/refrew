@@ -53,9 +53,6 @@ def urlmap():
         content += '</ul>'
         return content
 
-
-
-
 import refrew.models
 import refrew.jobs
 import refrew.rewards
