@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/offcanvas.css')}}" />
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
 		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -24,7 +25,39 @@
 	<body>
 		<aside id="sidebarLeft" class="sidebarLeft">
 			<div class="scrollableArea">
-			<a class="shutLeft" href="">&#10006;</a>			
+				<a class="shutLeft" href="">&#10006;</a>			
+				<div class="scrollableArea">
+					<a class="shutLeft" href="">&#10006;</a>
+					<div class="you padded">
+				{% if user.is_authenticated() %}
+				<a href="#"><img class="avatar" src="{{url_for('static', filename='img/users/nirav.jpg')}}" alt="{{ user.first_name }}" width="80"/></a>
+				{% else %}
+				<a href="#"><img class="avatar" src="{{url_for('static', filename='img/users/guest.jpg')}}" alt="guest" width="80"/></a>
+				{% endif %}
+			
+						{% if user.is_authenticated() %}
+						<h2><a href="#">{{user.first_name}} {{user.last_name}}</a></h2>
+						{% else %}
+						<h2><a href="#">Guest</a></h2>
+						{% endif %}
+					</div>
+					<ul class="paddedLight">
+						<li><a href="index.html"><span class="icon">&#8962;</span>Home</a></li>
+						<li/>
+						{% if user.has_role('referrer') %}
+						<li><a href="#"><span class="icon">&#59196;</span>Refer</a></li>
+						{% endif %}
+						{% if user.has_role('employer') %}
+						<li><a href="#"><span class="icon">&#59136;</span>Recruit</a></li>
+						{% endif %}
+						{% if user.has_role('seller') %}
+						<li><a href="#"><span class="icon">&#127942;</span>Rewards</a></li>
+						{% endif %}					
+						<li><a href="#"><span class="icon">&#59168;</span>Inbox</a></li>
+						<li><a href="#"><span class="icon">&#59201;</span>Sign Out</a></li>
+						<li><a href="#"><span class="icon">&#9881;</span>Settings</a></li>
+				</ul>
+				</div>
 			</div>
 		</aside>	
 		<section id="page" class="page">

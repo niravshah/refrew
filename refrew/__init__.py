@@ -27,10 +27,8 @@ app.url_map.strict_slashes = False
 mail = Mail(app)
 
 @app.route('/')
-@login_required
 def home():
-	return render_template("index.html")
-
+	return render_template("index.html",user=current_user)
 
 @app.route('/urlmap')
 @login_required
