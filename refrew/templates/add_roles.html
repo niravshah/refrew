@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<form method="post">
+			{{ form.hidden_tag() }}
+			{% for error in form.errors %}
+			<p>{{ error }}</p>
+			{% endfor %}
+			<p>
+				{{ form.name() }}				
+			</p>
+			<p>
+				{{form.description()}}	
+			</p>
+			{% if edit %}
+			    <input type="submit" value="Edit" formaction="{{url_for('role',id=form.name.data)}}">
+			{% else %}
+			    <input type="submit" value="Submit" formaction="{{url_for('roles')}}">
+			{%endif%}
+
+		</form> 
+
+
+	</body>
+</html>
+

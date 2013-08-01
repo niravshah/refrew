@@ -57,3 +57,4 @@ import refrew.models
 import refrew.jobs
 import refrew.rewards
 import refrew.referrals
+import refrew.roles
