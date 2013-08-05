@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
 		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/offcanvas.css')}}" />
+		 <link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
@@ -78,15 +79,22 @@
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/JobsModule.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/RewardsModule.js')}}"></script>
 		<script>   
 		$(function(){
-		var options = {
-		menuItems: [
-		],
-		toolItems: [
-		]		
-		};
-		gmm.Viewer.start(options);
+			console.log('Function to kick-off backbone');
+			var options = {
+				jobs : [
+					{'itemid':'j01','description':'Job 01'},
+					{'itemid':'j02','description':'Job 02'}
+				],
+				rewards : [
+                                        {'itemid':'r01','description':'Reward 01'},
+                                        {'itemid':'r02','description':'Reward 02'}
+                                ]	
+			};
+			gmm.Viewer.start(options);
 		});
 		</script>		
 	</body>

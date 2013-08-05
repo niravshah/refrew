@@ -7,9 +7,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
     gmm.Viewer = new Backbone.Marionette.Application();
 
     gmm.Viewer.addRegions({
-        toolsRegion: '#tool-list-region',
-        menuRegion: '#menu-region',
-        layerListRegion: '#layer-list-region'
+        jobsRegion: '#jobs-region',
+        rewardsRegion: '#rewards-region',
     });    
 
     //debugging so we can see events flying around

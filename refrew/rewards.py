@@ -1,6 +1,6 @@
 import json
 from refrew import app
-from flask import Flask, render_template,request, redirect, url_for, jsonify
+from flask import Flask, render_template,request, redirect, url_for, jsonify, Response
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.wtf import Form, TextField, Required
 from flask.ext.mongoengine.wtf import model_form
@@ -24,7 +24,6 @@ def edit_reward_form(id):
    return render_template('add_reward.html',form=form, edit=True)	
 
 @app.route('/rewards',methods=['GET','POST'])
-@login_required
 def rewards():
 	if request.method == 'POST':
 		form = RewardForm(request.form)
@@ -75,12 +74,13 @@ def list_rewards():
 
 def get_items(request, items):
 	 if request_wants_json():
-                  return jsonify_items(items)
+		itemLst = [dict(itemid=item.itemid) for item in items]
+		return jsonify(items=itemLst);
          else:
                   return render_template('list_rewards.html',items=items)
 
 def jsonify_items(items):
-	return jsonify(item=[it.to_json() for it in items])
+	return json.dumps(items)
 
 def request_wants_json():
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])

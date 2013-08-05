@@ -25,7 +25,6 @@ def edit_job_form(id):
    return render_template('add_job.html',form=form, edit=True,stages=stages)	
 
 @app.route('/jobs',methods=['GET','POST'])
-@login_required
 def jobs():
 	if request.method == 'POST':
 		form = AddJobForm(request.form)
@@ -107,7 +106,8 @@ def change_job_referral_status(jobid, refid, value):
 def list_jobs():
 	jobs = Job.objects()
 	if request_wants_json():
-        	return jsonify(items=[job.to_json() for job in jobs])
+		itemLst = [dict(itemid=job.jobid,description=job.description) for job in jobs]
+        	return jsonify(items=itemLst)
 	return render_template('list_jobs.html',jobs=jobs)
 
 
