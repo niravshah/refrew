@@ -13,6 +13,7 @@
 		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='js/jquery.offcanvas.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>		
 		<script>
 			jQuery(document).ready(function($) {
 				$('html').offcanvas();
@@ -69,6 +70,46 @@
 			{% block body %}{% endblock %}
 			</div>
 		</section>
+                <div class="container">
+			<div id="myModal" class="modal fade"></div>
+		</div>
+		<script type="text/html" id="job-item-details-template">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+				<div class="modal-header">
+			          	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			          	<h4 class="modal-title">Modal title</h4>
+				</div>
+        			<div class="modal-body">
+          			<p>Job Id: <%=itemid%></p>
+				<p>Job Desc: <%=description%></p>
+        			</div>
+        			<div class="modal-footer">
+          				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          				<button type="button" class="btn btn-primary">Save changes</button>
+        			</div>
+      			     </div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+		</script>
+
+	         <script type="text/html" id="reward-item-details-template">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                <p>Reward Id: <%=itemid%></p>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                             </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                </script>
+
 		<script src="{{url_for('static', filename='js/overthrow.js')}}"></script>
 		<script src="{{url_for('static', filename='js/hammer.js')}}"></script>
 		<script src="{{url_for('static', filename='js/jquery.hammer.js')}}"></script>

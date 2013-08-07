@@ -27,12 +27,23 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	    url:'/jobs',
 	    parse: function(response){return response.items;}
         });
+
+	var JobItemDetailView = Backbone.Marionette.ItemView.extend({
+		template: '#job-item-details-template'
+	});
 	
         var JobItemView = Backbone.Marionette.ItemView.extend({
             model: JobModel,
             template: '#layer-item-template',
             tagName: 'div', 
 	    className: 'col-lg-4 col-sm-6 col-12',
+	    events: {
+     		 'click': 'showJobDetail'
+	    },    
+	    showJobDetail: function(){
+		var detailView = new JobItemDetailView({model: this.model});
+	        gmm.Viewer.modal.show(detailView);
+    	    }	
         });
 
         var JobListView = Backbone.Marionette.CollectionView.extend({
