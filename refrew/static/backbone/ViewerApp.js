@@ -36,17 +36,14 @@ if (!this.gmm || typeof this.gmm !== 'object') {
     });	
 
     gmm.Viewer.refer = function(jobid){
-	console.log(jobid);
 	gmm.Viewer.vent.trigger("refer:job", jobid);
     };	
 
-
     gmm.Viewer.addInitializer(function(){
-      gmm.Viewer.router = new Router({
+      	gmm.Viewer.router = new Router({
       		controller: gmm.Viewer
-    });	
-    
-    gmm.Viewer.vent.trigger('routing:started');
+    	});	
+    	gmm.Viewer.vent.trigger('routing:started');
     });
 
     gmm.Viewer.vent.on("routing:started", function(){
@@ -59,16 +56,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         modal : ModalRegion
     });
 
-    gmm.Viewer.vent.on('show:referral',function(model){
-	Backbone.history.navigate("#/refer/" + model.attributes['itemid']);
-	gmm.Viewer.jobsRegion.$el.hide();
-    });
-    
     gmm.Viewer.vent.on('all', function (evt, model) {
         console.log('gmm.Viewer DEBUG: Event Caught: ' + evt);
-        if (model) {
+        /*if (model) {
             console.dir(model);
-        }
+        }*/
     });
 })();
 
