@@ -29,7 +29,13 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         });
 
 	var JobItemDetailView = Backbone.Marionette.ItemView.extend({
-		template: '#job-item-details-template'
+		template: '#job-item-details-template',
+		events:{
+			'click #refer-button' : 'refer'
+		},
+		refer : function(){
+			gmm.Viewer.vent.trigger("show:referral",this.model);
+		}
 	});
 	
         var JobItemView = Backbone.Marionette.ItemView.extend({
@@ -52,6 +58,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                         var _this = this;
                         _.bindAll(this,"render");
                         this.collection.fetch({
+			  data: $.param({ rec: 12}), 
                           success: function(model, response) {
                                 _this.render();
                               _this.collection.on("reset", _this.render, _this);
@@ -60,8 +67,24 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                               console.log("Error Fetching.");
                           }
                         });
-                }
+                },
+	   events: {
+  		'scroll': 'loadMoreJobs'
+	   },
+           loadMoreJobs : function(){
+	       console.log('loadMoreJobs');
+               var totalHeight = this.$('> div').height(),
+  	       scrollTop = this.$el.scrollTop() + this.$el.height(),
+               margin = 200;
+	       console.log('Total Height', totalHeight);
+               console.log('Scroll Top:', scrollTop);	
+               // if we are closer than 'margin' to the end of the content, load more books
+               if (scrollTop + margin >= totalHeight) {
+                  gmm.Viewer.vent.trigger("search:more");
+               }
+	   }
         });
+
     });
 })();
 

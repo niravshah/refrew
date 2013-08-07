@@ -42,7 +42,9 @@ def jobs():
                    return render_template('add_job.html',form=form)
 		return list_jobs()
 	else:
-   		return list_jobs()
+		records_to_fetch =  request.args.get('rec',10)
+		last =  request.args.get('last',0)
+   		return list_jobs(records_to_fetch,last)
 
 
 @app.route('/jobs/<id>',methods=['GET','POST'])
@@ -104,12 +106,15 @@ def change_job_referral_status(jobid, refid, value):
 	
 @app.route('/joblist',methods=['GET'])
 def list_jobs():
-	jobs = Job.objects()
-	if request_wants_json():
-		itemLst = [dict(itemid=job.jobid,description=job.description) for job in jobs]
-        	return jsonify(items=itemLst)
-	return render_template('list_jobs.html',jobs=jobs)
+	list_jobs(100,0)
 
+def list_jobs(records_to_fetch,last):
+	new_last = int(last)+int(records_to_fetch)
+	jobs = Job.objects[int(last):new_last]
+        if request_wants_json():
+                itemLst = [dict(itemid=job.jobid,description=job.description) for job in jobs]
+                return jsonify(items=itemLst)
+        return render_template('list_jobs.html',jobs=jobs)
 
 @app.route('/jobs/delete/all',methods=['GET'])
 def delete_all_jobs():
