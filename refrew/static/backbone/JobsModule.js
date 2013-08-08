@@ -7,7 +7,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         Mod.addInitializer(function (options) {
 		console.log('JobsModule Initializer Called');
 		Mod.controller = new Controller({
-               	   region: Viewer.jobsRegion,
+               	   region: Viewer.mainRegion,
             });
         });
 
@@ -61,28 +61,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			  data: $.param({ rec: 12}), 
                           success: function(model, response) {
                                 _this.render();
-                              _this.collection.on("reset", _this.render, _this);
-                          },
+                              _this.collection.on("reset", _this.render, _this);},
                           error: function(model, response) {
-                              console.log("Error Fetching.");
-                          }
+                              console.log("Error Fetching.");}
                         });
-                },
-	   events: {
-  		'scroll': 'loadMoreJobs'
-	   },
-           loadMoreJobs : function(){
-	       console.log('loadMoreJobs');
-               var totalHeight = this.$('> div').height(),
-  	       scrollTop = this.$el.scrollTop() + this.$el.height(),
-               margin = 200;
-	       console.log('Total Height', totalHeight);
-               console.log('Scroll Top:', scrollTop);	
-               // if we are closer than 'margin' to the end of the content, load more books
-               if (scrollTop + margin >= totalHeight) {
-                  gmm.Viewer.vent.trigger("search:more");
-               }
-	   }
+            }
         });
 
     });

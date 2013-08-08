@@ -13,12 +13,14 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	}
     });
 
+
     gmm.Viewer.addRegions({
-        jobsRegion: '#jobs-region',
-        rewardsRegion: '#rewards-region',
+        mainRegionTitle: '#main-region-title',
+	mainRegion: '#main-region',
+        rhsSubTitle: '#rhs-sub-title',
+	rhsSub: '#rhs-sub',
         modal : BootstrapModalRegion.extend({el:"#myModal"})
     });
-
 
     gmm.Viewer.navigate = function(route,  options){
   	options || (options = {});

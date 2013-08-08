@@ -7,7 +7,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         Mod.addInitializer(function (options) {
 		console.log('RewardsModule Initializer Called');
 		Mod.controller = new Controller({
-               	   region: Viewer.rewardsRegion,
+               	   region: Viewer.rhsSub,
 		   rewards: options.rewards
             });
         });

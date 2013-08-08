@@ -7,14 +7,16 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         
 	Mod.addInitializer(function (options) {
 		console.log('Referrals Initializer Called');
-		Mod.Controller = new Controller({
-               	   region: Viewer.jobsRegion
-            	});
+		Mod.Controller = new Controller({});
         });
 
 	var Controller = Backbone.Marionette.Controller.extend({
 	    referJob : function(jobid){
-		gmm.Viewer.jobsRegion.$el.hide();
+		/*Viewer.mainRegionTitle.$el.hide();*/
+		Viewer.mainRegion.$el.hide();
+		Viewer.rhsSub.$el.hide();
+		$('#rhs-sub-title').hide();
+		$('#main-region-title').text(jobid);
 		console.log("ReferralsModule : referJob : ",jobid);
 	    }
 	});
