@@ -55,7 +55,8 @@ def job(id):
 		stage = Stage.objects(job=job)
 		ref = Referral.objects(job=job)
 	        if request_wants_json():
-		  return jsonify(item=job)
+		  itemLst = dict(itemid=job.jobid,description=job.description)
+		  return jsonify(item=itemLst)
 	        else:
         	  return render_template('list_job.html',job=job,referrals=ref,stages=stage)
 	if request.method == 'POST':

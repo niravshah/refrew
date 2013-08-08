@@ -8,7 +8,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		console.log('JobsModule Initializer Called');
 		Mod.controller = new Controller({
                	   region: Viewer.mainRegion,
-            });
+            	});
         });
 
 	var Controller = Backbone.Marionette.Controller.extend({
@@ -21,9 +21,26 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	    }
 	});
 
-        var JobModel = Backbone.Model.extend({});
-        var JobCollection = Backbone.Collection.extend({
-            model: JobModel,
+	Mod.API = {
+		getJob : function(jobid){
+			var job = new Mod.JobModel({id:jobid,parse:function(response){console.log('Parse:',response.items);return response.items;}});
+			job.fetch({
+                          success: function(model, response) {
+				console.log('getJob Return:',model);
+				return model;
+			  },
+                          error: function(model, response) {
+                              console.log("Error Fetching.");}
+                        });
+		}		
+	};
+
+        Mod.JobModel = Backbone.Model.extend({
+	    urlRoot:'/jobs',
+	});
+        
+	var JobCollection = Backbone.Collection.extend({
+            model: Mod.JobModel,
 	    url:'/jobs',
 	    parse: function(response){return response.items;}
         });
@@ -39,7 +56,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	});
 	
         var JobItemView = Backbone.Marionette.ItemView.extend({
-            model: JobModel,
+            model: Mod.JobModel,
             template: '#layer-item-template',
             tagName: 'div', 
 	    className: 'col-lg-4 col-sm-6 col-12',
@@ -60,7 +77,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                         this.collection.fetch({
 			  data: $.param({ rec: 12}), 
                           success: function(model, response) {
-                                _this.render();
+                              _this.render();
                               _this.collection.on("reset", _this.render, _this);},
                           error: function(model, response) {
                               console.log("Error Fetching.");}
