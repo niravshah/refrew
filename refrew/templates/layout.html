@@ -85,7 +85,7 @@
 				<p>Job Desc: <%=description%></p>
         			</div>
         			<div class="modal-footer">
-					<a id="refer-button" data-dismiss="modal" aria-hidden="true" href="#/refer/<%=itemid%>" class="btn btn-primary btn-lg">Refer</a>
+					<a id="refer-button" data-dismiss="modal" aria-hidden="true" href="/jobs/<%=itemid%>/refer" class="btn btn-primary btn-lg">Refer</a>
         			</div>
       			     </div><!-- /.modal-content -->
 			    </div><!-- /.modal-dialog -->
@@ -130,16 +130,7 @@
 		<script>   
 		$(function(){
 			console.log('Function to kick-off backbone');
-			var options = {
-				jobs : [
-					{'itemid':'j01','description':'Job 01'},
-					{'itemid':'j02','description':'Job 02'}
-				],
-				rewards : [
-                                        {'itemid':'r01','description':'Reward 01'},
-                                        {'itemid':'r02','description':'Reward 02'}
-                                ]	
-			};
+			var options = {};
 			gmm.Viewer.start(options);
 		});
 		</script>		

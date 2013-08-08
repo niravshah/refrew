@@ -51,7 +51,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	var JobItemDetailView = Backbone.Marionette.ItemView.extend({
 		template: '#job-item-details-template',
 		events:{
-			'click #refer-button' : 'refer'
+		/*	'click #refer-button' : 'refer'*/
 		},
 		refer : function(){
 			Viewer.trigger("show:referral",this.model);
@@ -67,8 +67,12 @@ if (!this.gmm || typeof this.gmm !== 'object') {
      		 'click': 'showJobDetail'
 	    },    
 	    showJobDetail: function(){
-		var detailView = new JobItemDetailView({model: this.model});
-	        gmm.Viewer.modal.show(detailView);
+
+		/*Modal Dialog*/
+		/*var detailView = new JobItemDetailView({model: this.model});
+	        gmm.Viewer.modal.show(detailView);*/ 
+
+		Viewer.navigate('#/jobs/'+this.model.attributes['itemid']+'/refer');	
     	    }	
         });
 
