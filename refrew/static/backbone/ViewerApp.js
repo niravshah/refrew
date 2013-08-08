@@ -6,58 +6,27 @@ if (!this.gmm || typeof this.gmm !== 'object') {
     'use strict';
     gmm.Viewer = new Backbone.Marionette.Application();
 
-    var ModalRegion = Backbone.Marionette.Region.extend({
-	el: "#myModal",
-	constructor: function(){
-		_.bindAll(this);
-		Backbone.Marionette.Region.prototype.constructor.apply(this, arguments);
-		this.on("show", this.showModal, this);
-	},
-	getEl: function(selector){
-		var $el = $(selector);
-		$el.on("hidden", this.close);
-		return $el;
-	},
-	showModal: function(view){
-		view.on("close", this.hideModal, this);
-		this.$el.modal('show');
-	},
-	hideModal: function(){
-		console.log('hideModal function');
-		this.$el.modal('hide');
+    gmm.Viewer.on("routing:started", function(){
+  	if( ! Backbone.History.started){ 
+		console.log('Starting Backbone History');
+		Backbone.history.start();
 	}
-    });
-
-
-    var Router = Backbone.Marionette.AppRouter.extend({
-    	appRoutes: {
-	      'refer/:jobid': 'refer'
-	}
-    });	
-
-    gmm.Viewer.refer = function(jobid){
-	gmm.Viewer.vent.trigger("refer:job", jobid);
-    };	
-
-    gmm.Viewer.addInitializer(function(){
-      	gmm.Viewer.router = new Router({
-      		controller: gmm.Viewer
-    	});	
-    	gmm.Viewer.vent.trigger('routing:started');
-    });
-
-    gmm.Viewer.vent.on("routing:started", function(){
-  	if( ! Backbone.History.started) Backbone.history.start();
     });
 
     gmm.Viewer.addRegions({
         jobsRegion: '#jobs-region',
         rewardsRegion: '#rewards-region',
-        modal : ModalRegion
+        modal : BootstrapModalRegion.extend({el:"#myModal"})
     });
 
-    gmm.Viewer.vent.on('all', function (evt, model) {
-        console.log('gmm.Viewer DEBUG: Event Caught: ' + evt);
+
+    gmm.Viewer.navigate = function(route,  options){
+  	options || (options = {});
+  	Backbone.history.navigate(route, options);
+    };	
+
+    gmm.Viewer.on('all', function (evt, model) {
+        console.log('Event Debug: Event Caught: ' + evt);
         /*if (model) {
             console.dir(model);
         }*/

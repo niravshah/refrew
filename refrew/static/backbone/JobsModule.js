@@ -34,7 +34,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			'click #refer-button' : 'refer'
 		},
 		refer : function(){
-			gmm.Viewer.vent.trigger("show:referral",this.model);
+			Viewer.trigger("show:referral",this.model);
 		}
 	});
 	
