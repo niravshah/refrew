@@ -40,7 +40,7 @@ def jobs():
 		   form.save()
 	         else:
                    return render_template('add_job.html',form=form)
-		return list_jobs()
+		return list_jobs(10,0)
 	else:
 		records_to_fetch =  request.args.get('rec',10)
 		last =  request.args.get('last',0)
@@ -52,13 +52,14 @@ def jobs():
 def job(id):
         if request.method == 'GET':
 		job = Job.objects(jobid=id).first()
-		stage = Stage.objects(job=job)
+		stages = Stage.objects(job=job)
 		ref = Referral.objects(job=job)
 	        if request_wants_json():
-		  itemLst = dict(itemid=job.jobid,description=job.description)
+                  stagesLst = [dict(itemid=stage.description,reward=stage.reward.description)for stage in stages]
+		  itemLst = dict(itemid=job.jobid,description=job.description,stages=stagesLst)
 		  return jsonify(item=itemLst)
 	        else:
-        	  return render_template('list_job.html',job=job,referrals=ref,stages=stage)
+        	  return render_template('list_job.html',job=job,referrals=ref,stages=stages)
 	if request.method == 'POST':
 		job = Job.objects(jobid=id).first()
 	        if request_has_json():
@@ -87,6 +88,14 @@ def stages(id):
 	      return render_template('list_stages.html',stages=stages)		      
       else:
 	print stage.errors
+
+@app.route('/jobs/<id>/stages/add',methods=['GET','POST'])
+@login_required
+def add_job_stage(id):
+      stage = StageForm()
+      stage.job.data = Job.objects(jobid=id).first().id
+      return render_template('add_stage.html',form=stage)
+
 
 
 @app.route('/jobs/<jobid>/referrals')
