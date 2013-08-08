@@ -8,9 +8,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 
     gmm.Viewer.on("routing:started", function(){
   	if( ! Backbone.History.started){ 
-		console.log('Starting Backbone History');
-		Backbone.history.start();
-	}
+		Backbone.history.start();}
+
+    	if(this.getCurrentRoute() === ""){
+    	      gmm.Viewer.trigger("show:home");
+   	}
     });
 
 
@@ -21,6 +23,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	rhsSub: '#rhs-sub',
         modal : BootstrapModalRegion.extend({el:"#myModal"})
     });
+
+    gmm.Viewer.getCurrentRoute = function(){
+  	return Backbone.history.fragment;
+    };	
 
     gmm.Viewer.navigate = function(route,  options){
   	options || (options = {});

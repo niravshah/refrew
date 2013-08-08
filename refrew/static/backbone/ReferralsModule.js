@@ -12,14 +12,9 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 
 	var Controller = Backbone.Marionette.Controller.extend({
 	    referJob : function(jobid){
-		Viewer.mainRegion.$el.hide();
-		Viewer.rhsSub.$el.hide();
-		$('#rhs-sub-title').hide();
-		$('#main-region-title').text(jobid);
 		var job = new Model({id:jobid});
                 job.fetch({
                   success: function(model, response) {
-                        console.log('getJob Return:',model);
 	           	var referralView = new ReferralView({ model: job});
                        	Viewer.mainRegion.$el.show();
 			Viewer.mainRegion.show(referralView);
@@ -34,7 +29,6 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	var Model = Backbone.Model.extend({
              urlRoot:'/jobs',
 	     parse:function(response){
-                 console.log('Parse:',response.item);
                  return response.item;}
         });
 

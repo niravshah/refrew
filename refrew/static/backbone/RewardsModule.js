@@ -15,12 +15,18 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	var Controller = Backbone.Marionette.Controller.extend({
             initialize: function (options) {
                 _.bindAll();
-		this.rewardsCollection =  new RewardCollection();
-		this.region = options.region;
-                this.rewardsView = new RewardListView({collection:this.rewardsCollection});
-                this.region.show(this.rewardsView);		
+		Mod.region = options.region;
+		Mod.API.listRewards();
 	    }
 	});
+
+	Mod.API = {
+	   listRewards:function(){
+		var rewardsCollection =  new RewardCollection();
+		var rewardsView = new RewardListView({collection:rewardsCollection});
+		Mod.region.show(rewardsView);
+	   }
+	};
 
         var RewardModel = Backbone.Model.extend({});
         var RewardCollection = Backbone.Collection.extend({

@@ -4,15 +4,21 @@
 
  	Mod.Router = Backbone.Marionette.AppRouter.extend({
         	appRoutes: {
-	              'refer/:jobid': 'refer'
+	              'home':'showHome',
+		      'jobs/:jobid/refer': 'refer',
+		      'jobs': 'listJobs'
         	}
 	});
 
 	var API = {
-    		refer: function(jobid){
-			Viewer.ReferralsModule.Controller.referJob(jobid)}
+		showHome:function(){
+		   console.log('Show Home Triggered');
+		   Viewer.JobsModule.API.listJobs();
+		   Viewer.RewardsModule.API.listRewards();
+		},
+		listJobs:function(){Viewer.JobsModule.API.listJobs();},
+    		refer: function(jobid){Viewer.ReferralsModule.Controller.referJob(jobid)}
 	};
-
 
 	Viewer.addInitializer(function(){
                 Viewer.router = new Mod.Router({
@@ -20,9 +26,16 @@
                 Viewer.trigger('routing:started');
         });
 
+	Viewer.on('show:jobs',function(model){
+             Viewer.navigate("#/jobs");
+        });
+
+	Viewer.on('show:home',function(model){
+             Viewer.navigate("#/home");
+        });	
 
  	Viewer.on('show:referral',function(model){
-             Viewer.navigate("#/refer/" + model.attributes['itemid']);
+             Viewer.navigate("#/jobs/" + model.attributes['itemid'] + "/refer");
         });
 
   });

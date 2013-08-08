@@ -14,14 +14,17 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	var Controller = Backbone.Marionette.Controller.extend({
             initialize: function (options) {
                 _.bindAll();
-		this.jobsCollection = new JobCollection();
-		this.region = options.region;
-		this.jobsView = new JobListView({collection:this.jobsCollection});
-		this.region.show(this.jobsView);
+		Mod.region = options.region;
+		Mod.API.listJobs();
 	    }
 	});
 
 	Mod.API = {
+		listJobs : function(){
+		  var jobsCollection = new JobCollection();
+		  var jobsView = new JobListView({collection:jobsCollection});
+		  Mod.region.show(jobsView);
+		},
 		getJob : function(jobid){
 			var job = new Mod.JobModel({id:jobid,parse:function(response){console.log('Parse:',response.items);return response.items;}});
 			job.fetch({
