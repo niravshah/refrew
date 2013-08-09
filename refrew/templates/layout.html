@@ -18,6 +18,11 @@
 			jQuery(document).ready(function($) {
 				$('html').offcanvas();
 			});
+		</script>
+		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+		api_key: 3ntk7givavqe
+		onLoad: onLinkedInLoad
+		authorize: true
 		</script>	
 		<!-- If browser is internet explorer run HTML5 compatibility code -->		
 		<!--[if IE]>
@@ -64,7 +69,7 @@
 		</aside>	
 		<section id="page" class="page">
 			<header class="topBar">					
-			<a id="leftBurger" class="slideRight" href="">R3</a></span>				
+			<a id="leftBurger" class="slideRight" href="">R3</a></span>
 			</header>
 			<div class="scrollableArea" style="overflow-x:hidden;">
 			{% block body %}{% endblock %}

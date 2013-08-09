@@ -1,5 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
+
+<script type="text/template" id="referral-item-template">
+        <div class="well" style="min-height:200px;">
+		<p>Job Id: <%= itemid %></p>
+	</div>
+</script>
+
+<script type="text/html" id="linkedin-search-widget">
+	{% raw %}
+		<div id="linkedin-widget-div">
+			<p><input id="keywords" size="30" value="Java" type="text">
+	                <a href="javascript:PeopleSearch();">Search</a></p>
+        	        <p><select id="referencesel" name="referencesel"></select>
+                	<a href="javascript:selectref();">Select</a></p>		
+		</div>
+		<%if (!IN.User.isAuthorized()){%>
+		<div id="linkedin-widget-login" >
+			<% print("<sc" + "ript type='IN/Login'>"); %>
+			<% print("</sc"+"ript>"); %>
+		</div>
+		<%}%>
+	{% endraw %}
+</script>
+
+
 <script type="text/template" id="layer-item-template">
 	<div class="well" style="min-height:200px;"><p>Job Id: <%= itemid %></p></div>
 </script>
@@ -25,4 +50,57 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+function onLinkedInLoad() {
+     IN.Event.on(IN, "auth", onLinkedInAuth);
+}
+
+function onLinkedInAuth() {
+	$("#linkedin-widget-div").show();
+}
+
+function isUserAuthorized(){
+	return IN.User.isAuthorized();
+}
+
+function PeopleSearch(keywords) {
+     var keywords = document.getElementById('keywords').value;
+     IN.API.PeopleSearch()
+         .fields("firstName", "lastName", "distance", "siteStandardProfileRequest")
+         .params({"keywords": keywords, "count": 10, "sort": "distance"})
+         .result(displayPeopleSearch)
+         .error(function error(e) { /* do nothing */ }
+     );
+}
+
+function selectref(){
+        var ref = document.getElementById('referencesel');
+        document.getElementById('reference').value = ref.options[ref.selectedIndex].value;
+        document.getElementById('referenceName').value = ref.options[ref.selectedIndex].text;
+}
+function displayPeopleSearch(peopleSearch) {
+        var sel = document.getElementById("referencesel");
+        var members = peopleSearch.people.values;
+        for (var member in members) {
+         var nameText = members[member].firstName + " " + members[member].lastName;
+         var url = members[member].siteStandardProfileRequest.url;
+         var distance = members[member].distance;
+         switch (distance) {
+         case 0:
+                break;
+         case 1:
+                var opt = document.createElement('option');
+                opt.text = nameText;
+                opt.value = url;
+                sel.add(opt,null);
+                break;
+         case 2:
+         case 3:
+         case 100:
+         case -1:
+         }
+     }
+}
+</script>
 {% endblock %}

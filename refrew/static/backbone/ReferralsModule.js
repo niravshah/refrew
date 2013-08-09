@@ -17,6 +17,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                   success: function(model, response) {
 	           	var referralView = new ReferralView({ model: job});
 			Viewer.mainRegion.show(referralView);
+			if(!IN.User.isAuthorized()){
+				$("#linkedin-widget-div").hide();
+				IN.parse();	
+			}
 			var coll = new Backbone.Collection(job.attributes['stages']);
 			var stagesListView = new JobStagesListView({collection:coll});
 			Viewer.rhsSub.show(stagesListView);
@@ -61,9 +65,9 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         });
 
 	var ReferralView = Backbone.Marionette.ItemView.extend({
-            template: '#layer-item-template',
+            template: '#linkedin-search-widget',
             tagName: 'div',
-            className: 'col-lg-4 col-sm-6 col-12',
+            className: 'row',
 	    model:ReferralJobModel
         });
 });	
