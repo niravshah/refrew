@@ -9,7 +9,7 @@
 
 <script type="text/html" id="linkedin-search-widget">
 	{% raw %}
-		<div id="linkedin-widget-div">
+		<div id="linkedin-widget-div" class="well">
 			<p><input id="keywords" size="30" value="Java" type="text">
 	                <a href="javascript:PeopleSearch();">Search</a></p>
         	        <p><select id="referencesel" name="referencesel"></select>
@@ -25,7 +25,7 @@
 </script>
 
 
-<script type="text/template" id="layer-item-template">
+<script type="text/template" id="job-item-template">
 	<div class="well" style="min-height:200px;"><p>Job Id: <%= itemid %></p></div>
 </script>
 <script type="text/template" id="reward-item-template">
@@ -41,6 +41,7 @@
 		<div class="col-lg-12 col-sm-12 col-12"><div id="main-region-title" class="well"><p>Latest Jobs</p></div></div>
 		<div id="main-region" syle="overflow-y:scroll;"></div>
 	</div>
+	<div class="row"><div id="main-sub"></div></div>
 </div>
 <div class="col-lg-3 col-sm-12 col-12">
 	<div class="row">

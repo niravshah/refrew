@@ -60,7 +60,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	
         var JobItemView = Backbone.Marionette.ItemView.extend({
             model: Mod.JobModel,
-            template: '#layer-item-template',
+            template: '#job-item-template',
             tagName: 'div', 
 	    className: 'col-lg-4 col-sm-6 col-12',
 	    events: {

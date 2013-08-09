@@ -15,8 +15,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		var job = new ReferralJobModel({id:jobid});
                 job.fetch({
                   success: function(model, response) {
-	           	var referralView = new ReferralView({ model: job});
-			Viewer.mainRegion.show(referralView);
+	           	var jobView = new ReferralJobView({ model: job});
+			Viewer.mainRegion.show(jobView);
+			var referralView = new ReferralView({ model: job});
+			Viewer.mainSub.show(referralView);
 			if(!IN.User.isAuthorized()){
 				$("#linkedin-widget-div").hide();
 				IN.parse();	
@@ -64,10 +66,17 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                  return response.item;}
         });
 
+	var ReferralJobView = Backbone.Marionette.ItemView.extend({
+            template: '#job-item-template',
+            tagName: 'div',
+            className: 'col-lg-12',
+            model:ReferralJobModel
+        });
+
 	var ReferralView = Backbone.Marionette.ItemView.extend({
             template: '#linkedin-search-widget',
             tagName: 'div',
-            className: 'row',
+            className: 'col-lg-12',
 	    model:ReferralJobModel
         });
 });	

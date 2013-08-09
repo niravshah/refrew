@@ -19,6 +19,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
     gmm.Viewer.addRegions({
         mainRegionTitle: '#main-region-title',
 	mainRegion: '#main-region',
+	mainSub: '#main-sub',
         rhsSubTitle: '#rhs-sub-title',
 	rhsSub: '#rhs-sub',
         modal : BootstrapModalRegion.extend({el:"#myModal"})
