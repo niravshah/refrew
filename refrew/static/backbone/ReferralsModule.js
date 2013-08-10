@@ -19,7 +19,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			Viewer.mainRegion.show(jobView);
 			var referralView = new ReferralView({ model: job});
 			Viewer.mainSub.show(referralView);
-			var referralFormModel = new ReferralFormModel();
+			var referralFormModel = new ReferralFormModel({jobid:job.itemid});
 			var referralFormView = new ReferralFormView({model:referralFormModel});
 			Viewer.mainSub2.show(referralFormView);			
 			if(!IN.User.isAuthorized()){
@@ -85,9 +85,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	
 	var ReferralFormModel = Backbone.Model.extend({
 		defaults: {
-      		  referralName: '',
+      		  jobid:'',
+		  referralName: '',
       		  referralLink: '',
-      		  comment: ''
+      		  comment: '',
+		  user:''
     		}
 	});
 
@@ -102,7 +104,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	    submitClicked : function(e){
 		e.preventDefault();
       		var data = Backbone.Syphon.serialize(this);
-     		console.log('Submit CLicked:',data);
+     		console.log('Submit Clicked:',data);
 		this.trigger("form:submit", data);
 	    }
         });

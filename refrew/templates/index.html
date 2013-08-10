@@ -47,6 +47,8 @@
           <label for="comment-label" class="control-label">Comment:</label>
           <input id="comment" name="comment" type="text" value="<%= comment %>"/>
         </div>
+	  <input id="jobid" name="jobid" type="hidden" value="<%=jobid%>"/>
+	  <input id="user" name="user" type="hidden" value="{{current_user.itemid}}"/>
         <button class="btn js-submit">Save</button>
       </form>
 	</div>
