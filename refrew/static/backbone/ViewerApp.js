@@ -20,6 +20,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         mainRegionTitle: '#main-region-title',
 	mainRegion: '#main-region',
 	mainSub: '#main-sub',
+	 mainSub2: '#main-sub-2',
         rhsSubTitle: '#rhs-sub-title',
 	rhsSub: '#rhs-sub',
         modal : BootstrapModalRegion.extend({el:"#myModal"})

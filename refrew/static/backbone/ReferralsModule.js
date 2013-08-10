@@ -19,6 +19,9 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			Viewer.mainRegion.show(jobView);
 			var referralView = new ReferralView({ model: job});
 			Viewer.mainSub.show(referralView);
+			var referralFormModel = new ReferralFormModel();
+			var referralFormView = new ReferralFormView({model:referralFormModel});
+			Viewer.mainSub2.show(referralFormView);			
 			if(!IN.User.isAuthorized()){
 				$("#linkedin-widget-div").hide();
 				IN.parse();	
@@ -78,6 +81,21 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             tagName: 'div',
             className: 'col-lg-12',
 	    model:ReferralJobModel
+        });
+	
+	var ReferralFormModel = Backbone.Model.extend({
+		defaults: {
+      		  referralName: '',
+      		  referralLink: '',
+      		  comment: ''
+    		}
+	});
+
+	 var ReferralFormView = Backbone.Marionette.ItemView.extend({
+            template: '#referral-form-template',
+            tagName: 'div',
+            className: 'col-lg-12',
+	    model: ReferralFormModel
         });
 });	
 })();
