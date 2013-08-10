@@ -95,7 +95,16 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             template: '#referral-form-template',
             tagName: 'div',
             className: 'col-lg-12',
-	    model: ReferralFormModel
+	    model: ReferralFormModel,
+	    events:{
+		'click button.js-submit': 'submitClicked'
+	    },
+	    submitClicked : function(e){
+		e.preventDefault();
+      		var data = Backbone.Syphon.serialize(this);
+     		console.log('Submit CLicked:',data);
+		this.trigger("form:submit", data);
+	    }
         });
 });	
 })();
