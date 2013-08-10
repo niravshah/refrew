@@ -85,6 +85,9 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         });
 	
 	var ReferralFormModel = Backbone.Model.extend({
+		url:function(){
+			return '/jobs/' + jobid.value +  '/referrals'
+		},
 		defaults: {
       		  jobid:'',
 		  referralName: '',
@@ -105,8 +108,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	    submitClicked : function(e){
 		e.preventDefault();
       		var data = Backbone.Syphon.serialize(this);
-     		console.log('Submit Clicked:',data);
-		this.trigger("form:submit", data);
+		var model = new ReferralFormModel(data);
+		model.save();
 	    }
         });
 });	

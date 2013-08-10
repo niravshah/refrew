@@ -33,25 +33,19 @@
 </script>
 
 <script type="text/template" id="referral-form-template">
-	<div class="well">
+<div class="well">
 	<form>
-        <div class="control-group">
           <label for="referral-name-label" class="control-label">Referral Name:</label>
           <input id="referralName" name="referralName" type="text" value="<%= referralName %>"/>
-        </div>
-        <div class="control-group">
           <label for="referral-link-label" class="control-label">Referral Link:</label>
           <input id="referralLink" name="referralLink" type="text" value="<%= referralLink %>"/>
-        </div>
-        <div class="control-group">
           <label for="comment-label" class="control-label">Comment:</label>
           <input id="comment" name="comment" type="text" value="<%= comment %>"/>
-        </div>
 	  <input id="jobid" name="jobid" type="hidden" value="<%=jobid%>"/>
 	  <input id="user" name="user" type="hidden" value="<%=user%>"/>
-        <button class="btn js-submit">Save</button>
+          <button class="btn js-submit">Save</button>
       </form>
-	</div>
+</div>
 </script>
 
 
@@ -85,11 +79,8 @@ function onLinkedInLoad() {
 
 function onLinkedInAuth() {
 	IN.API.Profile("me").result( function(me) {
-      		var id = me.values[0].id;
-		console.log('LinkedIn Id:',id);
-		$('#linkedin-userid').val(id);
+		$('#linkedin-userid').val(me.values[0].id);
     	});
-	/*$("#linkedin-widget-div").show();*/
 }
 
 function isUserAuthorized(){
