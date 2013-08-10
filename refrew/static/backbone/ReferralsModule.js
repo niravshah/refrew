@@ -19,7 +19,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			Viewer.mainRegion.show(jobView);
 			var referralView = new ReferralView({ model: job});
 			Viewer.mainSub.show(referralView);
-			var referralFormModel = new ReferralFormModel({jobid:job.itemid});
+			var linkedinid = $("#linkedin-userid").val();
+			var referralFormModel = new ReferralFormModel({jobid:job.attributes['itemid'],user:linkedinid});
 			var referralFormView = new ReferralFormView({model:referralFormModel});
 			Viewer.mainSub2.show(referralFormView);			
 			if(!IN.User.isAuthorized()){

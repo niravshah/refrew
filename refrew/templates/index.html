@@ -48,7 +48,7 @@
           <input id="comment" name="comment" type="text" value="<%= comment %>"/>
         </div>
 	  <input id="jobid" name="jobid" type="hidden" value="<%=jobid%>"/>
-	  <input id="user" name="user" type="hidden" value="{{current_user.itemid}}"/>
+	  <input id="user" name="user" type="hidden" value="<%=user%>"/>
         <button class="btn js-submit">Save</button>
       </form>
 	</div>
@@ -74,6 +74,7 @@
 		<div id="rhs-sub"></div>
 	</div>
 </div>
+<input id='linkedin-userid' type='hidden' value=''/>
 </div>
 </div>
 
@@ -83,7 +84,12 @@ function onLinkedInLoad() {
 }
 
 function onLinkedInAuth() {
-	$("#linkedin-widget-div").show();
+	IN.API.Profile("me").result( function(me) {
+      		var id = me.values[0].id;
+		console.log('LinkedIn Id:',id);
+		$('#linkedin-userid').val(id);
+    	});
+	/*$("#linkedin-widget-div").show();*/
 }
 
 function isUserAuthorized(){
