@@ -38,6 +38,10 @@
              Viewer.navigate("#/jobs/" + model.attributes['itemid'] + "/refer");
         });
 
+	Viewer.on('linkedin:auth', function(){
+		Viewer.ReferralsModule.Controller.onLinkedinAuth();
+	});
+
   });
 })();
 

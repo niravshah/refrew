@@ -11,7 +11,12 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         });
 
 	var Controller = Backbone.Marionette.Controller.extend({
-	    referJob : function(jobid){
+	onLinkedinAuth : function(){
+		 $("#linkedin-widget-div").show();
+                 $("#referral-form").show();
+
+	},
+	referJob : function(jobid){
 		var job = new ReferralJobModel({id:jobid});
                 job.fetch({
                   success: function(model, response) {
@@ -20,11 +25,12 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			var referralView = new ReferralView({ model: job});
 			Viewer.mainSub.show(referralView);
 			var linkedinid = $("#linkedin-userid").val();
-			var referralFormModel = new ReferralFormModel({jobid:job.attributes['itemid'],user:linkedinid});
+			var referralFormModel = new ReferralFormModel({job:job.attributes['itemid'],user:linkedinid});
 			var referralFormView = new ReferralFormView({model:referralFormModel});
 			Viewer.mainSub2.show(referralFormView);			
 			if(!IN.User.isAuthorized()){
 				$("#linkedin-widget-div").hide();
+				$("#referral-form").hide();
 				IN.parse();	
 			}
 			var coll = new Backbone.Collection(job.attributes['stages']);
@@ -86,12 +92,12 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	
 	var ReferralFormModel = Backbone.Model.extend({
 		url:function(){
-			return '/jobs/' + jobid.value +  '/referrals'
+			return '/jobs/' + job.value +  '/referrals'
 		},
 		defaults: {
-      		  jobid:'',
-		  referralName: '',
-      		  referralLink: '',
+      		  job:'',
+		  referenceName: '',
+      		  reference: '',
       		  comment: '',
 		  user:''
     		}

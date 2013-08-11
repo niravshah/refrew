@@ -53,6 +53,7 @@ class Referral(db.Document):
 	reference = db.URLField()
 	referenceName = db.StringField()
 	status = db.StringField()
+	user = db.StringField()
 
 class ExtendedRegisterForm(RegisterForm):
     itemid = TextField('Item Id', [Required()])

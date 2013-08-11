@@ -3,7 +3,7 @@
 
 <script type="text/template" id="referral-item-template">
         <div class="well" style="min-height:200px;">
-		<p>Job Id: <%= itemid %></p>
+		<p>Job Id:<%= itemid %></p>
 	</div>
 </script>
 
@@ -33,15 +33,19 @@
 </script>
 
 <script type="text/template" id="referral-form-template">
-<div class="well">
+<div class="well" id='referral-form'>
 	<form>
+	  <p>	
           <label for="referral-name-label" class="control-label">Referral Name:</label>
-          <input id="referralName" name="referralName" type="text" value="<%= referralName %>"/>
-          <label for="referral-link-label" class="control-label">Referral Link:</label>
-          <input id="referralLink" name="referralLink" type="text" value="<%= referralLink %>"/>
-          <label for="comment-label" class="control-label">Comment:</label>
+          <input id="referenceName" name="referenceName" type="text" value="<%= referenceName %>"/>
+          </p><p>
+ 	  <label for="referral-link-label" class="control-label">Referral Link:</label>
+          <input id="reference" name="reference" type="text" value="<%= reference %>"/>
+          </p><p>
+	  <label for="comment-label" class="control-label">Comment:</label>
           <input id="comment" name="comment" type="text" value="<%= comment %>"/>
-	  <input id="jobid" name="jobid" type="hidden" value="<%=jobid%>"/>
+	  </p><p>
+	  <input id="job" name="job" type="hidden" value="<%=job%>"/>
 	  <input id="user" name="user" type="hidden" value="<%=user%>"/>
           <button class="btn js-submit">Save</button>
       </form>
@@ -77,10 +81,18 @@ function onLinkedInLoad() {
      IN.Event.on(IN, "auth", onLinkedInAuth);
 }
 
+function linkedinLogout(){
+	$('#linkedin-logout').hide();
+	IN.User.logout();
+}
+
 function onLinkedInAuth() {
+	$('#linkedin-logout').show();
 	IN.API.Profile("me").result( function(me) {
 		$('#linkedin-userid').val(me.values[0].id);
     	});
+	if(gmm.Viewer){
+		gmm.Viewer.trigger("linkedin:auth");}
 }
 
 function isUserAuthorized(){
@@ -99,8 +111,8 @@ function PeopleSearch(keywords) {
 
 function selectref(){
         var ref = document.getElementById('referencesel');
-        document.getElementById('referralLink').value = ref.options[ref.selectedIndex].value;
-        document.getElementById('referralName').value = ref.options[ref.selectedIndex].text;
+        document.getElementById('reference').value = ref.options[ref.selectedIndex].value;
+        document.getElementById('referenceName').value = ref.options[ref.selectedIndex].text;
 }
 function displayPeopleSearch(peopleSearch) {
         var sel = document.getElementById("referencesel");

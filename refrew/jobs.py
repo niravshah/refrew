@@ -98,12 +98,26 @@ def add_job_stage(id):
 
 
 
-@app.route('/jobs/<jobid>/referrals')
+@app.route('/jobs/<jobid>/referrals', methods=['GET','POST'])
 @login_required
 def job_referral(jobid):
-	job = Job.objects(jobid=jobid).first()
-	referrals = Referral.objects(job=job)
-	return render_template('_referrals.html',referrals=referrals)
+	if request.method == 'GET':
+		job = Job.objects(jobid=jobid).first()
+		referrals = Referral.objects(job=job)
+		return render_template('_referrals.html',referrals=referrals)
+	if request.method == 'POST':
+		if request_has_json():
+                  try:
+			  job = Job.objects(jobid=request.json['job']).first()
+			  json_data =  request.json
+			  json_data['job'] = str(job.id)
+                          model = Referral.from_json(json.dumps(json_data,default=json_util.default))
+			  saved = model.save()
+			  return 'Saved'
+                  except ValidationError as e:
+                         return jsonify(item=str(e))
+		else:
+		  print 'Request does not have JSON!';	
 
 @app.route('/jobs/<jobid>/referrals/<refid>/status/<value>',methods=['GET'])
 @login_required
