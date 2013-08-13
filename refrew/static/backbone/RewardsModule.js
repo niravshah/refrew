@@ -16,7 +16,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             initialize: function (options) {
                 _.bindAll();
 		Mod.region = options.region;
-		Mod.API.listRewards();
+		/* Mod.API.listRewards(); */
 	    }
 	});
 

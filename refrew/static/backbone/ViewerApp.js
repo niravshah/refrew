@@ -10,8 +10,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
   	if( ! Backbone.History.started){ 
 		Backbone.history.start();}
 
-    	if(this.getCurrentRoute() === ""){
-    	      gmm.Viewer.trigger("show:home");
+    	if(this.getCurrentPath() == "/" && this.getCurrentRoute() === ""){
+    	      	console.log(this.getCurrentPath());
+		console.log(this.getCurrentRoute());
+		gmm.Viewer.trigger("show:home");
    	}
     });
 
@@ -25,6 +27,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	rhsSub: '#rhs-sub',
         modal : BootstrapModalRegion.extend({el:"#myModal"})
     });
+
+    gmm.Viewer.getCurrentPath = function(){
+	return Backbone.history.location.pathname;	
+    };
 
     gmm.Viewer.getCurrentRoute = function(){
   	return Backbone.history.fragment;

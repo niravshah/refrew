@@ -4,7 +4,7 @@ from flask import Flask, render_template,request, redirect, url_for, jsonify, Re
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.wtf import Form, TextField, Required
 from flask.ext.mongoengine.wtf import model_form
-from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, RoleMixin, login_required
+from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, RoleMixin, login_required, current_user
 from flask_negotiate import consumes, produces
 from bson import json_util
 
@@ -77,7 +77,7 @@ def get_items(request, items):
 		itemLst = [dict(itemid=item.itemid) for item in items]
 		return jsonify(items=itemLst);
          else:
-                  return render_template('list_rewards.html',items=items)
+                  return render_template('list_rewards.html',items=items,user=current_user)
 
 def jsonify_items(items):
 	return json.dumps(items)

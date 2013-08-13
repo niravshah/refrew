@@ -5,80 +5,56 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
 		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
-		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/offcanvas.css')}}" />
-		 <link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
+		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
+		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
 		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="{{url_for('static', filename='js/jquery.offcanvas.min.js')}}"></script>
-		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>		
-		<script>
-			jQuery(document).ready(function($) {
-				$('html').offcanvas();
-			});
-		</script>
+		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>		
 		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-		api_key: 3ntk7givavqe
 		onLoad: onLinkedInLoad
 		authorize: true
 		</script>	
-		<!-- If browser is internet explorer run HTML5 compatibility code -->		
-		<!--[if IE]>
-		    <script src="js/html5.js"></script>  
-		<![endif]-->
+		<script>
+			$(document).ready(function() {
+			  $('#simple-menu').sidr();
+			  
+                          simpleCart({
+                                checkout: {
+                                type: "PayPal",
+                                email: "you@yours.com"
+                                }
+                          }); 	
+			
+			});
+		</script>
 	</head>
 	<body>
-		<aside id="sidebarLeft" class="sidebarLeft">
-			<div class="scrollableArea">
-				<a class="shutLeft" href="">&#10006;</a>			
-				<div class="scrollableArea">
-					<a class="shutLeft" href="">&#10006;</a>
-					<div class="you padded">
-				{% if user.is_authenticated() %}
-				<a href="#"><img class="avatar" src="{{url_for('static', filename='img/users/nirav.jpg')}}" alt="{{ user.first_name }}" width="80"/></a>
-				{% else %}
-				<a href="#"><img class="avatar" src="{{url_for('static', filename='img/users/guest.jpg')}}" alt="guest" width="80"/></a>
-				{% endif %}
-			
-						{% if user.is_authenticated() %}
-						<h2><a href="#">{{user.first_name}} {{user.last_name}}</a></h2>
-						{% else %}
-						<h2><a href="#">Guest</a></h2>
-						{% endif %}
-					</div>
-					<ul class="paddedLight">
-						<li><a href="#/home"><span class="icon">&#8962;</span>Home</a></li>
-						<li/>
-						{% if user.has_role('referrer') %}
-						<li><a href="#"><span class="icon">&#59196;</span>Refer</a></li>
-						{% endif %}
-						{% if user.has_role('employer') %}
-						<li><a href="#"><span class="icon">&#59136;</span>Recruit</a></li>
-						{% endif %}
-						{% if user.has_role('seller') %}
-						<li><a href="#"><span class="icon">&#127942;</span>Rewards</a></li>
-						{% endif %}					
-						<li><a href="#"><span class="icon">&#59168;</span>Inbox</a></li>
-						<li><a href="#"><span class="icon">&#59201;</span>Sign Out</a></li>
-						<li><a href="#"><span class="icon">&#9881;</span>Settings</a></li>
-				</ul>
-				</div>
-			</div>
-		</aside>	
 		<section id="page" class="page">
-			<header class="topBar">					
-				<a id="leftBurger" class="slideRight" href="">R3</a>
+			<header class="topBar">
+				<a id="simple-menu" href="#sidr">[]</a>					
+				<a id="home" href="/#/home">R3</a>
+				<a id='rewards-link' style="position:absolute;right:160px;" href='recruit'>Recruit</a>
+				<a id='rewards-link' style="position:absolute;right:100px;" href='rewards'>Rewards</a>
 				<a id='linkedin-logout' style="display:none;position:absolute;right:50px;" href='javascript:linkedinLogout();'>Logout</a>
 			</header>
-			<div class="scrollableArea" style="overflow-x:hidden;">
-			{% block body %}{% endblock %}
+			<div id="sidr" style="display:none;">
+			<ul>
+				<li><a href="#">List 1</a></li>
+				<li class="active"><a href="#">List 2</a></li>
+				<li><a href="#">List 3</a></li>
+			</ul>
 			</div>
+			{% block body %}{% endblock %}
 		</section>
+
                 <div class="container">
 			<div id="myModal" class="modal fade"></div>
 		</div>
+
 		<script type="text/html" id="job-item-details-template">
 			    <div class="modal-dialog">
 			      <div class="modal-content">
@@ -125,8 +101,9 @@
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.babysitter-0.0.4.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
-		 <script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
-		
+		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
+		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>
+
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/BootstrapModalRegion.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/JobsModule.js')}}"></script>
@@ -134,7 +111,7 @@
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script>
 
-		<script>   
+		<script>
 		$(function(){
 			console.log('Function to kick-off backbone');
 			var options = {};
