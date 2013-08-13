@@ -26,13 +26,17 @@
 
 <script type="text/template" id="lisearch-item-template">
         <div class="well" style="min-height:200px;">
+			<form>
 			<img src="<%=pictureUrl%>" alt="<%=name%>" width="80" height="80">
-			<a href="<%=publicProfileUrl%>"><%=firstName%> <%=lastName%></a>
+			<a name='name' href="<%=publicProfileUrl%>"><%=firstName%> <%=lastName%></a>
 			<p><%= headline%></p>
 			<p><%=location.name%></p>
+                	<input name='job' type="hidden" value='<%=job%>'>
+                	<input name='user' type="hidden" value='<%=user%>'>
+			<input name='name' type="hidden" value='<%=firstName%> <%=lastName%>'>
+			<input name='url' type="hidden" value='<%=publicProfileUrl%>'>
+			</form>
 			<button class="btn js-submit">Select</button>
-                	<input type="hidden" value=<%=job%>>
-                	<input type="hidden" value=<%=user%>>
         </div>
 </script>
 

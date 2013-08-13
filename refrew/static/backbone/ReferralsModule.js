@@ -197,6 +197,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                  	'click button.js-submit': 'selectReference'
             	},
             	selectReference: function(evt){
+			console.log(Backbone.Syphon.serialize(this));
 			$('.selected').removeClass('selected');
 			$(evt.target.parentElement).addClass('selected');
             	}
