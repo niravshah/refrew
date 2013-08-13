@@ -14,11 +14,6 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
 		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>		
-		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-			api_key: 3ntk7givavqe
-			onLoad: onLinkedInLoad
-			authorize: true
-		</script>	
 		<script>
 			$(document).ready(function() {
 			  $('#simple-menu').sidr();
@@ -118,6 +113,14 @@
 			var options = {};
 			gmm.Viewer.start(options);
 		});
-		</script>		
+
+		</script>
+
+		                <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+                        api_key: 3ntk7givavqe
+                        onLoad: onLinkedInLoad
+                        authorize: true
+                </script>
+		
 	</body>
 </html>

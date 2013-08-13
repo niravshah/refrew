@@ -11,8 +11,6 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		Backbone.history.start();}
 
     	if(this.getCurrentPath() == "/" && this.getCurrentRoute() === ""){
-    	      	console.log(this.getCurrentPath());
-		console.log(this.getCurrentRoute());
 		gmm.Viewer.trigger("show:home");
    	}
     });
