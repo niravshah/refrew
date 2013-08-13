@@ -48,7 +48,6 @@ def jobs():
 
 
 @app.route('/jobs/<id>',methods=['GET','POST'])
-@login_required
 def job(id):
         if request.method == 'GET':
 		job = Job.objects(jobid=id).first()

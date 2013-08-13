@@ -20,7 +20,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		var job = new ReferralJobModel({id:jobid});
                 job.fetch({
                   success: function(model, response) {
-	           	var jobView = new ReferralJobView({ model: job});
+			var jobView = new ReferralJobView({ model: job});
 			Viewer.mainRegion.show(jobView);
 			var referralView = new ReferralView({ model: job});
 			Viewer.mainSub.show(referralView);
@@ -31,6 +31,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			if(!IN.User.isAuthorized()){
 				$("#linkedin-widget-div").hide();
 				$("#referral-form").hide();
+				console.log('referJob:user not authorized');
 				IN.parse();	
 			}
 			var coll = new Backbone.Collection(job.attributes['stages']);
