@@ -7,3 +7,6 @@
 	position:absolute;
 	padding:20px;
 }
+.selected{
+border-color:blue;
+}

@@ -19,7 +19,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	peopleSearch : function(keywords) {
      		var keywords = document.getElementById('keywords').value;
      		IN.API.PeopleSearch()
-         		.fields("firstName", "lastName", "distance", "siteStandardProfileRequest","public-profile-url")
+         		.fields("firstName", "lastName", "distance",'positions','picture-url','headline','skills','location:(name)',"public-profile-url")
          		.params({"keywords": keywords, "count": 10, "sort": "distance"})
          		.result(function(results){
 				Mod.Controller.displayPeopleSearch(results);
@@ -40,18 +40,16 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         	var sel = document.getElementById("referencesel");
         	var members = peopleSearch.people.values;
 		var liSearchArr = [];
-		var dataids = [];
         	for (var member in members) {
-         		var nameText = members[member].firstName + " " + members[member].lastName;
-         		var url = members[member].siteStandardProfileRequest.url;
          		var distance = members[member].distance;
          		switch (distance) {
          		case 0:
                 		break;
          		case 1:
-				var model = new LinkedInSearchResultModel({name:nameText,url:url,user:$("#linkedin-userid").val(),job:$("#current-jobid").val()});
+				var model = new LinkedInSearchResultModel(members[member]);
+				model.attributes.user = $('#linkedin-userid').val();
+				model.attributes.job = $('#current-jobid').val();
 				liSearchArr.push(model);
-				dataids.push(members[member].publicProfileUrl);
                 		break;
          		case 2:
          		case 3:
@@ -63,9 +61,6 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		var liSearchCollection = new LinkedInSearchResultCollection(liSearchArr);
 		var liSearchCollView = new LinkedInSearchResultCollectionView({collection:liSearchCollection});
 	 	Viewer.mainSub2.show(liSearchCollView);	
-		$('#linkedin-search-ele').wrap('<script id="member-data-script" type="IN/MemberData" data-ids="' + dataids + '" data-fields="firstName,lastName,industry"/>');
-		$("#profiles").html($('#member-data-script'));
-      		IN.parse(document.getElementById("profiles"));
 	},
 
 	referJob : function(jobid){
@@ -141,10 +136,15 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             className: 'col-lg-12',
 	    model:ReferralJobModel,
 	    events:{
-		'click  button.js-submit' : 'searchLinkedIn'
+		'click #search-ref' : 'searchLinkedIn',
+		'click #submit-ref' : 'submitRef'
 	    },
 	    searchLinkedIn : function(){
 		Mod.Controller.peopleSearch();
+	    },
+	    submitRef : function(){
+		console.log($('.selected'));
+		console.log(Backbone.Syphon.serialize($('.selected')));
 	    }
         });
 	
@@ -157,7 +157,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		  referenceName: '',
       		  reference: '',
       		  comment: '',
-		  user:''
+		  user:'',
+		  pictureUrl:''
     		}
 	});
 
@@ -193,9 +194,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             	tagName: 'div',
             	className: 'col-lg-4 col-sm-6 col-12',
             	events: {
-                 	'click': 'selectReference'
+                 	'click button.js-submit': 'selectReference'
             	},
-            	selectReference: function(){
+            	selectReference: function(evt){
+			$('.selected').removeClass('selected');
+			$(evt.target.parentElement).addClass('selected');
             	}
 
 	});

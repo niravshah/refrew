@@ -7,18 +7,13 @@
 	</div>
 </script>
 
-<script type="text/html" id="linkedin-search-ele">
-<?js for (var member in $("*")) { ?>
-	<li><?js= $(member).firstName ?> <?js= $(member).lastName ?>
-<?js } ?>
-</script>
 
 <script type="text/html" id="linkedin-search-widget">
 	{% raw %}
 		<div id="linkedin-widget-div" class="well">
 			<p><input id="keywords" size="30" value="Java" type="text">
-        	        <button class="btn js-submit">Search</button>
-			<div id='lisearch-div'></div>		
+        	        <button id='search-ref' class="btn js-submit">Search</button>
+			<button id='submit-ref' class="btn js-submit">Submit Reference</button>
 		</div>
 		<%if (!IN.User.isAuthorized()){%>
 		<div id="linkedin-widget-login" >
@@ -31,16 +26,20 @@
 
 <script type="text/template" id="lisearch-item-template">
         <div class="well" style="min-height:200px;">
-		<a href="<%=url%>"><%=name%></a>
-		<input type="hidden" value=<%=job%>/>
-		<input type="hidden" value=<%=user%>/>
-	</div>
+			<img src="<%=pictureUrl%>" alt="<%=name%>" width="80" height="80">
+			<a href="<%=publicProfileUrl%>"><%=firstName%> <%=lastName%></a>
+			<p><%= headline%></p>
+			<p><%=location.name%></p>
+			<button class="btn js-submit">Select</button>
+                	<input type="hidden" value=<%=job%>>
+                	<input type="hidden" value=<%=user%>>
+        </div>
 </script>
 
 <script type="text/template" id="job-item-template">
 	<div class="well" style="min-height:200px;">
 		<p>Job Id: <%= itemid %></p>
-		<input type="hidden" id="current-jobid" value="<%=itemid"/>
+		<input type="hidden" id="current-jobid" value="<%=itemid%>"/>
 	</div>
 </script>
 <script type="text/template" id="reward-item-template">
@@ -80,10 +79,6 @@
 	<div class="row"><div id="main-sub"></div></div>
 	<div class="row"><div id="main-sub-2"></div></div>
 	<div class="row"><div id="profiles"></div></div>
-	<div class="row">
-	<script  data-ids="http://www.linkedin.com/in/dannybarber,http://www.linkedin.com/in/bencullen,http://www.linkedin.com/pub/prateek-temkar/4/519/b12,http://www.linkedin.com/in/jlouvel" type="IN/MemberData">
-	</script>
-	</div>
 </div>
 <div class="col-lg-3 col-sm-12 col-12">
 	<div class="row">
