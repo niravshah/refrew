@@ -57,10 +57,13 @@ if (!this.gmm || typeof this.gmm !== 'object') {
          		case -1:
          		}
      		}
-		
+	
+		/*var referralSubmitForm = new ReferralSubmitFormView(new LinkedInSearchResultModel({referenceName:'None Selected'}));
+                Viewer.mainSub2.show(referralSubmitForm);*/
+
 		var liSearchCollection = new LinkedInSearchResultCollection(liSearchArr);
 		var liSearchCollView = new LinkedInSearchResultCollectionView({collection:liSearchCollection});
-	 	Viewer.mainSub2.show(liSearchCollView);	
+	 	Viewer.mainSub3.show(liSearchCollView);	
 	},
 
 	referJob : function(jobid){
@@ -69,8 +72,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                   success: function(model, response) {
 			var jobView = new ReferralJobView({ model: job});
 			Viewer.mainRegion.show(jobView);
-			var referralView = new ReferralView({ model: job});
-			Viewer.mainSub.show(referralView);
+			var liSearchWidget = new LISearchWidgetView();
+			Viewer.mainSub.show(liSearchWidget);
 			if(IN.User){
 			if(!IN.User.isAuthorized()){
 				$("#linkedin-widget-div").hide();
@@ -130,61 +133,48 @@ if (!this.gmm || typeof this.gmm !== 'object') {
             model:ReferralJobModel
         });
 
-	var ReferralView = Backbone.Marionette.ItemView.extend({
+	var LISearchWidgetView = Backbone.Marionette.ItemView.extend({
             template: '#linkedin-search-widget',
             tagName: 'div',
             className: 'col-lg-12',
-	    model:ReferralJobModel,
 	    events:{
-		'click #search-ref' : 'searchLinkedIn',
-		'click #submit-ref' : 'submitRef'
+		'click #search-ref' : 'searchLinkedIn'
 	    },
 	    searchLinkedIn : function(){
 		Mod.Controller.peopleSearch();
-	    },
-	    submitRef : function(){
-		console.log($('.selected'));
-		console.log(Backbone.Syphon.serialize($('.selected')));
 	    }
         });
-	
-	var ReferralFormModel = Backbone.Model.extend({
-		url:function(){
-			return '/jobs/' + job.value +  '/referrals'
+
+	var ReferralSubmitFormView = Backbone.Marionette.ItemView.extend({
+		template: '#li-referral-form-template',
+		model:LinkedInSearchResultModel,
+		tagName:'div',
+		className:'col-lg-12',
+		events:{
+		   	'click #submit-ref' : 'submitRef'
 		},
-		defaults: {
-      		  job:'',
-		  referenceName: '',
-      		  reference: '',
-      		  comment: '',
-		  user:'',
-		  pictureUrl:''
-    		}
+		submitRef : function(e){
+			e.preventDefault();
+                	var data = Backbone.Syphon.serialize(this);
+			console.log(data);
+			var model = new LinkedInSearchResultModel(data);
+                	model.save();
+            	}
 	});
-
- 	var ReferralFormView = Backbone.Marionette.ItemView.extend({
-            template: '#referral-form-template',
-            tagName: 'div',
-            className: 'col-lg-12',
-	    model: ReferralFormModel,
-	    events:{
-		'click button.js-submit': 'submitClicked'
-	    },
-	    submitClicked : function(e){
-		e.preventDefault();
-      		var data = Backbone.Syphon.serialize(this);
-		var model = new ReferralFormModel(data);
-		model.save();
-	    }
-        });
-
-
+	
 	var LinkedInSearchResultModel = Backbone.Model.extend({
+		initialize:function(){
+			this.job = this.attributes['job'];
+		},
+		url:function(){
+                        return '/jobs/' + this.get('job') +  '/referrals'
+                },
 		defaults:{
 			name:'',
 			url:'',
 			user:'',
-			job:''
+			job:'',
+			referenceName:''
 		}	
 	});
 	var LinkedInSearchResultCollection = Backbone.Collection.extend({model:LinkedInSearchResultModel});
@@ -197,7 +187,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                  	'click button.js-submit': 'selectReference'
             	},
             	selectReference: function(evt){
-			console.log(Backbone.Syphon.serialize(this));
+			var data = Backbone.Syphon.serialize(this);
+			var model = new LinkedInSearchResultModel(data);
+                	var referralSubmitForm = new ReferralSubmitFormView({model:model});
+                	Viewer.mainSub2.show(referralSubmitForm);
 			$('.selected').removeClass('selected');
 			$(evt.target.parentElement).addClass('selected');
             	}
