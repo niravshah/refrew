@@ -227,6 +227,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		   	'click #submit-ref' : 'submitRef'
 		},
 		submitRef : function(e){
+			var loadingView = new Loading();
+			Viewer.mainSub21.show(loadingView);
 			e.preventDefault();
 			var data = Backbone.Syphon.serialize(this);
 			console.log(data);
@@ -280,6 +282,12 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	});
 
 	/* Spinner */
+	var Loading =  Backbone.Marionette.ItemView.extend({
+                template: '#loading-view',
+                tagName: 'div',
+                className: 'col-lg-4 col-sm-6 col-12'
+        });
+
 	
 	/* End */
 	
