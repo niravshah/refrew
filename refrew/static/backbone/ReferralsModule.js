@@ -30,12 +30,6 @@ if (!this.gmm || typeof this.gmm !== 'object') {
      		);
 	},
 
-	selectref : function(){
-        	var ref = document.getElementById('referencesel');
-        	document.getElementById('reference').value = ref.options[ref.selectedIndex].value;
-        	document.getElementById('referenceName').value = ref.options[ref.selectedIndex].text;
-	},
-	
 	displayPeopleSearch : function(peopleSearch) {
         	var sel = document.getElementById("referencesel");
         	var members = peopleSearch.people.values;
@@ -73,13 +67,13 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                         var stagesListView = new JobStagesListView({collection:coll});
                         Viewer.rhsSub.show(stagesListView);
 			var liSearchWidget = new LISearchWidgetView();
-			Viewer.mainSub.show(liSearchWidget);
+			Viewer.mainSub2.show(liSearchWidget);
 			var liLoginButton = new LILoginButtonView();
-			Viewer.mainSub2.show(liLoginButton);
+			Viewer.mainSub.show(liLoginButton);
 			if (IN){
 			   if(IN.User){
 				if(IN.User.isAuthorized()){
-				     	Viewer.mainSub2.$el.hide();
+				     	Viewer.mainSub.$el.hide();
 					var userid = $('#linkedin-userid').val();
 					var userRefs = new UserJobReferralsCollection(jobid,userid);
 					userRefs.job = jobid;
@@ -87,21 +81,21 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 					userRefs.fetch({
 						success:function(){
                                         		var userRefsView = new UserJobReferralsListView({collection:userRefs});
-							Viewer.mainSub2.show(userRefsView); 
-							Viewer.mainSub2.$el.show();
+							Viewer.mainSub.show(userRefsView); 
+							Viewer.mainSub.$el.show();
 							if(userRefs.length > 1){								
-								Viewer.mainSub.close();}
+								Viewer.mainSub2.close();}
 						},
 						error:function(){
 							console.log('UserJobReferralsView : fetch : error');
 						}
 					});
 				}else{
-					Viewer.mainSub.$el.hide();
-					IN.parse($('#main-sub-2').get(0));}
+					Viewer.mainSub2.$el.hide();
+					IN.parse($('#main-sub').get(0));}
 			   }else{
-				Viewer.mainSub.$el.hide();
-				if(IN.parse){IN.parse($('#main-sub-2').get(0));}
+				Viewer.mainSub2.$el.hide();
+				if(IN.parse){IN.parse($('#main-sub').get(0));}
 			   }
 			}else{
 				Viewer.mainSub.$el.hide();}
@@ -209,7 +203,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	var LISearchWidgetView = Backbone.Marionette.ItemView.extend({
             template: '#linkedin-search-widget',
             tagName: 'div',
-            className: 'col-lg-12',
+            className: 'col-lg-6',
 	    events:{
 		'click #search-ref' : 'searchLinkedIn'
 	    },
@@ -228,12 +222,17 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		template: '#li-referral-form-template',
 		model:LinkedInSearchResultModel,
 		tagName:'div',
-		className:'col-lg-12',
+		className:'col-lg-6',
 		events:{
 		   	'click #submit-ref' : 'submitRef'
 		},
 		submitRef : function(e){
 			e.preventDefault();
+			var loading = new LoadingView({
+				title: "Saving Reference",
+        			message: "Saving Reference"
+			});
+			Viewer.mainSub21.show(loading);
                 	var data = Backbone.Syphon.serialize(this);
 			console.log(data);
 			var model = new LinkedInSearchResultModel(data);
@@ -269,8 +268,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			var data = Backbone.Syphon.serialize(this);
 			var model = new LinkedInSearchResultModel(data);
                 	var referralSubmitForm = new ReferralSubmitFormView({model:model});
-                	Viewer.mainSub2.show(referralSubmitForm);
-			Viewer.mainSub2.$el.show();
+                	Viewer.mainSub21.show(referralSubmitForm);
+			Viewer.mainSub21.$el.show();
 			$('.selected').removeClass('selected');
 			$(evt.target.parentElement).addClass('selected');
             	}
@@ -283,6 +282,44 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                 	_.bindAll(this,"render");
                         _this.render();
 		}
-	});	
+	});
+
+	/* Spinner */
+	
+	var LoadingView = Marionette.ItemView.extend({
+    		template: "#loading-view",
+		tagName: 'div',
+		className: 'col-lg-6',
+    		serializeData: function(){
+      		return {
+        		title: this.options.title || "Loading Data",
+        		message: this.options.message || "Please wait, data is loading."
+     		 }
+    		},
+    		onShow: function(){
+      			var opts = {
+        		lines: 13, // The number of lines to draw
+        		length: 10, // The length of each line
+        		width: 5, // The line thickness
+        		radius: 10, // The radius of the inner circle
+        		corners: 1, // Corner roundness (0..1)
+        		rotate: 0, // The rotation offset
+        		direction: 1, // 1: clockwise, -1: counterclockwise
+        		color: '#000', // #rgb or #rrggbb
+        		speed: 1, // Rounds per second
+        		trail: 60, // Afterglow percentage
+        		shadow: false, // Whether to render a shadow
+        		hwaccel: false, // Whether to use hardware acceleration
+        		className: 'spinner', // The CSS class to assign to the spinner
+        		zIndex: 2e9, // The z-index (defaults to 2000000000)
+       	 		/*top: '10px', // Top position relative to parent in px
+        		left: '10px' // Left position relative to parent in px*/
+      			};
+      			$('#spinner').spin(opts);
+    	     }
+  	});
+
+	/* End */
+	
 });	
 })();

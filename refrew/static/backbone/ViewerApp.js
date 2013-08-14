@@ -21,6 +21,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	mainRegion: '#main-region',
 	mainSub: '#main-sub',
  	mainSub2: '#main-sub-2',
+	mainSub21: '#main-sub-2-1',
 	mainSub3: '#main-sub-3',	
         rhsSubTitle: '#rhs-sub-title',
 	rhsSub: '#rhs-sub',

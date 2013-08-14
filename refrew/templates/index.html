@@ -9,8 +9,15 @@
 	</div>
 </script>
 
+<script type="text/template" id="loading-view">
+	 <div class="well">
+		<div id="spinner"></div>
+      		<p><%= message %></p>
+	</div>
+</script>
+
 <script type="text/html" id="li-referral-form-template">
-	<div class="well" style="min-height:200px;">
+	<div class="well">
 		<form>
 			<p><%=name %></p>
 			<input name='referenceName' type="hidden" value="<%=name%>">
@@ -113,7 +120,10 @@
 		<div id="main-region" syle="overflow-y:scroll;"></div>
 	</div>
 	<div class="row"><div id="main-sub"></div></div>
-	<div class="row"><div id="main-sub-2"></div></div>
+	<div class="row">
+		<div id="main-sub-2"></div>
+		<div id="main-sub-2-1"></div>
+	</div>
 	<div class="row"><div id="main-sub-3"></div></div>
 </div>
 <div class="col-lg-3 col-sm-12 col-12">

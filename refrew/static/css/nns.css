@@ -8,5 +8,9 @@
 	padding:20px;
 }
 .selected{
-border-color:blue;
+	border-color:blue;
+}
+.spinner{
+	top:10px;
+	left:10px;
 }
