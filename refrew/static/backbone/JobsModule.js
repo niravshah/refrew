@@ -26,6 +26,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		  Viewer.mainRegion.show(jobsView);
 		  Viewer.mainSub.close();
 		  Viewer.mainSub2.close();
+		  Viewer.mainSub21.close();	
 		  Viewer.mainSub3.close();
 		},
 		getJob : function(jobid){

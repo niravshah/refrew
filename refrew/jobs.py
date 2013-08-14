@@ -112,7 +112,7 @@ def job_referral(jobid):
 			  json_data['job'] = str(job.id)
                           model = Referral.from_json(json.dumps(json_data,default=json_util.default))
 			  saved = model.save()
-			  return 'Saved'
+			  return jsonify(dict(itemid=saved.itemid, job=saved.job.jobid, user=saved.user))
                   except ValidationError as e:
                          return jsonify(item=str(e))
 		else:

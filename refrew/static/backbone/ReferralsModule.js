@@ -11,10 +11,6 @@ if (!this.gmm || typeof this.gmm !== 'object') {
         });
 
 	var Controller = Backbone.Marionette.Controller.extend({
-	onLinkedinAuth : function(){
-		console.log('ReferralsModule : onLinkedinAuth'); 
-		if(Viewer.mainSub.$el){Viewer.mainSub.$el.show()};	
-	},
 
 	peopleSearch : function(keywords) {
      		var keywords = document.getElementById('keywords').value;
@@ -56,7 +52,37 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		var liSearchCollView = new LinkedInSearchResultCollectionView({collection:liSearchCollection});
 	 	Viewer.mainSub3.show(liSearchCollView);	
 	},
-
+	renderUserRefs : function(jobid,userid){
+		      var userRefs = new UserJobReferralsCollection(jobid,userid);
+                        userRefs.job = jobid;
+                        userRefs.user = userid;
+                        userRefs.fetch({
+                                success:function(){
+                                        var userRefsView = new UserJobReferralsListView({collection:userRefs});
+                                        Viewer.mainSub.show(userRefsView);
+                                        Viewer.mainSub.$el.show();
+                                        if(userRefs.length > 1){
+                                                Viewer.mainSub2.close();
+						Viewer.mainSub3.close();
+					}
+                                        },
+                                        error:function(){
+                                                console.log('UserJobReferralsView : fetch : error');
+                                        }
+                                        });
+		
+	},
+	onLinkedInAuth2 : function(jobid){
+		if(Viewer.getCurrentRoute().contains('refer')){
+                	Viewer.mainSub.$el.hide();
+			Viewer.mainSub2.$el.show();
+			if(!jobid){
+				jobid = $('#current-jobid').val();
+			}
+                        var userid = $('#linkedin-userid').val();
+			Mod.Controller.renderUserRefs(jobid,userid);
+		}
+	},
 	referJob : function(jobid){
 		var job = new ReferralJobModel({id:jobid});
                 job.fetch({
@@ -73,29 +99,15 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			if (IN){
 			   if(IN.User){
 				if(IN.User.isAuthorized()){
-				     	Viewer.mainSub.$el.hide();
-					var userid = $('#linkedin-userid').val();
-					var userRefs = new UserJobReferralsCollection(jobid,userid);
-					userRefs.job = jobid;
-					userRefs.user = userid;
-					userRefs.fetch({
-						success:function(){
-                                        		var userRefsView = new UserJobReferralsListView({collection:userRefs});
-							Viewer.mainSub.show(userRefsView); 
-							Viewer.mainSub.$el.show();
-							if(userRefs.length > 1){								
-								Viewer.mainSub2.close();}
-						},
-						error:function(){
-							console.log('UserJobReferralsView : fetch : error');
-						}
-					});
+					Mod.Controller.onLinkedInAuth2(jobid);
 				}else{
 					Viewer.mainSub2.$el.hide();
 					IN.parse($('#main-sub').get(0));}
 			   }else{
 				Viewer.mainSub2.$el.hide();
-				if(IN.parse){IN.parse($('#main-sub').get(0));}
+				if(IN.parse){
+					IN.parse($('#main-sub').get(0));
+				}
 			   }
 			}else{
 				Viewer.mainSub.$el.hide();}
@@ -227,13 +239,20 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		   	'click #submit-ref' : 'submitRef'
 		},
 		submitRef : function(e){
-			var loadingView = new Loading();
+			var loadingView = new Loading({model:new LoadingModel({title:'Saving Reference'})});
 			Viewer.mainSub21.show(loadingView);
 			e.preventDefault();
 			var data = Backbone.Syphon.serialize(this);
-			console.log(data);
 			var model = new LinkedInSearchResultModel(data);
-                	model.save();
+                	model.save(null,{
+				success:function(resp){
+					Viewer.mainSub21.show(new Alert({model:new AlertModel({message:'Referral Added!',alertClass:'alert-success'})}));
+					Mod.Controller.renderUserRefs(resp.get('job'),resp.get('user'));
+				},
+				error : function(){	
+					console.log('error');
+				}
+			});
             	}
 	});
 	
@@ -282,13 +301,36 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	});
 
 	/* Spinner */
+	
+	var LoadingModel = Backbone.Model.extend({
+		defaults:{
+		   title: 'Saving...'	
+		}
+	});
 	var Loading =  Backbone.Marionette.ItemView.extend({
                 template: '#loading-view',
                 tagName: 'div',
-                className: 'col-lg-4 col-sm-6 col-12'
+                className: 'col-lg-6 col-sm-6 col-12',
+		model: LoadingModel
+        });
+	
+	/* End */
+
+	/* Alert */
+	
+	var AlertModel = Backbone.Model.extend({
+                defaults:{
+                   message: 'Success!',
+		   alertClass: 'alert-success'
+                }
+        });
+        var Alert =  Backbone.Marionette.ItemView.extend({
+                template: '#alert-view-template',
+                tagName: 'div',
+                className: 'col-lg-6 col-sm-6 col-12',
+                model: AlertModel
         });
 
-	
 	/* End */
 	
 });	

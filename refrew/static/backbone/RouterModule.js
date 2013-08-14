@@ -39,7 +39,7 @@
         });
 
 	Viewer.on('linkedin:auth', function(){
-	     Viewer.ReferralsModule.Controller.onLinkedinAuth();
+	     Viewer.ReferralsModule.Controller.onLinkedInAuth2();
 	});
 
   });
