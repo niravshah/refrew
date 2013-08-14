@@ -23,7 +23,10 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		listJobs : function(){
 		  var jobsCollection = new JobCollection();
 		  var jobsView = new JobListView({collection:jobsCollection});
-		  Mod.region.show(jobsView);
+		  Viewer.mainRegion.show(jobsView);
+		  Viewer.mainSub.close();
+		  Viewer.mainSub2.close();
+		  Viewer.mainSub3.close();
 		},
 		getJob : function(jobid){
 			var job = new Mod.JobModel({id:jobid,parse:function(response){console.log('Parse:',response.items);return response.items;}});

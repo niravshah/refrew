@@ -118,6 +118,15 @@ def job_referral(jobid):
 		else:
 		  print 'Request does not have JSON!';	
 
+
+@app.route('/jobs/<jobid>/users/<userid>/referrals',methods=['GET'])
+def user_job_referrals(jobid, userid):	
+	job = Job.objects(jobid=jobid).first();
+	referrals = Referral.objects(job=job,user=userid);
+	return jsonify(item=[(dict(itemid=ref.itemid, job=ref.job.jobid, user=ref.user, referenceName=ref.referenceName, reference=ref.reference))for ref in referrals])
+	
+
+
 @app.route('/jobs/<jobid>/referrals/<refid>/status/<value>',methods=['GET'])
 @login_required
 def change_job_referral_status(jobid, refid, value):

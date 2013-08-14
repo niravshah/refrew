@@ -22,6 +22,30 @@
 	</div>
 </script>
 
+<script type="text/template" id="user-job-referral-template">
+        <div>
+                <a href='<%=reference%>'><%=referenceName%></a>
+                <input name='job' type="hidden" value="<%=job%>">
+                <input name='user' type="hidden" value="<%=user%>">
+        </div>
+</script>
+
+<script type="text/template" id="user-job-referrals-container-template">
+        <div class="well" style="min-height:200px;">
+		<p>Referrals you have already made:</p>
+		<div id='user-job-referrals-itemview-container'></div>
+        </div>
+</script>
+
+<script type="text/html" id="linkedin-login-button">
+	{% raw %}
+		<div id="linkedin-login-div" >
+                        <% print("<sc" + "ript type='IN/Login'>"); %>
+                        <% print("</sc"+"ript>"); %>
+                </div>
+	{% endraw %}		
+</script>
+
 <script type="text/html" id="linkedin-search-widget">
 	{% raw %}
 		<div id="linkedin-widget-div" class="well">
@@ -29,12 +53,6 @@
         	        <button id='search-ref' class="btn js-submit">Search</button>
 			<div id = "li-referral-form"></div>
 		</div>
-		<%if (!IN.User.isAuthorized()){%>
-		<div id="linkedin-widget-login" >
-			<% print("<sc" + "ript type='IN/Login'>"); %>
-			<% print("</sc"+"ript>"); %>
-		</div>
-		<%}%>
 	{% endraw %}
 </script>
 
@@ -110,7 +128,9 @@
 
 <script type="text/javascript">
 function onLinkedInLoad() {
-     IN.Event.on(IN, "auth", onLinkedInAuth);
+     	if(gmm.Viewer){
+                gmm.Viewer.trigger("linkedin:load");}
+	IN.Event.on(IN, "auth", onLinkedInAuth);
 }
 
 function linkedinLogout(){
@@ -129,45 +149,6 @@ function onLinkedInAuth() {
 
 function isUserAuthorized(){
 	return IN.User.isAuthorized();
-}
-
-function PeopleSearch(keywords) {
-     var keywords = document.getElementById('keywords').value;
-     IN.API.PeopleSearch()
-         .fields("firstName", "lastName", "distance", "siteStandardProfileRequest")
-         .params({"keywords": keywords, "count": 10, "sort": "distance"})
-         .result(displayPeopleSearch)
-         .error(function error(e) { /* do nothing */ }
-     );
-}
-
-function selectref(){
-        var ref = document.getElementById('referencesel');
-        document.getElementById('reference').value = ref.options[ref.selectedIndex].value;
-        document.getElementById('referenceName').value = ref.options[ref.selectedIndex].text;
-}
-function displayPeopleSearch(peopleSearch) {
-        var sel = document.getElementById("referencesel");
-        var members = peopleSearch.people.values;
-        for (var member in members) {
-         var nameText = members[member].firstName + " " + members[member].lastName;
-         var url = members[member].siteStandardProfileRequest.url;
-         var distance = members[member].distance;
-         switch (distance) {
-         case 0:
-                break;
-         case 1:
-                var opt = document.createElement('option');
-                opt.text = nameText;
-                opt.value = url;
-                sel.add(opt,null);
-                break;
-         case 2:
-         case 3:
-         case 100:
-         case -1:
-         }
-     }
 }
 </script>
 {% endblock %}
