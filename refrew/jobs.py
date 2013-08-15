@@ -111,6 +111,7 @@ def job_referral(jobid):
 			  json_data =  request.json
 			  json_data['job'] = str(job.id)
                           model = Referral.from_json(json.dumps(json_data,default=json_util.default))
+			  model.status = 'Submitted'
 			  saved = model.save()
 			  return jsonify(dict(itemid=saved.itemid, job=saved.job.jobid, user=saved.user))
                   except ValidationError as e:
@@ -123,7 +124,7 @@ def job_referral(jobid):
 def user_job_referrals(jobid, userid):	
 	job = Job.objects(jobid=jobid).first();
 	referrals = Referral.objects(job=job,user=userid);
-	return jsonify(item=[(dict(itemid=ref.itemid, job=ref.job.jobid, user=ref.user, referenceName=ref.referenceName, reference=ref.reference))for ref in referrals])
+	return jsonify(item=[(dict(itemid=ref.itemid, job=ref.job.jobid, user=ref.user, referenceName=ref.referenceName, reference=ref.reference, status=ref.status))for ref in referrals])
 	
 
 

@@ -73,7 +73,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		
 	},
 	onLinkedInAuth2 : function(jobid){
-		if(Viewer.getCurrentRoute().contains('refer')){
+		if(Viewer.getCurrentRoute().indexOf('refer') > -1){
                 	Viewer.mainSub.$el.hide();
 			Viewer.mainSub2.$el.show();
 			if(!jobid){
