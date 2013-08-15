@@ -72,7 +72,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		model: Mod.JobStageModel,
 		template: '#reward-item-template',
 		tagName: 'div',
-		className: 'col-lg-12 col-sm-6 col-12',
+		className: 'col-lg-12 col-sm-6 col-12 well',
 		events: {
 			 'click': 'showJobDetail'
 		},
@@ -110,7 +110,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 		model: Mod.RewardModel,
 		template: '#reward-item-template',
 		tagName: 'div', 
-		className: 'col-lg-12 col-sm-6 col-12',
+		className: 'col-lg-12 col-sm-6 col-12 well',
 		events:{
 			'click':'showRewardItemDetails'
 		},

@@ -132,7 +132,7 @@
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
-		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>
+		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>		
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/BootstrapModalRegion.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/Models.js')}}"></script>
@@ -153,12 +153,20 @@
 		 $(document).ready(function() {
 		   $('#simple-menu').sidr();
 		 
-		   simpleCart({
+			simpleCart({
 				 checkout: {
 				 type: "PayPal",
 				 email: "you@yours.com"
 				 }
 		   });
+		   
+		   $("#demo1").als({
+				visible_items: 3,
+				scrolling_items: 2,
+				orientation: "horizontal",
+				circular: "no",
+				autoscroll: "no"
+			});
 		 
 		 });
 		</script>
