@@ -1,90 +1,166 @@
 <!DOCTYPE html>
 <html class="no-js">
-    <head> 
-        <title>R3</title>
+   <head>
+		<title>R3</title>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
-		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-                <script type="text/javascript" src="http://platform.linkedin.com/in.js">
-                        api_key: 3ntk7givavqe
-                        onLoad: onLinkedInLoad
-			authorize:true
-                </script>
-	</head>
-	<body>
+		<script src="{{url_for('static', filename='js/refrew.js')}}"></script>
+		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+		 api_key: 3ntk7givavqe
+		 onLoad: onLinkedInLoad
+		 authorize:true
+		</script>
+   </head>
+   <body>
+		
+		<!-- LHS Off Canvas Menu -->
 		<section id="page" class="page">
-			<header class="topBar">
-				<a id="simple-menu" href="#sidr">[]</a>					
-				<a id="home" href="/#/home">R3</a>
-				<a id='rewards-link' style="position:absolute;right:160px;" href='recruit'>Recruit</a>
-				<a id='rewards-link' style="position:absolute;right:100px;" href='rewards'>Rewards</a>
-				<a id='linkedin-logout' style="display:none;position:absolute;right:50px;" href='javascript:linkedinLogout();'>Logout</a>
-			</header>
-			<div id="sidr" style="display:none;">
+		 <header class="topBar">
+			<a id="simple-menu" href="#sidr">[]</a>					
+			<a id="home" href="/#/home">R3</a>
+			<a id='rewards-link' style="position:absolute;right:160px;" href='recruit'>Recruit</a>
+			<a id='rewards-link' style="position:absolute;right:100px;" href='rewards'>Rewards</a>
+			<a id='linkedin-logout' style="display:none;position:absolute;right:50px;" href='javascript:linkedinLogout();'>Logout</a>
+		 </header>
+		 <div id="sidr" style="display:none;">
 			<ul>
-				<li><a href="#">List 1</a></li>
-				<li class="active"><a href="#">List 2</a></li>
-				<li><a href="#">List 3</a></li>
+			   <li><a href="#">List 1</a></li>
+			   <li class="active"><a href="#">List 2</a></li>
+			   <li><a href="#">List 3</a></li>
 			</ul>
-			</div>
-			{% block body %}{% endblock %}
+		 </div>
+		 {% block body %}{% endblock %}
 		</section>
-
-                <div class="container">
-			<div id="myModal" class="modal fade"></div>
+		<!--- End -->
+		
+		<!-- DIV for Modal Display -->
+		<div class="container">
+		 <div id="myModal" class="modal fade"></div>
 		</div>
+		<!-- End -->
+		
+		<!-- Backbone Regions -->		
+		<div class="container">
+		   <div class="row below-header">
+			  <div class="col-lg-12">
+				 <div class="well">					
+				 </div>
+			  </div>
+		   </div>
+		   <div class="row">
+			<!-- 9 Column LHS Section -->	
+			<div class="col-lg-9 col-sm-12 col-12">
+			 <div class="row">
+				<div class="col-lg-12 col-sm-12 col-12">
+				   <div id="main-region-title" class="well"></div>
+				</div>					
+			 </div>
+			 <div class="row">
+				<div class="col-lg-12 col-sm-12 col-12">				 
+					<div id="main-region"></div>
+				</div>
+			</div>
+			 <div class="row">
+				<div class="col-lg-12 col-sm-12 col-12">
+					<div id="main-sub"></div>
+				</div>		
+			 </div>
+			 <div class="row">
+				<div id="main-sub-2"></div>
+				<div id="main-sub-2-1"></div>
+			 </div>
+			 <div class="row">
+				<div class="col-lg-12 col-sm-12 col-12">
+					<div id="main-sub-3"></div>
+				</div>
+			 </div>
+			</div>
+			  <!-- End LHS Section ---->
+			  <!-- 3 Column RHS Section --->
+			  <div class="col-lg-3 col-sm-12 col-12">
+				 <div class="row">
+					<div class="col-lg-12 col-sm-12 col-12">
+					   <div id="rhs-sub-title" class="well"></div>
+					</div>					
+				 </div>
+				 <div class="row">
+					<div class="col-lg-12 col-sm-12 col-12">				 
+						<div id="rhs-sub"></div>
+					</div>
+				</div>	
+			  </div>
+			  <!---- End RHS Section --->
+			  <input id='linkedin-userid' type='hidden' value=''/>
+		   </div>
+		</div>     
+		
+		<!-- End Backbone Regions -->
+		
+		<!-- Alert and Loading Templates -->
+		
+		<script type="text/template" id="loading-view">
+		   <div class="well">
+		   <div class="progress progress-striped active">
+				<div class="progress-bar"  role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+						<span class='sr-only'><%=title%></span>
+				</div>
+		   </div>
+		   </div>
+		</script>
 
+		<script type='text/template' id='alert-view-template'>
+		   <div class="alert <%=alertClass%>"><%=message%></div>
+		</script>	
+		
+		<!-- End --->
+		
 		<script src="{{url_for('static', filename='js/overthrow.js')}}"></script>
 		<script src="{{url_for('static', filename='js/hammer.js')}}"></script>
 		<script src="{{url_for('static', filename='js/jquery.hammer.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/json2.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/underscore-1.4.3.js')}}"></script>
-		
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone-0.9.10.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.babysitter-0.0.4.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
 		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>
-
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/BootstrapModalRegion.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/Models.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/JobsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RewardsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script>
-
-            	<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
-                <link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
-
+		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
+		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
 		<script>
-		$(function(){
+		 $(function(){
 			console.log('Function to kick-off backbone');
 			var options = {};
 			gmm.Viewer.start(options);
-		});
+		 });
 		</script>
-
 		<script>
-                        $(document).ready(function() {
-                          $('#simple-menu').sidr();
-
-                          simpleCart({
-                                checkout: {
-                                type: "PayPal",
-                                email: "you@yours.com"
-                                }
-                          });
-
-                        });
-                </script>
-		
-	</body>
+		 $(document).ready(function() {
+		   $('#simple-menu').sidr();
+		 
+		   simpleCart({
+				 checkout: {
+				 type: "PayPal",
+				 email: "you@yours.com"
+				 }
+		   });
+		 
+		 });
+		</script>
+   </body>
 </html>

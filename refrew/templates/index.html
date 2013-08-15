@@ -1,208 +1,128 @@
 {% extends "layout.html" %}
 {% block body %}
-<script type="text/html" id="job-item-details-template">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">Modal title</h4>
-                                </div>
-                                <div class="modal-body">
-                                <p>Job Id: <%=itemid%></p>
-                                <p>Job Desc: <%=description%></p>
-                                </div>
-                                <div class="modal-footer">
-                                        <a id="refer-button" data-dismiss="modal" aria-hidden="true" href="/jobs/<%=itemid%>/refer" class="btn btn-primary btn-lg">Refer</a>
-                                </div>
-                             </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-</script>
-
 
 <script type="text/html" id="reward-item-details-template">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">Modal title</h4>
-                                </div>
-                                <div class="modal-body">
-                                <p>Reward Id: <%=itemid%></p>
-                                </div>
-                                <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                             </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">Modal title</h4>
+       </div>
+       <div class="modal-body">
+       <p>Reward Id: <%=itemid%></p>
+       </div>
+       <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+       </div>
+    </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
 </script>
 
 <script type="text/template" id="referral-item-template">
-        <div class="well" style="min-height:200px;">
-		<p name='referenceName'>Job Id:<%= itemid %></p>
-		<input name='job' type="hidden" value="<%=job%>">
-		<input name='user' type="hidden" value="<%=user%>">
-	</div>
-</script>
-
-<script type="text/template" id="loading-view">
-	 <div class="well">
-		<div class="progress progress-striped active">
-  		<div class="progress-bar"  role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-    			<span class='sr-only'><%=title%></span>
-  		</div>
-		</div>
-	</div>
-</script>
-
-<script type='text/template' id='alert-view-template'>
-	<div class="alert <%=alertClass%>"><%=message%></div>
+   <div class="well" style="min-height:200px;">
+   <p name='referenceName'>Job Id:<%= itemid %></p>
+   <input name='job' type="hidden" value="<%=job%>">
+   <input name='user' type="hidden" value="<%=user%>">
+   </div>
 </script>
 
 <script type="text/html" id="li-referral-form-template">
-	<div class="well">
-		<form>
-			<p><%=name %></p>
-			<input name='referenceName' type="hidden" value="<%=name%>">
-                        <input name='reference' type="hidden" value="<%=url%>">
-               		<input name='job' type="hidden" value="<%=job%>">
-                	<input name='user' type="hidden" value="<%=user%>">
-		</form>
-		<button id='submit-ref' class="btn js-submit">Submit Reference</button>
-	</div>
+   <div class="well">
+   	<form>
+   		<p><%=name %></p>
+   		<input name='referenceName' type="hidden" value="<%=name%>">
+        <input name='reference' type="hidden" value="<%=url%>">
+   		<input name='job' type="hidden" value="<%=job%>">
+        <input name='user' type="hidden" value="<%=user%>">
+   	</form>
+   	<button id='submit-ref' class="btn js-submit">Submit Reference</button>
+   </div>
 </script>
 
 <script type="text/template" id="user-job-referral-template">
-        <div style="white-space: nowrap;overflow:hidden;">
-		<a href='<%=reference%>'><%=referenceName%></a>
-		<span class="label label-default"><%=status%></span>
-                <input name='job' type="hidden" value="<%=job%>">
-                <input name='user' type="hidden" value="<%=user%>">
-        </div>
+   <div style="white-space: nowrap;overflow:hidden;">
+   <a href='<%=reference%>'><%=referenceName%></a>
+   <span class="label label-default"><%=status%></span>
+           <input name='job' type="hidden" value="<%=job%>">
+           <input name='user' type="hidden" value="<%=user%>">
+   </div>
 </script>
 
 <script type="text/template" id="user-job-referrals-container-template">
-        <div class="well" style="min-height:200px;">
-		<p>Referrals you have already made:</p>
-		<div id='user-job-referrals-itemview-container'></div>
-        </div>
+   <div class="well" style="min-height:200px;">
+   <p>Referrals you have already made:</p>
+   <div id='user-job-referrals-itemview-container'></div>
+   </div>
 </script>
 
 <script type="text/html" id="linkedin-login-button">
-	{% raw %}
-		<div id="linkedin-login-div" >
-                        <% print("<sc" + "ript type='IN/Login'>"); %>
-                        <% print("</sc"+"ript>"); %>
-                </div>
-	{% endraw %}		
+   {% raw %}
+   	<div id="linkedin-login-div" >
+                          <% print("<sc" + "ript type='IN/Login'>"); %>
+                          <% print("</sc"+"ript>"); %>
+                  </div>
+   {% endraw %}		
 </script>
 
 <script type="text/html" id="linkedin-search-widget">
-	{% raw %}
-		<div id="linkedin-widget-div" class="well">
-			<p><input id="keywords" size="30" value="Java" type="text">
-        	        <button id='search-ref' class="btn js-submit">Search</button>
-			<div id = "li-referral-form"></div>
-		</div>
-	{% endraw %}
+   {% raw %}
+   	<div id="linkedin-widget-div" class="well">
+   		<p><input id="keywords" size="30" value="Java" type="text">
+          	        <button id='search-ref' class="btn js-submit">Search</button>
+   		<div id = "li-referral-form"></div>
+   	</div>
+   {% endraw %}
 </script>
 
 <script type="text/template" id="lisearch-item-template">
-        <div class="well" style="min-height:200px;">
-			<form>
-			<img src="<%=pictureUrl%>" alt="<%=name%>" width="80" height="80">
-			<a name='name' href="<%=publicProfileUrl%>"><%=firstName%> <%=lastName%></a>
-			<p><%= headline%></p>
-			<p><%=location.name%></p>
-                	<input name='job' type="hidden" value='<%=job%>'>
-                	<input name='user' type="hidden" value='<%=user%>'>
-			<input name='name' type="hidden" value='<%=firstName%> <%=lastName%>'>
-			<input name='url' type="hidden" value='<%=publicProfileUrl%>'>
-			</form>
-			<button class="btn js-submit">Select</button>
-        </div>
+   <div class="well" style="min-height:200px;">
+   <form>
+   <img src="<%=pictureUrl%>" alt="<%=name%>" width="80" height="80">
+   <a name='name' href="<%=publicProfileUrl%>"><%=firstName%> <%=lastName%></a>
+   <p><%= headline%></p>
+   <p><%=location.name%></p>
+           	<input name='job' type="hidden" value='<%=job%>'>
+           	<input name='user' type="hidden" value='<%=user%>'>
+   <input name='name' type="hidden" value='<%=firstName%> <%=lastName%>'>
+   <input name='url' type="hidden" value='<%=publicProfileUrl%>'>
+   </form>
+   <button class="btn js-submit">Select</button>
+   </div>
 </script>
 
 <script type="text/template" id="job-item-template">
-	<div class="well" style="min-height:200px;">
-		<p>Job Id: <%= itemid %></p>
-		<input type="hidden" id="current-jobid" value="<%=itemid%>"/>
-	</div>
+   <div class="well" style="min-height:200px;">
+   	<p>Job Id: <%= itemid %></p>
+   	<input type="hidden" id="current-jobid" value="<%=itemid%>"/>
+   </div>
 </script>
+
 <script type="text/template" id="reward-item-template">
-        <div class="well"><p>Reward Id: <%= itemid %></p></div>
+   <div class="well"><p>Reward Id: <%= itemid %></p></div>
 </script>
 
 <script type="text/template" id="referral-form-template">
-<div class="well" id='referral-form'>
-	<form>
-	  <p>	
-          <label for="referral-name-label" class="control-label">Referral Name:</label>
-          <input id="referenceName" name="referenceName" type="text" value="<%= referenceName %>"/>
-          </p><p>
- 	  <label for="referral-link-label" class="control-label">Referral Link:</label>
-          <input id="reference" name="reference" type="text" value="<%= reference %>"/>
-          </p><p>
-	  <label for="comment-label" class="control-label">Comment:</label>
-          <input id="comment" name="comment" type="text" value="<%= comment %>"/>
-	  </p><p>
-	  <input id="job" name="job" type="hidden" value="<%=job%>"/>
-	  <input id="user" name="user" type="hidden" value="<%=user%>"/>
-          <button class="btn js-submit">Save</button>
-      </form>
-</div>
+   <div class="well" id='referral-form'>
+   	<form>
+   	  <p>	
+             <label for="referral-name-label" class="control-label">Referral Name:</label>
+             <input id="referenceName" name="referenceName" type="text" value="<%= referenceName %>"/>
+             </p><p>
+    	  <label for="referral-link-label" class="control-label">Referral Link:</label>
+             <input id="reference" name="reference" type="text" value="<%= reference %>"/>
+             </p><p>
+   	  <label for="comment-label" class="control-label">Comment:</label>
+             <input id="comment" name="comment" type="text" value="<%= comment %>"/>
+   	  </p><p>
+   	  <input id="job" name="job" type="hidden" value="<%=job%>"/>
+   	  <input id="user" name="user" type="hidden" value="<%=user%>"/>
+             <button class="btn js-submit">Save</button>
+         </form>
+   </div>
 </script>
 
-<div class="container">
-<div class="row below-header">
-  <div class="col-lg-12"><div class="well"><p>col-lg-12</p></div></div>
-</div>
-<div class="row">
-<div class="col-lg-9 col-sm-12 col-12">
-	<div class="row">
-		<div class="col-lg-12 col-sm-12 col-12"><div id="main-region-title" class="well"><p>Latest Jobs</p></div></div>
-		<div id="main-region" syle="overflow-y:scroll;"></div>
-	</div>
-	<div class="row"><div id="main-sub"></div></div>
-	<div class="row">
-		<div id="main-sub-2"></div>
-		<div id="main-sub-2-1"></div>
-	</div>
-	<div class="row"><div id="main-sub-3"></div></div>
-</div>
-<div class="col-lg-3 col-sm-12 col-12">
-	<div class="row">
-		<div id="rhs-sub-title" class="col-lg-12 col-sm-12 col-12"><div class="well"><p>Latest Rewards</p></div></div>
-		<div id="rhs-sub"></div>
-	</div>
-</div>
-<input id='linkedin-userid' type='hidden' value=''/>
-</div>
-</div>
-
 <script type="text/javascript">
-function onLinkedInLoad() {
-     	if(gmm.Viewer){
-                gmm.Viewer.trigger("linkedin:load");}
-	IN.Event.on(IN, "auth", onLinkedInAuth);
-}
-
-function linkedinLogout(){
-	$('#linkedin-logout').hide();
-	IN.User.logout();
-}
-
-function onLinkedInAuth() {
-	$('#linkedin-logout').show();
-	IN.API.Profile("me").result( function(me) {
-		$('#linkedin-userid').val(me.values[0].id);
-		 if(gmm.Viewer){
-                	gmm.Viewer.trigger("linkedin:auth");}
-    	});
-}
-
-function isUserAuthorized(){
-	return IN.User.isAuthorized();
-}
+   
 </script>
 {% endblock %}
