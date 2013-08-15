@@ -62,7 +62,9 @@ if (!this.gmm || typeof this.gmm !== 'object') {
                                         Viewer.mainSub.show(userRefsView);
                                         Viewer.mainSub.$el.show();
                                         if(userRefs.length > 1){
-                                                Viewer.mainSub2.close();
+						var alertMsgModel = new AlertModel({message:'You have already made <strong>2 referrals</strong> (the maximum allowed) for this vacancy', alertClass:'alert-info'});
+						var alertMsg = new Alert({model:alertMsgModel});
+                                                Viewer.mainSub2.show(alertMsg);
 						Viewer.mainSub3.close();
 					}
                                         },

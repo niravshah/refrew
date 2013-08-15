@@ -30,6 +30,10 @@ mail = Mail(app)
 def home():
 	return render_template("index.html",user=current_user)
 
+@app.route('/recruit')
+def recruit():
+        return render_template("recruit.html",user=current_user)
+
 @app.route('/urlmap')
 @login_required
 def urlmap():

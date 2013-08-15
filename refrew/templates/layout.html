@@ -6,27 +6,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
 		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />		
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
-		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />		
 		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>		
-		<script>
-			$(document).ready(function() {
-			  $('#simple-menu').sidr();
-			  
-                          simpleCart({
-                                checkout: {
-                                type: "PayPal",
-                                email: "you@yours.com"
-                                }
-                          }); 	
-			
-			});
-		</script>
+                <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+                        api_key: 3ntk7givavqe
+                        onLoad: onLinkedInLoad
+			authorize:true
+                </script>
 	</head>
 	<body>
 		<section id="page" class="page">
@@ -51,42 +41,6 @@
 			<div id="myModal" class="modal fade"></div>
 		</div>
 
-		<script type="text/html" id="job-item-details-template">
-			    <div class="modal-dialog">
-			      <div class="modal-content">
-				<div class="modal-header">
-			          	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			          	<h4 class="modal-title">Modal title</h4>
-				</div>
-        			<div class="modal-body">
-          			<p>Job Id: <%=itemid%></p>
-				<p>Job Desc: <%=description%></p>
-        			</div>
-        			<div class="modal-footer">
-					<a id="refer-button" data-dismiss="modal" aria-hidden="true" href="/jobs/<%=itemid%>/refer" class="btn btn-primary btn-lg">Refer</a>
-        			</div>
-      			     </div><!-- /.modal-content -->
-			    </div><!-- /.modal-dialog -->
-		</script>
-
-	         <script type="text/html" id="reward-item-details-template">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">Modal title</h4>
-                                </div>
-                                <div class="modal-body">
-                                <p>Reward Id: <%=itemid%></p>
-                                </div>
-                                <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                             </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                </script>
-
 		<script src="{{url_for('static', filename='js/overthrow.js')}}"></script>
 		<script src="{{url_for('static', filename='js/hammer.js')}}"></script>
 		<script src="{{url_for('static', filename='js/jquery.hammer.js')}}"></script>
@@ -107,6 +61,9 @@
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script>
 
+            	<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
+                <link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
+
 		<script>
 		$(function(){
 			console.log('Function to kick-off backbone');
@@ -115,10 +72,18 @@
 		});
 		</script>
 
-		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-                        api_key: 3ntk7givavqe
-                        onLoad: onLinkedInLoad
-                        authorize: true
+		<script>
+                        $(document).ready(function() {
+                          $('#simple-menu').sidr();
+
+                          simpleCart({
+                                checkout: {
+                                type: "PayPal",
+                                email: "you@yours.com"
+                                }
+                          });
+
+                        });
                 </script>
 		
 	</body>

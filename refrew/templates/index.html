@@ -1,5 +1,41 @@
 {% extends "layout.html" %}
 {% block body %}
+<script type="text/html" id="job-item-details-template">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                <p>Job Id: <%=itemid%></p>
+                                <p>Job Desc: <%=description%></p>
+                                </div>
+                                <div class="modal-footer">
+                                        <a id="refer-button" data-dismiss="modal" aria-hidden="true" href="/jobs/<%=itemid%>/refer" class="btn btn-primary btn-lg">Refer</a>
+                                </div>
+                             </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+</script>
+
+
+<script type="text/html" id="reward-item-details-template">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                <p>Reward Id: <%=itemid%></p>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                             </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+</script>
 
 <script type="text/template" id="referral-item-template">
         <div class="well" style="min-height:200px;">
