@@ -231,8 +231,8 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			var data = Backbone.Syphon.serialize(this);
 			var model = new Mod.LinkedInSearchResultModel(data);
 			var referralSubmitForm = new Mod.ReferralSubmitFormView({model:model});
-			Viewer.mainSub21.show(referralSubmitForm);
-			Viewer.mainSub21.$el.show();
+			Viewer.lr4c2.show(referralSubmitForm);
+			Viewer.lr4c2.$el.show();
 			$('.selected').removeClass('selected');
 			$(evt.target.parentElement).addClass('selected');
 		}

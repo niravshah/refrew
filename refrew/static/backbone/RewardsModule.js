@@ -17,7 +17,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			listRewards:function(){
 				var rewardsCollection =  new Viewer.Models.RewardCollection();
 				var rewardsView = new Viewer.Models.RewardCollectionView({collection:rewardsCollection});
-				Viewer.rhsSub.show(rewardsView);
+				Viewer.rr2.show(rewardsView);
 		   }		
 		});
 	})

@@ -16,11 +16,11 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 			listJobs : function(){
 			  var jobsCollection = new App.Models.SummaryJobCollection();
 			  var jobsView = new App.Models.SummaryJobListView({collection:jobsCollection});
-			  App.mainRegion.show(jobsView);
-			  App.mainSub.close();
-			  App.mainSub2.close();
-			  App.mainSub21.close();	
-			  App.mainSub3.close();
+			  App.lr2.show(jobsView);
+			  App.lr3.close();
+			  App.lr4c1.close();
+			  App.lr4c2.close();	
+			  App.lr5.close();
 			}			
 		});
 
