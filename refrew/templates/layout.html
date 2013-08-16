@@ -40,13 +40,6 @@
 		 {% block body %}{% endblock %}
 		</section>
 		<!--- End -->
-		
-		<!-- DIV for Modal Display -->
-		<div class="container">
-		 <div id="modal-region-1" class="modal fade"></div>
-		</div>
-		<!-- End -->
-		
 		<!-- Backbone Regions -->		
 		<div class="container">
 		   <div class="row below-header">
@@ -101,8 +94,14 @@
 			  <input id='linkedin-userid' type='hidden' value=''/>
 		   </div>
 		</div>     
+
+<!-- End Backbone Regions -->		
 		
-		<!-- End Backbone Regions -->
+		<!-- DIV for Modal Display -->
+		<div class="container">
+		 <div id="modal-region-1" class="modal fade"></div>
+		</div>
+		<!-- End -->
 		
 		<!-- Alert and Loading Templates -->
 		
@@ -139,6 +138,7 @@
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/JobsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RewardsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/RecruitModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script>
 		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
@@ -158,17 +158,8 @@
 				 type: "PayPal",
 				 email: "you@yours.com"
 				 }
-		   });
-		   
-		   $("#demo1").als({
-				visible_items: 3,
-				scrolling_items: 2,
-				orientation: "horizontal",
-				circular: "no",
-				autoscroll: "no"
-			});
-		 
-		 });
+		   });	   
+	 	 });
 		</script>
    </body>
 </html>

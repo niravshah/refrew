@@ -266,7 +266,7 @@ if (!this.gmm || typeof this.gmm !== 'object') {
 	});
 	
 	/* End */
-	
+
 	/* Spinner */	
 	
 	Mod.LoadingModel = Backbone.Model.extend({

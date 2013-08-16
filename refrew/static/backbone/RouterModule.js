@@ -1,44 +1,46 @@
 (function () {
 	'use strict';
-	gmm.Viewer.module('RouterModule', function (Mod, Viewer, Backbone, Marionette, $, _) {
+	gmm.Viewer.module('RouterModule', function (Mod, App, Backbone, Marionette, $, _) {
 
 		Mod.Router = Backbone.Marionette.AppRouter.extend({
 				appRoutes: {
 				  'home':'showHome',
 				  'jobs/:jobid/refer': 'refer',
-				  'jobs': 'listJobs'
+				  'jobs': 'listJobs',
+				  '/recruit':'renderRecruitHome'
 				}
 		});
 
 		var API = {
 			showHome:function(){
 			   console.log('Show Home Triggered');
-			   Viewer.JobsModule.Controller.listJobs();
-			   Viewer.RewardsModule.Controller.listRewards();
+			   App.JobsModule.Controller.listJobs();
+			   App.RewardsModule.Controller.listRewards();
 			},
-			listJobs:function(){Viewer.JobsModule.Controller.listJobs();},
-			refer: function(jobid){Viewer.ReferralsModule.Controller.referJob(jobid);}
+			listJobs:function(){App.JobsModule.Controller.listJobs();},
+			refer: function(jobid){App.ReferralsModule.Controller.referJob(jobid);},
+			renderRecruitHome: function(){App.RecruitModule.Controller.renderRecruitHome();}
 		};
 
-		Viewer.addInitializer(function(){
-			Viewer.router = new Mod.Router({controller: API  });
-			Viewer.trigger('routing:started');
+		App.addInitializer(function(){
+			App.router = new Mod.Router({controller: API  });
+			App.trigger('routing:started');
 		});
 
-		Viewer.on('show:jobs',function(model){
-			Viewer.navigate("#/jobs");
+		App.on('show:jobs',function(model){
+			App.navigate("#/jobs");
 		});
 
-		Viewer.on('show:home',function(model){
-			Viewer.navigate("#/home");
+		App.on('show:home',function(model){
+			App.navigate("#/home");
 		});	
 
-		Viewer.on('show:referral',function(model){
-			Viewer.navigate("#/jobs/" + model.attributes['itemid'] + "/refer");
+		App.on('show:referral',function(model){
+			App.navigate("#/jobs/" + model.attributes['itemid'] + "/refer");
 		});
 
-		Viewer.on('linkedin:auth', function(){
-			Viewer.ReferralsModule.Controller.onLinkedInAuth2();
+		App.on('linkedin:auth', function(){
+			App.ReferralsModule.Controller.onLinkedInAuth2();
 		});
 
 	});
