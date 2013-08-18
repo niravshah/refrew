@@ -12,8 +12,11 @@
 	require(["apps/RouterModule"], function () {
 		
 		require(["refrew","linkedin"], function () {
-
 			IN.init({ onLoad: "onLinkedInLoad",api_key: "3ntk7givavqe", authorize:true});
+		});
+
+		require(["sidr"],function(){
+			$('#simple-menu').sidr();
 		});
 	});
 
