@@ -4,20 +4,23 @@
 		<title>R3</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
 		<link rel="stylesheet" type=text/css href="{{url_for('static', filename='css/bootstrap.css')}}" />
 		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/nns.css')}}" />
+		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
+		
 		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
-		<script src="{{url_for('static', filename='js/modernizr.js')}}"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+		<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
 		<script src="{{url_for('static', filename='js/refrew.js')}}"></script>
 		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
 		 api_key: 3ntk7givavqe
 		 onLoad: onLinkedInLoad
 		 authorize:true
-		</script>
+		</script-->
    </head>
    <body>
 		
@@ -120,18 +123,14 @@
 		</script>	
 		
 		<!-- End --->
-		
-		<script src="{{url_for('static', filename='js/overthrow.js')}}"></script>
-		<script src="{{url_for('static', filename='js/hammer.js')}}"></script>
-		<script src="{{url_for('static', filename='js/jquery.hammer.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/json2.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/underscore-1.4.3.js')}}"></script>
+
+		<!--script type="text/javascript" src="{{url_for('static', filename='js/underscore-1.4.3.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone-0.9.10.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.babysitter-0.0.4.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.wreqr-0.1.0.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
 		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>		
+		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
+		
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/BootstrapModalRegion.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/Models.js')}}"></script>
@@ -139,10 +138,11 @@
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RewardsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='backbone/RecruitModule.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script>
-		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
-		<link rel="stylesheet" type=text/css  href="{{url_for('static', filename='css/jquery.sidr.light.css')}}" />
-		<script>
+		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script-->
+		
+		<script data-main="{{url_for('static', filename='js/requirejs_main.js')}}" src="{{url_for('static', filename='js/vendor/require.js')}}"></script>
+		
+		<!--script>
 		 $(function(){
 			console.log('Function to kick-off backbone');
 			var options = {};
@@ -160,6 +160,6 @@
 				 }
 		   });	   
 	 	 });
-		</script>
+		</script-->
    </body>
 </html>
