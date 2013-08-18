@@ -13,36 +13,6 @@ define(["appl"], function(App){
 	    url:'/jobs',
 	    parse: function(response){return response.items;}
 	});
-
-	Mod.SummaryJobView = Backbone.Marionette.ItemView.extend({
-		model: Mod.SummaryJobModel,
-		template: '#job-item-template',
-		tagName: 'div', 
-		className: 'col-lg-4 col-sm-6 col-12',
-		events: {
-			'click': 'showJobDetail'
-		},    
-		showJobDetail: function(){
-			Viewer.navigate('#/jobs/'+this.model.attributes['itemid']+'/refer');	
-		}	
-	});
-
-	Mod.SummaryJobListView = Backbone.Marionette.CollectionView.extend({
-		itemView: Mod.SummaryJobView,
-		initialize: function(options) {
-			var _this = this;
-			_.bindAll(this,"render");
-			this.collection.fetch({
-				data: $.param({ rec: 12}), 
-				success: function(model, response) {
-				  _this.render();
-				  _this.collection.on("reset", _this.render, _this);
-				},
-				error: function(model, response) {
-				  console.log("Error Fetching.");}
-				});		
-		}
-	});
 	
 	/* End */
 	
@@ -52,13 +22,6 @@ define(["appl"], function(App){
         urlRoot:'/jobs',
         parse:function(response){return response.item;}
     });
-
-	Mod.DetailedJobView = Backbone.Marionette.ItemView.extend({
-		model:Mod.DetailedJobModel,
-		template: '#job-item-template',
-		tagName: 'div'		
-	});
-	
 	/* End */
 
 	/*Job Stages Models and Views*/
@@ -102,7 +65,7 @@ define(["appl"], function(App){
 	Mod.RewardItemDetailView = Backbone.Marionette.ItemView.extend({
 		template: '#reward-item-details-template'
 	});
-
+/*
 	Mod.RewardItemView = Backbone.Marionette.ItemView.extend({
 		model: Mod.RewardModel,
 		template: '#reward-item-template',
@@ -134,7 +97,7 @@ define(["appl"], function(App){
 			});
 		}
 	});	
-	
+*/	
 	/* End */
 
 	/* UserJobReferrals Models and Views */

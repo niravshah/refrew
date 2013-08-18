@@ -11,23 +11,24 @@ requirejs.config({
 	marionette: "vendor/backbone.marionette-1.0.0-rc3",
 	refrew:"vendor/refrew",
 	sidr:"vendor/jquery.sidr.min",
-	linkedin: "http://platform.linkedin.com/in.js?async=true"
+	linkedin: "http://platform.linkedin.com/in.js?async=true",
+	tpl: "vendor/tpl"
   },
   shim: {
 	jquery:{
-	  exports:"$" 
+	  	exports:"$" 
 	},
 	underscore: {
-      exports: "_"
-    },
-    backbone: {
-      deps: ["jquery", "underscore", "json2"],
-      exports: "Backbone"
-    },
-    "backbone.syphon": ["backbone"],
-    marionette: {
-      deps: ["backbone"],
-      exports: "Marionette"
+      		exports: "_"
+    	},
+    	backbone: {
+      		deps: ["jquery", "underscore", "json2"],
+      		exports: "Backbone"
+    	},
+    	"backbone.syphon": ["backbone"],
+    	marionette: {
+      	deps: ["backbone"],
+      	exports: "Marionette"
     },
   
   },

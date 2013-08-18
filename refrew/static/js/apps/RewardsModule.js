@@ -1,6 +1,6 @@
-define(["appl"], function(App){
+define(["appl","apps/rewards/rewards_views"], function(App){
 	'use strict';
-    App.module('RewardsModule', function (Mod, Viewer, Backbone, Marionette, $, _) {
+    App.module('RewardsModule.Control', function (Mod, Viewer, Backbone, Marionette, $, _) {
         
 		Mod.addInitializer(function (options) {
 			console.log('RewardsModule Initializer Called');
@@ -13,7 +13,7 @@ define(["appl"], function(App){
 			},
 			listRewards:function(){
 				var rewardsCollection =  new Viewer.Models.RewardCollection();
-				var rewardsView = new Viewer.Models.RewardCollectionView({collection:rewardsCollection});
+				var rewardsView = new Viewer.RewardsModule.Views.RewardCollectionView({collection:rewardsCollection});
 				Viewer.rr2.show(rewardsView);
 		   }		
 		});

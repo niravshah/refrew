@@ -14,10 +14,10 @@ define(["appl"], function(App){
 		var API = {
 			showHome:function(){
 			   console.log('Show Home Triggered');
-			   App.JobsModule.Controller.listJobs();
-			   App.RewardsModule.Controller.listRewards();
+			   App.JobsModule.Control.Controller.listJobs();
+			   App.RewardsModule.Control.Controller.listRewards();
 			},
-			listJobs:function(){App.JobsModule.Controller.listJobs();},
+			listJobs:function(){App.JobsModule.Control.Controller.listJobs();},
 			refer: function(jobid){App.ReferralsModule.Controller.referJob(jobid);},
 			renderRecruitHome: function(){App.RecruitModule.Controller.renderRecruitHome();}
 		};
