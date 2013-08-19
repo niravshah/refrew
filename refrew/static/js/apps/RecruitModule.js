@@ -1,4 +1,4 @@
-define(["appl","nod", "apps/recruit/recruit_views"],function(App){    
+define(["appl","parsley", "apps/recruit/recruit_views"],function(App){    
 'use strict';
     gmm.Viewer.module('RecruitModule.Control', function (Mod, App, Backbone, Marionette, $, _) {
 		Mod.addInitializer(function (options) {
@@ -20,13 +20,6 @@ define(["appl","nod", "apps/recruit/recruit_views"],function(App){
 			addJob : function(){
 				var recForm = new App.RecruitModule.Views.JobForm();	
 				App.lr1.show(recForm);
-				var metrics = [
-				  [ 'input', 'presence', 'Cannot be empty' ]
-				];
-				var options = {
-					'errorClass' : 'input-group-addon'
-				};
-				$("#ex1").nod(metrics,options);
 			}
 		});
 		

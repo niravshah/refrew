@@ -13,7 +13,7 @@ requirejs.config({
 	sidr:"vendor/jquery.sidr.min",
 	linkedin: "http://platform.linkedin.com/in.js?async=true",
 	tpl: "vendor/tpl",
-	nod : "vendor/nod"
+	parsley : "vendor/parsley"
   },
   shim: {
 	jquery:{

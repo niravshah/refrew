@@ -1,14 +1,6 @@
-<form id="ex1" class="form-horizontal">
-
-   <div class="control-group">
-  <label class="control-label">Type "foo"</label>
-  <div class="controls">
-    <input type="text" class="form-control">
-  </div>
+<form id="ex1" class="form-horizontal" data-validate="parsley">
+  <div class="form-group">
+    <input type="text" id="test" name="test" class="form-control" data-required="true" placeholder="Mandatory">
+    <a href="javascript:$('#ex1').parsley( 'validate' )">Validate</a>
 </div>
-
-   <div class="controls">
-     <button type="submit" class="btn">Submit</button>
-   </div>
-
- </form>
+</form>
