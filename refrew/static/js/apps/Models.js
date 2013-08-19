@@ -1,5 +1,5 @@
 define(["appl"], function(App){    
-'use strict';
+    'use strict';
     App.module('Models', function (Mod, Viewer, Backbone, Marionette, $, _) {
 	
 	/* Summary Job Models and Views */

@@ -12,7 +12,8 @@ requirejs.config({
 	refrew:"vendor/refrew",
 	sidr:"vendor/jquery.sidr.min",
 	linkedin: "http://platform.linkedin.com/in.js?async=true",
-	tpl: "vendor/tpl"
+	tpl: "vendor/tpl",
+	nod : "vendor/nod"
   },
   shim: {
 	jquery:{

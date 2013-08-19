@@ -7,7 +7,7 @@ define(["appl"], function(App){
 				  'home':'showHome',
 				  'jobs/:jobid/refer': 'refer',
 				  'jobs': 'listJobs',
-				  '/recruit':'renderRecruitHome'
+				  'recruit':'renderRecruitHome'
 				}
 		});
 
@@ -19,7 +19,7 @@ define(["appl"], function(App){
 			},
 			listJobs:function(){App.JobsModule.Control.Controller.listJobs();},
 			refer: function(jobid){App.ReferralsModule.Control.Controller.referJob(jobid);},
-			renderRecruitHome: function(){App.RecruitModule.Controller.renderRecruitHome();}
+			renderRecruitHome: function(){App.RecruitModule.Control.Controller.renderRecruitHome();}
 		};
 
 		App.addInitializer(function(){
