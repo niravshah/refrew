@@ -18,7 +18,7 @@ define(["appl"], function(App){
 			   App.RewardsModule.Control.Controller.listRewards();
 			},
 			listJobs:function(){App.JobsModule.Control.Controller.listJobs();},
-			refer: function(jobid){App.ReferralsModule.Controller.referJob(jobid);},
+			refer: function(jobid){App.ReferralsModule.Control.Controller.referJob(jobid);},
 			renderRecruitHome: function(){App.RecruitModule.Controller.renderRecruitHome();}
 		};
 
@@ -42,7 +42,7 @@ define(["appl"], function(App){
 		});
 
 		App.on('linkedin:auth', function(){
-			App.ReferralsModule.Controller.onLinkedInAuth2();
+			App.ReferralsModule.Control.Controller.onLinkedInAuth2();
 		});
 
 	});

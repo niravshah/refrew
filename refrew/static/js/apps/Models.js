@@ -21,7 +21,7 @@ define(["appl"], function(App){
 	Mod.DetailedJobModel = Backbone.Model.extend({
         urlRoot:'/jobs',
         parse:function(response){return response.item;}
-    });
+    	});
 	/* End */
 
 	/*Job Stages Models and Views*/
@@ -30,7 +30,7 @@ define(["appl"], function(App){
 	
 	Mod.JobStageView = Backbone.Marionette.ItemView.extend({
 		model: Mod.JobStageModel,
-		template: '#reward-item-template',
+		template: '#jobstage-item-template',
 		tagName: 'div',
 		className: 'col-lg-12 col-sm-6 col-12 well',
 		events: {
@@ -62,42 +62,6 @@ define(["appl"], function(App){
 		parse: function(response){return response.items;}
 	});
 
-	Mod.RewardItemDetailView = Backbone.Marionette.ItemView.extend({
-		template: '#reward-item-details-template'
-	});
-/*
-	Mod.RewardItemView = Backbone.Marionette.ItemView.extend({
-		model: Mod.RewardModel,
-		template: '#reward-item-template',
-		tagName: 'div', 
-		className: 'col-lg-12 col-sm-6 col-12 well',
-		events:{
-			'click':'showRewardItemDetails'
-		},
-		showRewardItemDetails:function(){
-			var detailView = new Mod.RewardItemDetailView({model:this.model});
-			Viewer.modal.show(detailView);
-		}	
-	});
-
-	Mod.RewardCollectionView = Backbone.Marionette.CollectionView.extend({
-		itemView: Mod.RewardItemView,
-		initialize: function(options) {			
-			var _this = this;
-			_.bindAll(this,"render");
-			_.bindAll(this,"render");
-			this.collection.fetch({
-				success: function(model, response) {
-					_this.render();				
-					_this.collection.on("reset", _this.render, _this);
-				},
-				error: function(model, response) {
-					console.log("Error Fetching.");
-				}
-			});
-		}
-	});	
-*/	
 	/* End */
 
 	/* UserJobReferrals Models and Views */
@@ -109,7 +73,7 @@ define(["appl"], function(App){
 			job:'',
 			user:''
 	    }	
-    });
+    	});
 
 	Mod.UserJobReferralsCollection = Backbone.Collection.extend({
 		model: Mod.UserJobReferralsModel,
@@ -120,23 +84,7 @@ define(["appl"], function(App){
 			job:''
 		}	
 	});
-
-	Mod.UserJobReferralsView = Backbone.Marionette.ItemView.extend({
-		template: '#user-job-referral-template'
-	});
-
-	Mod.UserJobReferralsListView =  Backbone.Marionette.CompositeView.extend({
-        itemView: Mod.UserJobReferralsView,
-	    itemViewContainer:'#user-job-referrals-itemview-container',
-	    template:'#user-job-referrals-container-template',
-	    tagName: 'div',        
-		initialize: function(options) {
-		  var _this = this;
-		  _.bindAll(this,"render");
-		  _this.render();
-		}
-    });
-
+	
 	/* End &/	
 	
 	/* LinkedIn Login Button View */
@@ -158,8 +106,8 @@ define(["appl"], function(App){
 	    events:{
 		'click #search-ref' : 'searchLinkedIn'
 	    },
-	    searchLinkedIn : function(){Viewer.ReferralsModule.Controller.peopleSearch();}
-    });
+	    searchLinkedIn : function(){Viewer.ReferralsModule.Control.Controller.peopleSearch();}
+    	});
 
 	/* End */
 	
@@ -190,7 +138,7 @@ define(["appl"], function(App){
 		selectReference: function(evt){
 			var data = Backbone.Syphon.serialize(this);
 			var model = new Mod.LinkedInSearchResultModel(data);
-			var referralSubmitForm = new Mod.ReferralSubmitFormView({model:model});
+			var referralSubmitForm = new Viewer.ReferralsModule.Views.ReferralSubmitFormView({model:model});
 			Viewer.lr4c2.show(referralSubmitForm);
 			Viewer.lr4c2.$el.show();
 			$('.selected').removeClass('selected');
@@ -205,24 +153,6 @@ define(["appl"], function(App){
 			_.bindAll(this,"render");
 			_this.render();
 		}
-	});
-	
-	/* End */
-	
-	/* LinkedIn Referral Submit View */
-
-	Mod.ReferralSubmitFormView = Backbone.Marionette.ItemView.extend({
-		model:Mod.LinkedInSearchResultModel,
-		template: '#li-referral-form-template',		
-		tagName:'div',
-		className:'col-lg-6',
-		events:{
-		   	'click #submit-ref' : 'submitRef'
-		},
-		submitRef : function(e){
-			var _this = this;
-			Viewer.ReferralsModule.Controller.submitReferral(e,_this);
-        }
 	});
 	
 	/* End */

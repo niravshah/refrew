@@ -1,5 +1,7 @@
 define(["appl",
-	"tpl!apps/rewards/templates/rewards-item.tpl"],function(App, rewardsItemTpl){
+	"tpl!apps/rewards/templates/rewards-item.tpl",
+	"tpl!apps/rewards/templates/rewards-item-details.tpl"],
+	function(App, rewardsItemTpl,rewardsItemDetailsTpl){
 
 	App.module( "RewardsModule.Views",function(Mod,App,Backbone, Marionette, $, _) {
 
@@ -13,7 +15,7 @@ define(["appl",
 		},
 		showRewardItemDetails:function(){
 			var detailView = new Mod.RewardItemDetailView({model:this.model});
-			Viewer.modal.show(detailView);
+			App.modal.show(detailView);
 		}	
 		});
 
@@ -36,6 +38,9 @@ define(["appl",
 		}
 		});
 
+		Mod.RewardItemDetailView = Backbone.Marionette.ItemView.extend({
+                	template: rewardsItemDetailsTpl
+	        });
 });
 
 });

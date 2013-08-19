@@ -1,6 +1,6 @@
-define(["appl"],function(App){    
+define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App){    
 'use strict';
-    App.module('ReferralsModule', function (Mod, Viewer, Backbone, Marionette, $, _) {
+    App.module('ReferralsModule.Control', function (Mod, Viewer, Backbone, Marionette, $, _) {
        
 		Mod.addInitializer(function (options) {
 			console.log('Referrals Initializer Called');		
@@ -51,7 +51,7 @@ define(["appl"],function(App){
 						var alertModel = new Viewer.Models.AlertModel({message:'Referral Added!',alertClass:'alert-success'});
 						var alert = new Viewer.Models.Alert({model:alertModel})
 						Viewer.lr4c2.show(alert);
-						Viewer.ReferralsModule.Controller.renderUserRefs(resp.get('job'),resp.get('user'));
+						Viewer.ReferralsModule.Control.Controller.renderUserRefs(resp.get('job'),resp.get('user'));
 					},
 					error : function(){	
 						console.log('error');
@@ -65,7 +65,7 @@ define(["appl"],function(App){
 					if(!jobid){
 						jobid = $('#current-jobid').val();
 					}
-								var userid = $('#linkedin-userid').val();
+					var userid = $('#linkedin-userid').val();
 					Mod.Controller.renderUserRefs(jobid,userid);
 				}
 			},
@@ -73,7 +73,7 @@ define(["appl"],function(App){
 				var job = new Viewer.Models.DetailedJobModel({id:jobid});
 				job.fetch({
 					success: function(model, response) {
-						var jobView = new Viewer.Models.DetailedJobView({model: job});
+						var jobView = new Viewer.JobsModule.Views.DetailedJobView({model: job});
 						Viewer.lr2.show(jobView);
 						var coll = new Backbone.Collection(job.attributes['stages']);
 						var stagesListView = new Viewer.Models.JobStagesListView({collection:coll});
@@ -111,7 +111,7 @@ define(["appl"],function(App){
 				userRefs.user = userid;
 				userRefs.fetch({
 					success:function(){
-						var userRefsView = new Viewer.Models.UserJobReferralsListView({collection:userRefs});
+						var userRefsView = new Viewer.ReferralsModule.Views.UserJobReferralsListView({collection:userRefs});
 						Viewer.lr3.show(userRefsView);
 						Viewer.lr3.$el.show();
 						if(userRefs.length > 1){

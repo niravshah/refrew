@@ -1,4 +1,4 @@
-define(["marionette"], function(Marionette){
+define(["marionette","bootstrap"], function(Marionette){
 
 BootstrapModalRegion = Marionette.Region.extend({
         constructor: function(){

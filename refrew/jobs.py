@@ -98,7 +98,6 @@ def add_job_stage(id):
 
 
 @app.route('/jobs/<jobid>/referrals', methods=['GET','POST'])
-@login_required
 def job_referral(jobid):
 	if request.method == 'GET':
 		job = Job.objects(jobid=jobid).first()
