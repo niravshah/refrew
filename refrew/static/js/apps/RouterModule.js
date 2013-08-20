@@ -14,7 +14,9 @@ define(["appl"], function(App){
 		var API = {
 			showHome:function(){
 			   console.log('Show Home Triggered');
-			   App.JobsModule.Control.Controller.listJobs();
+			   var homePageLayout = new App.Layouts.HomePageLayout();
+			   App.content.show(homePageLayout);	
+			   homePageLayout.lr2.show(App.JobsModule.Control.Controller.listJobs());
 			   App.RewardsModule.Control.Controller.listRewards();
 			},
 			listJobs:function(){App.JobsModule.Control.Controller.listJobs();},

@@ -33,15 +33,8 @@
 
 
     gmm.Viewer.addRegions({
-        lr1: '#lhs-row-1',
-		lr2: '#lhs-row-2',
-		lr3: '#lhs-row-3',
-		lr4c1: '#lhs-row-4-col-1',
-		lr4c2: '#lhs-row-4-col-2',
-		lr5: '#lhs-row-5',	
-		rr1: '#rhs-row-1',
-		rr2: '#rhs-row-2',
-        modal : BootstrapModalRegion.extend({el:"#modal-region-1"})
+		content : '#content',
+        	modal : BootstrapModalRegion.extend({el:"#modal-region-1"})
     });
 
     gmm.Viewer.getCurrentPath = function(){

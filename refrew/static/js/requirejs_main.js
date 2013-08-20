@@ -35,6 +35,6 @@ requirejs.config({
   },
  });
  
-require(["appl","apps/Models"], function(Viewer){
+require(["appl","apps/Models","apps/Layouts"], function(Viewer){
   Viewer.start();
 });

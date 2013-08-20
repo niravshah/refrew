@@ -13,14 +13,6 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 	
-		<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
-		<script src="{{url_for('static', filename='js/refrew.js')}}"></script>
-		<script type="text/javascript" src="http://platform.linkedin.com/in.js">
-		 api_key: 3ntk7givavqe
-		 onLoad: onLinkedInLoad
-		 authorize:true
-		</script-->
    </head>
    <body>
 		
@@ -51,54 +43,9 @@
 				 </div>
 			  </div>
 		   </div>
-		   <div class="row">
-			<!-- 9 Column LHS Section -->	
-			<div class="col-lg-9 col-sm-12 col-12">
-			 <div class="row">
-				<div class="col-lg-12 col-sm-12 col-12">
-				   <div id="lhs-row-1"></div>
-				</div>					
-			 </div>
-			 <div class="row">
-				<div class="col-lg-12 col-sm-12 col-12">				 
-					<div id="lhs-row-2"></div>
-				</div>
-			</div>
-			 <div class="row">
-				<div class="col-lg-12 col-sm-12 col-12">
-					<div id="lhs-row-3"></div>
-				</div>		
-			 </div>
-			 <div class="row">
-				<div id="lhs-row-4-col-1"></div>
-				<div id="lhs-row-4-col-2"></div>
-			 </div>
-			 <div class="row">
-				<div class="col-lg-12 col-sm-12 col-12">
-					<div id="lhs-row-5"></div>
-				</div>
-			 </div>
-			</div>
-			  <!-- End LHS Section ---->
-			  <!-- 3 Column RHS Section --->
-			  <div class="col-lg-3 col-sm-12 col-12">
-				 <div class="row">
-					<div class="col-lg-12 col-sm-12 col-12">
-					   <div id="rhs-row-1"></div>
-					</div>					
-				 </div>
-				 <div class="row">
-					<div class="col-lg-12 col-sm-12 col-12">				 
-						<div id="rhs-row-2"></div>
-					</div>
-				</div>	
-			  </div>
-			  <!---- End RHS Section --->
-			  <input id='linkedin-userid' type='hidden' value=''/>
-		   </div>
+		   <div id='content'></div>
+		   <input id='linkedin-userid' type='hidden' value=''/>
 		</div>     
-
-<!-- End Backbone Regions -->		
 		
 		<!-- DIV for Modal Display -->
 		<div class="container">
@@ -124,42 +71,6 @@
 		
 		<!-- End --->
 
-		<!--script type="text/javascript" src="{{url_for('static', filename='js/underscore-1.4.3.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/backbone-0.9.10.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.marionette-1.0.0-rc3.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/backbone.syphon.js')}}"></script>
-		<script src="https://dl.dropboxusercontent.com/u/12925999/js/simpleCart.js"></script>		
-		<script src="{{url_for('static', filename='js/jquery.sidr.min.js')}}"></script>
-		
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/BootstrapModalRegion.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/ViewerApp.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/Models.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/JobsModule.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/RewardsModule.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/ReferralsModule.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/RecruitModule.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='backbone/RouterModule.js')}}"></script-->
-		
-		<script data-main="{{url_for('static', filename='js/requirejs_main.js')}}" src="{{url_for('static', filename='js/vendor/require.js')}}"></script>
-		
-		<!--script>
-		 $(function(){
-			console.log('Function to kick-off backbone');
-			var options = {};
-			gmm.Viewer.start(options);
-		 });
-		</script>
-		<script>
-		 $(document).ready(function() {
-		   $('#simple-menu').sidr();
-		 
-			simpleCart({
-				 checkout: {
-				 type: "PayPal",
-				 email: "you@yours.com"
-				 }
-		   });	   
-	 	 });
-		</script-->
-   </body>
+	<script data-main="{{url_for('static', filename='js/requirejs_main.js')}}" src="{{url_for('static', filename='js/vendor/require.js')}}"></script>
+</body>
 </html>
