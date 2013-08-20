@@ -8,13 +8,18 @@ define(["appl","parsley", "apps/recruit/recruit_views"],function(App){
 
 		var Controller = Backbone.Marionette.Controller.extend({		
 			renderRecruitHome : function(){
-			 	App.content.close();	
+			 	App.content.close();
+				var recLayout = new App.Layouts.RecruitPageLayout();
+				App.content.show(recLayout);	
 				var recView = new App.RecruitModule.Views.AddJobView();
+				recLayout.lr2c1.show(recView);
 			},
 
 			addJob : function(){
 				var recForm = new App.RecruitModule.Views.JobForm();	
 				var recFormNav = new App.RecruitModule.Views.JobFormNav();
+				App.content.currentLayout.lr2c1.show(recForm);
+				App.content.currentLayout.lr1.show(recFormNav);
 			}
 		});
 		

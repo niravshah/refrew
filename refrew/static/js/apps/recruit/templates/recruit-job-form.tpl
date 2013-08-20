@@ -1,6 +1,5 @@
 <div class="well">
-<form id="ex1">
-	
+<form id="ex1">	
 	<div class="form-group">
                 <label  class="bot-pad-20" for="exampleInputEmail1">Where's this job Located?</label>
                 <div class="input-group bot-pad-10">
