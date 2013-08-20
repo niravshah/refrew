@@ -10,16 +10,13 @@
     gmm.Viewer.on("initialize:after", function(){
 	
 	require(["apps/RouterModule"], function () {
-		
 		require(["refrew","linkedin"], function () {
 			IN.init({ onLoad: "onLinkedInLoad",api_key: "3ntk7givavqe", authorize:true});
 		});
-
 		require(["sidr"],function(){
 			$('#simple-menu').sidr();
 		});
 	});
-
     });	
 
     gmm.Viewer.on("routing:started", function(){
@@ -33,7 +30,7 @@
 
 
     gmm.Viewer.addRegions({
-		content : '#content',
+		content : ContentLayout.extend({el:'#content'}),
         	modal : BootstrapModalRegion.extend({el:"#modal-region-1"})
     });
 

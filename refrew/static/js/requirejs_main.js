@@ -8,7 +8,7 @@ requirejs.config({
 	json2: "vendor/json2",
 	backbone: "vendor/backbone-0.9.10",	
 	"backbone.syphon": "vendor/backbone.syphon",
-	marionette: "vendor/backbone.marionette-1.0.0-rc3",
+	marionette: "vendor/backbone.marionette",
 	refrew:"vendor/refrew",
 	sidr:"vendor/jquery.sidr.min",
 	linkedin: "http://platform.linkedin.com/in.js?async=true",

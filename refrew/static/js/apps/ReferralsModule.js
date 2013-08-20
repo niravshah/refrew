@@ -37,12 +37,12 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 				}
 				var liSearchCollection = new Viewer.Models.LinkedInSearchResultCollection(liSearchArr);
 				var liSearchCollView = new Viewer.Models.LinkedInSearchResultCollectionView({collection:liSearchCollection});
-				Viewer.lr5.show(liSearchCollView);					
+				Viewer.content.currentLayout.lr5.show(liSearchCollView);					
 			 },
 			
 			submitReferral : function(e, _this){
 				var loadingView = new Viewer.Models.Loading({model:new Viewer.Models.LoadingModel({title:'Saving Reference'})});
-				Viewer.lr4c2.show(loadingView);
+				Viewer.content.currentLayout.lr4c2.show(loadingView);
 				e.preventDefault();
 				var data = Backbone.Syphon.serialize(_this);
 				var model = new Viewer.Models.LinkedInSearchResultModel(data);
@@ -50,7 +50,7 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 					success:function(resp){
 						var alertModel = new Viewer.Models.AlertModel({message:'Referral Added!',alertClass:'alert-success'});
 						var alert = new Viewer.Models.Alert({model:alertModel})
-						Viewer.lr4c2.show(alert);
+						Viewer.content.currentLayout.lr4c2.show(alert);
 						Viewer.ReferralsModule.Control.Controller.renderUserRefs(resp.get('job'),resp.get('user'));
 					},
 					error : function(){	
@@ -60,8 +60,8 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 			},
 			onLinkedInAuth2 : function(jobid){
 				if(Viewer.getCurrentRoute().indexOf('refer') > -1){
-					Viewer.lr3.$el.hide();
-					Viewer.lr4c1.$el.show();
+					Viewer.content.currentLayout.lr3.$el.hide();
+					Viewer.content.currentLayout.lr4c1.$el.show();
 					if(!jobid){
 						jobid = $('#current-jobid').val();
 					}
@@ -73,31 +73,34 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 				var job = new Viewer.Models.DetailedJobModel({id:jobid});
 				job.fetch({
 					success: function(model, response) {
+						var layout = new Viewer.Layouts.HomePageLayout();
+						Viewer.content.show(layout);
 						var jobView = new Viewer.JobsModule.Views.DetailedJobView({model: job});
-						Viewer.lr2.show(jobView);
+						layout.lr2.show(jobView);
 						var coll = new Backbone.Collection(job.attributes['stages']);
 						var stagesListView = new Viewer.Models.JobStagesListView({collection:coll});
-						Viewer.rr2.show(stagesListView);
+						layout.rr2.show(stagesListView);
 						var liSearchWidget = new Viewer.Models.LISearchWidgetView();
-						Viewer.lr4c1.show(liSearchWidget);
+						layout.lr4c1.show(liSearchWidget);
 						var liLoginButton = new Viewer.Models.LILoginButtonView();
-						Viewer.lr3.show(liLoginButton);
+						layout.lr3.show(liLoginButton);
+						
 						if (IN){
 							if(IN.User){
 								if(IN.User.isAuthorized()){
 									Mod.Controller.onLinkedInAuth2(jobid);
 								}else{
-									Viewer.lr4c1.$el.hide();
+									layout.lr4c1.$el.hide();
 									IN.parse($('#main-sub').get(0));
 								}
 							}else{
-								Viewer.lr4c1.$el.hide();
+								layout.lr4c1.$el.hide();
 								if(IN.parse){
 									IN.parse($('#main-sub').get(0));
 								}
 							}
 						}else{
-							Viewer.lr3.$el.hide();
+							layout.lr3.$el.hide();
 						}
 					},
 					error: function(model, response) {
@@ -112,13 +115,13 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 				userRefs.fetch({
 					success:function(){
 						var userRefsView = new Viewer.ReferralsModule.Views.UserJobReferralsListView({collection:userRefs});
-						Viewer.lr3.show(userRefsView);
-						Viewer.lr3.$el.show();
+						Viewer.content.currentLayout.lr3.show(userRefsView);
+						Viewer.content.currentLayout.lr3.$el.show();
 						if(userRefs.length > 1){
 							var alertMsgModel = new Viewer.Models.AlertModel({message:'You have already made <strong>2 referrals</strong> (the maximum allowed) for this vacancy', alertClass:'alert-info'});
 							var alertMsg = new Viewer.Models.Alert({model:alertMsgModel});
-							Viewer.lr4c1.show(alertMsg);
-							Viewer.lr5.close();
+							Viewer.content.currentLayout.lr4c1.show(alertMsg);
+							Viewer.content.currentLayout.lr5.close();
 						}
 					},
 					error:function(){

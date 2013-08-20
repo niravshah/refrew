@@ -20,4 +20,18 @@ BootstrapModalRegion = Marionette.Region.extend({
                 this.$el.modal('hide');
         }
     });
+
+ContentLayout =  Marionette.Region.extend({
+	 constructor: function(){
+                _.bindAll(this);
+                Marionette.Region.prototype.constructor.apply(this, arguments);
+                this.on("show", this.showRegion, this);
+        },
+	showRegion : function(layout){
+		this.currentLayout = layout;
+		this.$el.show();
+	}
+
+});
+
 });

@@ -15,7 +15,7 @@ define(["appl"], function(App){
 			showHome:function(){
 			   console.log('Show Home Triggered');
 			   var homePageLayout = new App.Layouts.HomePageLayout();
-			   App.content.show(homePageLayout);	
+			   App.content.show(homePageLayout);
 			   homePageLayout.lr2.show(App.JobsModule.Control.Controller.listJobs());
 			   App.RewardsModule.Control.Controller.listRewards();
 			},

@@ -139,8 +139,8 @@ define(["appl"], function(App){
 			var data = Backbone.Syphon.serialize(this);
 			var model = new Mod.LinkedInSearchResultModel(data);
 			var referralSubmitForm = new Viewer.ReferralsModule.Views.ReferralSubmitFormView({model:model});
-			Viewer.lr4c2.show(referralSubmitForm);
-			Viewer.lr4c2.$el.show();
+			App.content.currentLayout.lr4c2.show(referralSubmitForm);
+			App.content.currentLayout.lr4c2.$el.show();
 			$('.selected').removeClass('selected');
 			$(evt.target.parentElement).addClass('selected');
 		}
