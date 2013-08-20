@@ -20,7 +20,7 @@ define(["appl",
 	Mod.JobForm = Backbone.Marionette.ItemView.extend({
                         template: recJobFormTpl,
                         tagName: 'div',
-                        className: 'well'
+                        className: 'col-lg-9'
 	});
 		
 });

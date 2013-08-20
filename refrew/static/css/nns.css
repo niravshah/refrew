@@ -26,3 +26,12 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     padding-right: 32px;
 }
+
+.bot-pad-10{padding-bottom:10px;}
+
+.bot-pad-20{padding-bottom:20px;}
+
+.bot-pad-30{padding-bottom:30px;}
+
+.top-pad-10{padding-top:10px;}
+

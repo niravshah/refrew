@@ -19,7 +19,8 @@ define(["appl","parsley", "apps/recruit/recruit_views"],function(App){
 
 			addJob : function(){
 				var recForm = new App.RecruitModule.Views.JobForm();	
-				App.lr1.show(recForm);
+				App.lr1.close();
+				App.lr4c1.show(recForm);
 			}
 		});
 		
