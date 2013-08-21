@@ -4,7 +4,8 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">Where's this job Located?</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Location</span>
-                        <input type="text" class="form-control" placeholder="London,United Kingdom / NY, United States ...">
+			<input type="hidden" name="jobid" value="<%=jobid%>">
+                        <input type="text" name="locationName" class="form-control" placeholder="London,United Kingdom / NY, United States ..." value="<%=locationName%>">
                 </div>
         </div>
 
@@ -12,7 +13,7 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">Enter a Title for this job:</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Title</span>
-                        <input type="text" class="form-control" placeholder="Javascript Ninja / Super Star Marketing Head / VP, Securities ...">
+                        <input type="text" name="title" class="form-control" value="<%=title%>" placeholder="Javascript Ninja / Super Star Marketing Head / VP, Securities ...">
                 </div>
         </div>
 	
@@ -29,7 +30,8 @@
                         <li><a href="#">Cont</a></li>
                 </ul>
                 </div><!-- /btn-group -->
-                <input type="text" class="form-control" placeholder="Annual Remuneration / Dail Rate">
+		<input type="hidden" name="permOrCont" value="">
+                <input type="text" name="remuneration" class="form-control" placeholder="Annual Remuneration / Dail Rate">
                 </div><!-- /input-group -->
                 </div>
         </div>
@@ -39,15 +41,15 @@
     		<label  class="bot-pad-20" for="exampleInputEmail1">What are the Top 3 Technical Skills needed for this job?</label>
 		<div class="input-group bot-pad-10">
 			<span class="input-group-addon">Skill #1</span>
-  			<input type="text" class="form-control" placeholder="Backbone / Python / Java ...">
+  			<input name="tSkill1" type="text" class="form-control" placeholder="Backbone / Python / Java ...">
 		</div>
 		<div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #2</span>
-                        <input type="text" class="form-control" placeholder="Microsoft Word / Excel ...">
+                        <input name="tSkill2" type="text" class="form-control" placeholder="Microsoft Word / Excel ...">
                 </div>
 		<div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #3</span>
-                        <input type="text" class="form-control" placeholder="Journalizing Financial Transactions / Reconciling Account Balances">
+                        <input name="tSkill3" type="text" class="form-control" placeholder="Journalizing Financial Transactions / Reconciling Account Balances">
                 </div>
 	</div>
 
@@ -55,15 +57,15 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">What are the Top 3 Interpersonal Skills needed for this job?</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #1</span>
-                        <input type="text" class="form-control" placeholder="Negotiation / Problem Solving">
+                        <input name="pSkill1" type="text" class="form-control" placeholder="Negotiation / Problem Solving">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #2</span>
-                        <input type="text" class="form-control" placeholder="Decision Making / Leadership">
+                        <input name="pSkill2" type="text" class="form-control" placeholder="Decision Making / Leadership">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #3</span>
-                        <input type="text" class="form-control" placeholder="Assertiveness">
+                        <input name="pSkill3" type="text" class="form-control" placeholder="Assertiveness">
                 </div>
         </div>
 
@@ -80,7 +82,8 @@
           		<li><a href="#">No</a></li>
         	</ul>
       		</div><!-- /btn-group -->
-      		<input type="text" class="form-control">
+		<input type="hidden" name="qalNeeded" value="" class="hidden">
+      		<input name="qal" type="text" class="form-control">
     		</div><!-- /input-group -->	
 		</div>
 	</div>
@@ -89,15 +92,15 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">What are the most prominent 3 characteristics of this team?</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Char. #1</span>
-                        <input type="text" class="form-control" placeholder="Agile / Pair Programing ...">
+                        <input name="teamChar1" type="text" class="form-control" placeholder="Agile / Pair Programing ...">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Char. #2</span>
-                        <input type="text" class="form-control" placeholder="Etc">
+                        <input name="teamChar2" type="text" class="form-control" placeholder="Etc">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Char. #3</span>
-                        <input type="text" class="form-control" placeholder="Etc">
+                        <input name="teamChar3" type="text" class="form-control" placeholder="Etc">
                 </div>
         </div>
 
@@ -105,28 +108,25 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">Describe the Product / Project / Nature of work breifly: </label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #1</span>
-                        <input type="text" class="form-control" placeholder="Maintenance / Re-engineering / Greenfield ...">
+                        <input name="projChar1" type="text" class="form-control" placeholder="Maintenance / Re-engineering / Greenfield ...">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #2</span>
-                        <input type="text" class="form-control" placeholder="Etc">
+                        <input name="projChar2" type="text" class="form-control" placeholder="Etc">
                 </div>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Skill #3</span>
-                        <input type="text" class="form-control" placeholder="Etc">
+                        <input name="projChar3" type="text" class="form-control" placeholder="Etc">
                 </div>
         </div>
-	
-
-
-	
         	
 </form>
 
 <script type="text/javascript">
 $(".dropdown-menu li a").click(function(){
   var selText = $(this).text();
-  $(this).parents('.input-group-btn').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+  	$(this).parents('.input-group-btn').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+	$(this).parents('.input-group-btn').find('.dropdown-toggle').val(selText);	
 });
 
 </script>

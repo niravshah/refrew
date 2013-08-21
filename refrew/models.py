@@ -1,3 +1,4 @@
+import json
 from flask import Flask
 from flask.ext.wtf import Form, TextField, BooleanField, Required, widgets, SelectField
 from flask.ext.mongoengine import MongoEngine, ValidationError
@@ -5,7 +6,7 @@ from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask_security.forms import RegisterForm
-
+from bson import ObjectId
 from refrew import app
 
 db = MongoEngine(app)
@@ -36,8 +37,26 @@ class Stage(db.Document):
                 return self.description
 
 class Job(db.Document):
-	jobid = db.StringField(max_length=3)
+	jobid = db.SequenceField()
 	description = db.StringField()
+	locationName =  db.StringField()
+	title =  db.StringField()
+	tSkill1 =  db.StringField()
+	tSkill2 =  db.StringField()
+	tSkill3 =  db.StringField()
+	pSkill1 =  db.StringField()
+	pSkill2 =  db.StringField()
+	pSkill3 =  db.StringField()
+	teamChar1 =  db.StringField()
+	teamChar2 =  db.StringField()
+	teamChar3 =  db.StringField()
+	permOrCont =  db.StringField()
+	remuneration =  db.StringField()
+	qalNeeded =  db.StringField()
+	qal =  db.StringField()
+	projChar1 =  db.StringField()
+	projChar2 =  db.StringField()
+	projChar3 =  db.StringField()
 	def __str__(self):
                 return self.description
 
@@ -61,6 +80,7 @@ class ExtendedRegisterForm(RegisterForm):
     last_name = TextField('Last Name', [Required()])
     incognito = BooleanField("Incognito") 
     screen_name = TextField('Screen Name', [Required()])
+
 
 AddJobForm = model_form(Job)
 RewardForm = model_form(Reward)

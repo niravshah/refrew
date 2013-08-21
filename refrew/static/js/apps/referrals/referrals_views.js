@@ -37,7 +37,7 @@ define(["appl",
                 submitRef : function(e){
                         var _this = this;
                         App.ReferralsModule.Control.Controller.submitReferral(e,_this);
-        }
+        	}
         });
 
 });

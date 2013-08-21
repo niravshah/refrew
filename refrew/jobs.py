@@ -6,7 +6,7 @@ from flask.ext.wtf import Form, TextField, Required
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, RoleMixin, login_required
 from flask_negotiate import consumes, produces
-from bson import json_util
+from bson import json_util, ObjectId
 
 from models import db, user_datastore, security, Job, Role, User, AddJobForm, Reward, Referral, StageForm, Stage
 
@@ -32,7 +32,11 @@ def jobs():
 		  try:
 			  json_data = json.dumps(request.json,default=json_util.default)
 		          model = Job.from_json(json_data)
+			  if model.jobid == "":
+				model.jobid = None
 			  model.save()
+			  data = dict(id=model.jobid,jobid=model.jobid,locationName=model.locationName,title=model.title);
+			  return jsonify(item=data)
 		  except ValidationError as e:
 		         return jsonify(item=str(e))
 		else:
@@ -47,7 +51,7 @@ def jobs():
    		return list_jobs(records_to_fetch,last)
 
 
-@app.route('/jobs/<id>',methods=['GET','POST'])
+@app.route('/jobs/<id>',methods=['GET','PUT'])
 def job(id):
         if request.method == 'GET':
 		job = Job.objects(jobid=id).first()
@@ -59,7 +63,7 @@ def job(id):
 		  return jsonify(item=itemLst)
 	        else:
         	  return render_template('list_job.html',job=job,referrals=ref,stages=stages)
-	if request.method == 'POST':
+	if request.method == 'PUT':
 		job = Job.objects(jobid=id).first()
 	        if request_has_json():
 			job.description =  request.json['description']

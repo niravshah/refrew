@@ -20,7 +20,9 @@ define(["appl"], function(App){
 
 	Mod.DetailedJobModel = Backbone.Model.extend({
         urlRoot:'/jobs',
-        parse:function(response){return response.item;}
+        parse:function(response){return response.item;},
+	defaults:{jobid:'', locationName:'', title:''}
+			
     	});
 	/* End */
 
