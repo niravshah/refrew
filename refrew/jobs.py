@@ -1,14 +1,19 @@
 import json
+import simplejson
 from refrew import app
-from flask import Flask, render_template,request, redirect, url_for, jsonify
+from flask import Flask, render_template,request, redirect, url_for, jsonify, Response
 from flask.ext.mongoengine import MongoEngine, ValidationError
 from flask.ext.wtf import Form, TextField, Required
 from flask.ext.mongoengine.wtf import model_form
 from flask.ext.security import Security, MongoEngineUserDatastore, UserMixin, RoleMixin, login_required
 from flask_negotiate import consumes, produces
-from bson import json_util, ObjectId
+from models import db, user_datastore, security, Job, Role, User, AddJobForm, Reward, Referral, StageForm, Stage, MongoDocumentEncoder
 
-from models import db, user_datastore, security, Job, Role, User, AddJobForm, Reward, Referral, StageForm, Stage
+from bson import json_util
+
+def mongodoc_jsonify(*args, **kwargs):
+    return Response(simplejson.dumps(dict(*args, **kwargs), cls=MongoDocumentEncoder), mimetype='application/json')
+
 
 @app.route('/jobs/add/',methods=['GET'])
 @login_required
@@ -35,8 +40,9 @@ def jobs():
 			  if model.jobid == "":
 				model.jobid = None
 			  model.save()
-			  data = dict(id=model.jobid,jobid=model.jobid,locationName=model.locationName,title=model.title);
-			  return jsonify(item=data)
+			  # data = dict(id=model.jobid,jobid=model.jobid,locationName=model.locationName,title=model.title);
+			  # return jsonify(item=data)
+			  return mongodoc_jsonify(item=model.to_mongo())
 		  except ValidationError as e:
 		         return jsonify(item=str(e))
 		else:

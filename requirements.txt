@@ -21,4 +21,5 @@ pymongo==2.5.1
 python-linkedin==2.0
 requests==1.2.3
 requests-oauthlib==0.3.2
+simplejson==3.3.0
 wsgiref==0.1.2

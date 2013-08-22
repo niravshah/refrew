@@ -36,7 +36,7 @@ define(["appl",
                                	this.model.set(data);
 				this.model.save({},{
 					success:function(response){
-						App.navigate('#/recruit/' + response.id);
+						App.navigate('#/recruit/' + response.attributes.jobid);
 					}});
 			}
 	});

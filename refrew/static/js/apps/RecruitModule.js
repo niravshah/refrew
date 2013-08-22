@@ -16,7 +16,7 @@ define(["appl","parsley", "apps/recruit/recruit_views"],function(App){
 			},
 
 			addJob : function(){
-				var model = new App.Models.DetailedJobModel();
+				var model = new App.Models.DetailedJobModel({jobid:undefined});
 				var recForm = new App.RecruitModule.Views.JobForm({model:model});	
 				var recFormNav = new App.RecruitModule.Views.JobFormNav();
 				App.content.currentLayout.lr2c1.show(recForm);

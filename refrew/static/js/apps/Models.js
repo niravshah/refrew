@@ -19,10 +19,9 @@ define(["appl"], function(App){
 	/* Deatiled Job Models and Views*/
 
 	Mod.DetailedJobModel = Backbone.Model.extend({
-        urlRoot:'/jobs',
-        parse:function(response){return response.item;},
-	defaults:{jobid:'', locationName:'', title:''}
-			
+        	urlRoot:'/jobs',
+        	parse:function(response){return response.item;},
+		defaults:{jobid:undefined, locationName:'', title:''}	
     	});
 	/* End */
 

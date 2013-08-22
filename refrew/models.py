@@ -9,7 +9,22 @@ from flask_security.forms import RegisterForm
 from bson import ObjectId
 from refrew import app
 
+
+from datetime import datetime
+from bson import ObjectId
+import simplejson
+from flask import Response
+
 db = MongoEngine(app)
+
+class MongoDocumentEncoder(simplejson.JSONEncoder):
+    def default(self, o):
+	print o;	
+        if isinstance(o, datetime):
+            return o.isoformat()
+        elif isinstance(o, ObjectId):
+            return str(o)
+        return simplejson.JSONEncoder(self, o)
 
 class Role(db.Document, RoleMixin):
     name = db.StringField(max_length=80, unique=True)
