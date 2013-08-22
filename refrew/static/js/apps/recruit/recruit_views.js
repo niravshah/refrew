@@ -35,7 +35,7 @@ define(["appl",
 				var data = Backbone.Syphon.serialize(this);
                                	this.model.set(data);
 				this.model.save({},{
-					success:function(response){
+					success:function(response,model){
 						App.navigate('#/recruit/' + response.attributes.jobid);
 					}});
 			}
