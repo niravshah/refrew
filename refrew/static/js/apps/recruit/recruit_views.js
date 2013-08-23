@@ -36,6 +36,7 @@ define(["appl",
                                	this.model.set(data);
 				this.model.save({},{
 					success:function(response,model){
+						 response.attributes.id =  response.attributes.jobid;
 						App.navigate('#/recruit/' + response.attributes.jobid);
 					}});
 			}

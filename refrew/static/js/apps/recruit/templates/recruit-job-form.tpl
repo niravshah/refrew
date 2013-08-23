@@ -4,7 +4,9 @@
                 <label  class="bot-pad-20" for="exampleInputEmail1">Where's this job Located?</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Location</span>
-			<input type="hidden" name="jobid" value="<%=jobid%>">
+			<% if (jobid != null) {%>
+				<input type="hidden" name="jobid" value="<%=jobid%>">
+			<%}%>
                         <input type="text" name="locationName" class="form-control" placeholder="London,United Kingdom / NY, United States ..." value="<%=locationName%>">
                 </div>
         </div>

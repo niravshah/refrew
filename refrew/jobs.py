@@ -37,11 +37,7 @@ def jobs():
 		  try:
 			  json_data = json.dumps(request.json,default=json_util.default)
 		          model = Job.from_json(json_data)
-			  if model.jobid == "":
-				model.jobid = None
 			  model.save()
-			  # data = dict(id=model.jobid,jobid=model.jobid,locationName=model.locationName,title=model.title);
-			  # return jsonify(item=data)
 			  return mongodoc_jsonify(item=model.to_mongo())
 		  except ValidationError as e:
 		         return jsonify(item=str(e))
@@ -72,9 +68,10 @@ def job(id):
 	if request.method == 'PUT':
 		job = Job.objects(jobid=id).first()
 	        if request_has_json():
-			job.description =  request.json['description']
-	                job.save()
-			return 'Updated'
+			 json_data = json.dumps(request.json,default=json_util.default)
+                         model = Job.from_json(json_data)
+                         model.save()
+                         return mongodoc_jsonify(item=model.to_mongo())
                 else:
                         form = AddJobForm(request.form)
 		        form.populate_obj(job)
