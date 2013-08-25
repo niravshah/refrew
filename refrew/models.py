@@ -19,7 +19,6 @@ db = MongoEngine(app)
 
 class MongoDocumentEncoder(simplejson.JSONEncoder):
     def default(self, o):
-	print o;	
         if isinstance(o, datetime):
             return o.isoformat()
         elif isinstance(o, ObjectId):

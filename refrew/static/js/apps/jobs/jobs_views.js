@@ -12,7 +12,7 @@ define(["appl",
 			'click': 'showJobDetail'
 		},    
 		showJobDetail: function(){
-			App.navigate('#/jobs/'+this.model.attributes['itemid']+'/refer');	
+			App.navigate('#/jobs/'+this.model.attributes['jobid']+'/refer');	
 		}	
 	});
 

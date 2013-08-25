@@ -53,16 +53,17 @@ def jobs():
    		return list_jobs(records_to_fetch,last)
 
 
-@app.route('/jobs/<id>',methods=['GET','PUT'])
-def job(id):
+@app.route('/jobs/<jobid>',methods=['GET','PUT'])
+def job(jobid):
         if request.method == 'GET':
-		job = Job.objects(jobid=id).first()
+		job = Job.objects(jobid=int(jobid)).first()
 		stages = Stage.objects(job=job)
 		ref = Referral.objects(job=job)
 	        if request_wants_json():
-                  stagesLst = [dict(itemid=stage.description,reward=stage.reward.description)for stage in stages]
+                  '''stagesLst = [dict(itemid=stage.description,reward=stage.reward.description)for stage in stages]
 		  itemLst = dict(itemid=job.jobid,description=job.description,stages=stagesLst)
-		  return jsonify(item=itemLst)
+		  return jsonify(item=itemLst)'''
+		  return mongodoc_jsonify(item=job.to_mongo())
 	        else:
         	  return render_template('list_job.html',job=job,referrals=ref,stages=stages)
 	if request.method == 'PUT':
@@ -113,13 +114,12 @@ def job_referral(jobid):
 	if request.method == 'POST':
 		if request_has_json():
                   try:
-			  job = Job.objects(jobid=request.json['job']).first()
-			  json_data =  request.json
-			  json_data['job'] = str(job.id)
-                          model = Referral.from_json(json.dumps(json_data,default=json_util.default))
+                          job = Job.objects(jobid=int(request.json['job'])).first()
+			  request.json['job'] = str(job.id)
+			  model = Referral.from_json(json.dumps(request.json,default=json_util.default))
 			  model.status = 'Submitted'
-			  saved = model.save()
-			  return jsonify(dict(itemid=saved.itemid, job=saved.job.jobid, user=saved.user))
+			  model.save()
+			  return jsonify(item='Submitted')
                   except ValidationError as e:
                          return jsonify(item=str(e))
 		else:
@@ -128,7 +128,7 @@ def job_referral(jobid):
 
 @app.route('/jobs/<jobid>/users/<userid>/referrals',methods=['GET'])
 def user_job_referrals(jobid, userid):	
-	job = Job.objects(jobid=jobid).first();
+	job = Job.objects(jobid=int(jobid)).first();
 	referrals = Referral.objects(job=job,user=userid);
 	return jsonify(item=[(dict(itemid=ref.itemid, job=ref.job.jobid, user=ref.user, referenceName=ref.referenceName, reference=ref.reference, status=ref.status))for ref in referrals])
 	
@@ -137,7 +137,7 @@ def user_job_referrals(jobid, userid):
 @app.route('/jobs/<jobid>/referrals/<refid>/status/<value>',methods=['GET'])
 @login_required
 def change_job_referral_status(jobid, refid, value):
-	job = Job.objects(jobid=jobid).first()
+	job = Job.objects(jobid=int(jobid)).first()
 	referral = Referral.objects(job=job, itemid=refid).first()
 	referral.status = value
 	referral.save()
@@ -151,8 +151,8 @@ def list_jobs(records_to_fetch,last):
 	new_last = int(last)+int(records_to_fetch)
 	jobs = Job.objects[int(last):new_last]
         if request_wants_json():
-                itemLst = [dict(itemid=job.jobid,description=job.description) for job in jobs]
-                return jsonify(items=itemLst)
+                itemLst = [dict(job.to_mongo()) for job in jobs]
+                return mongodoc_jsonify(items=itemLst)
         return render_template('list_jobs.html',jobs=jobs)
 
 @app.route('/jobs/delete/all',methods=['GET'])

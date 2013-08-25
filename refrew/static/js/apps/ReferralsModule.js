@@ -70,7 +70,7 @@ define(["appl","backbone.syphon","apps/referrals/referrals_views"],function(App)
 				}
 			},
 			referJob : function(jobid){
-				var job = new Viewer.Models.DetailedJobModel({id:jobid});
+				var job = new Viewer.Models.DetailedJobModel({jobid:jobid});
 				job.fetch({
 					success: function(model, response) {
 						var layout = new Viewer.Layouts.HomePageLayout();

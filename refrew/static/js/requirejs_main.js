@@ -9,6 +9,7 @@ requirejs.config({
 	backbone: "vendor/backbone-0.9.10",	
 	"backbone.syphon": "vendor/backbone.syphon",
 	marionette: "vendor/backbone.marionette",
+	appl : "refrew-app",
 	refrew:"vendor/refrew",
 	sidr:"vendor/jquery.sidr.min",
 	linkedin: "http://platform.linkedin.com/in.js?async=true",
@@ -16,9 +17,6 @@ requirejs.config({
 	parsley : "vendor/parsley"
   },
   shim: {
-	jquery:{
-	  	exports:"$" 
-	},
 	underscore: {
       		exports: "_"
     	},
@@ -26,12 +24,10 @@ requirejs.config({
       		deps: ["jquery", "underscore", "json2"],
       		exports: "Backbone"
     	},
-    	"backbone.syphon": ["backbone"],
-    	marionette: {
-      	deps: ["backbone"],
-      	exports: "Marionette"
-    },
-  
+	marionette:{
+		deps:["backbone"],
+		exports: "Marionette"
+	}
   },
  });
  
