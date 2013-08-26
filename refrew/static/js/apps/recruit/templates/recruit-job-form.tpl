@@ -7,6 +7,7 @@
 			<% if (jobid != null) {%>
 				<input type="hidden" name="jobid" value="<%=jobid%>">
 			<%}%>
+			<input type="hidden" name="user" id="recruit-linkedin-userid" value="<%=user%>">
                         <input type="text" name="locationName" class="form-control" placeholder="London,United Kingdom / NY, United States ..." value="<%=locationName%>">
                 </div>
         </div>

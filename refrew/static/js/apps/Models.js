@@ -6,14 +6,15 @@ define(["appl"], function(App){
 	
 	Mod.SummaryJobModel = Backbone.Model.extend({
 	    urlRoot:'/jobs',
+	    defaults:{user:''}	
 	});
         
 	Mod.SummaryJobCollection = Backbone.Collection.extend({
-        model: Mod.SummaryJobModel,
-	    url:'/jobs',
-	    parse: function(response){
-		return response.items;
-	    }
+        	model: Mod.SummaryJobModel,
+		url:'/jobs',
+	    	parse: function(response){
+			return response.items;
+	    	}
 	});
 	
 	/* End */
@@ -24,7 +25,7 @@ define(["appl"], function(App){
         	idAttribute:"jobid",
 		urlRoot:'/jobs',
         	parse:function(response){return response.item;},
-		defaults:{locationName:'', title:'',jobid:null}	
+		defaults:{locationName:'', title:'',jobid:null,user:''}	
     	});
 	/* End */
 

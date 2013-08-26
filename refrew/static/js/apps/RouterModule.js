@@ -47,7 +47,8 @@ define(["appl"], function(App){
 
 		App.on('linkedin:auth', function(){
 			App.ReferralsModule.Control.Controller.onLinkedInAuth2();
-		});
+			App.RecruitModule.Control.Controller.onLinkedInAuth();
+		});	
 
 	});
 });

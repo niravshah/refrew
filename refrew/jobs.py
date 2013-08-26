@@ -50,7 +50,8 @@ def jobs():
 	else:
 		records_to_fetch =  request.args.get('rec',10)
 		last =  request.args.get('last',0)
-   		return list_jobs(records_to_fetch,last)
+		user = request.args.get('user','')
+   		return list_jobs(records_to_fetch,last,user)
 
 
 @app.route('/jobs/<jobid>',methods=['GET','PUT'])
@@ -67,7 +68,7 @@ def job(jobid):
 	        else:
         	  return render_template('list_job.html',job=job,referrals=ref,stages=stages)
 	if request.method == 'PUT':
-		job = Job.objects(jobid=id).first()
+		job = Job.objects(jobid=int(jobid)).first()
 	        if request_has_json():
 			 json_data = json.dumps(request.json,default=json_util.default)
                          model = Job.from_json(json_data)
@@ -147,9 +148,12 @@ def change_job_referral_status(jobid, refid, value):
 def list_jobs():
 	list_jobs(100,0)
 
-def list_jobs(records_to_fetch,last):
+def list_jobs(records_to_fetch,last,user):
 	new_last = int(last)+int(records_to_fetch)
-	jobs = Job.objects[int(last):new_last]
+	if(user !=  ''):
+		jobs = Job.objects(user=user)[int(last):new_last]
+	else:
+		jobs = Job.objects[int(last):new_last]
         if request_wants_json():
                 itemLst = [dict(job.to_mongo()) for job in jobs]
                 return mongodoc_jsonify(items=itemLst)

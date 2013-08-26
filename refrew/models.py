@@ -71,6 +71,7 @@ class Job(db.Document):
 	projChar1 =  db.StringField()
 	projChar2 =  db.StringField()
 	projChar3 =  db.StringField()
+	user = db.StringField()
 	def __str__(self):
                 return self.description
 

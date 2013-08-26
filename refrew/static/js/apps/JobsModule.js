@@ -12,8 +12,12 @@ define(["appl","apps/jobs/jobs_views"], function(App){
 			},
 
 			listJobs : function(){
-			  var jobsCollection = new App.Models.SummaryJobCollection();
-			  var jobsView = new App.JobsModule.Views.SummaryJobListView({collection:jobsCollection});
+			  var jobsCollection = new App.Models.SummaryJobCollection(); 
+			  var jobsView = new App.JobsModule.Views.SummaryJobListView({
+							collection:jobsCollection, 
+							itemView: App.JobsModule.Views.SummaryJobView,
+							itemViewOptions:{'renderingView':'home'},
+							parmData:{'rec':12}});
 			  return jobsView;	
 			}			
 		});

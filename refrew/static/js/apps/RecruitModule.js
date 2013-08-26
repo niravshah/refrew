@@ -1,4 +1,4 @@
-define(["appl","parsley", "apps/recruit/recruit_views"],function(App){    
+define(["appl", "apps/recruit/recruit_views"],function(App){    
 'use strict';
     gmm.Viewer.module('RecruitModule.Control', function (Mod, App, Backbone, Marionette, $, _) {
 		Mod.addInitializer(function (options) {
@@ -13,14 +13,30 @@ define(["appl","parsley", "apps/recruit/recruit_views"],function(App){
 				App.content.show(recLayout);	
 				var recView = new App.RecruitModule.Views.AddJobView();
 				recLayout.lr2c1.show(recView);
+				var jobsCollection = new App.Models.SummaryJobCollection();
+                          	var userid = $('#linkedin-userid').val();
+				var jobsView = new App.JobsModule.Views.SummaryJobListView({
+							itemView:App.JobsModule.Views.SummaryJobView,
+							collection:jobsCollection,
+							parmData:{'rec':12,'user':userid},
+							itemViewOptions:{'renderingView':'recruit'}}); 
+				
+				recLayout.lr3.show(jobsView);
 			},
 
 			addJob : function(){
-				var model = new App.Models.DetailedJobModel({jobid:null});
+				var userid = $('#linkedin-userid').val();
+				var model = new App.Models.DetailedJobModel({jobid:null,user:userid});
 				var recForm = new App.RecruitModule.Views.JobForm({model:model});	
 				var recFormNav = new App.RecruitModule.Views.JobFormNav();
 				App.content.currentLayout.lr2c1.show(recForm);
 				App.content.currentLayout.lr1.show(recFormNav);
+			},
+			onLinkedInAuth : function(){
+				if(App.getCurrentRoute().indexOf('refer') > -1){
+					var userid = $('#linkedin-userid').val();
+					$('#recruit-linkedin-userid').val(userid);
+				}
 			}
 		});
 		
