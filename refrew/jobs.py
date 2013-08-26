@@ -71,9 +71,28 @@ def job(jobid):
 		job = Job.objects(jobid=int(jobid)).first()
 	        if request_has_json():
 			 json_data = json.dumps(request.json,default=json_util.default)
-                         model = Job.from_json(json_data)
-                         model.save()
-                         return mongodoc_jsonify(item=model.to_mongo())
+			 model = Job.from_json(json_data)
+			 job.locationName = model.locationName
+			 job.title = model.title
+			 job.permOrCont = model.permOrCont
+			 job.remuneration = model.remuneration
+			 job.tSkill1 = model.tSkill1
+			 job.tSkill2 = model.tSkill2
+			 job.tSkill3 = model.tSkill3
+                         job.pSkill1 = model.pSkill1
+                         job.pSkill2 = model.pSkill2
+                         job.pSkill3 = model.pSkill3
+			 job.qalNeeded = model.qalNeeded
+			 job.qal = model.qal
+                         job.projChar1 = model.projChar1
+                         job.projChar2 = model.projChar2
+                         job.projChar3 = model.projChar3
+                         job.teamChar1 = model.teamChar1
+                         job.teamChar2 = model.teamChar2
+                         job.teamChar3 = model.teamChar3
+			 job.save()
+			 '''Job.objects(jobid=int(jobid)).first().update(json_data)'''
+                         return mongodoc_jsonify(item=job.reload().to_mongo())
                 else:
                         form = AddJobForm(request.form)
 		        form.populate_obj(job)

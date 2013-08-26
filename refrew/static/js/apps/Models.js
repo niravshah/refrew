@@ -25,7 +25,7 @@ define(["appl"], function(App){
         	idAttribute:"jobid",
 		urlRoot:'/jobs',
         	parse:function(response){return response.item;},
-		defaults:{locationName:'', title:'',jobid:null,user:''}	
+		defaults:{locationName:'', title:'',jobid:null,user:'',permOrCont:'',tSkill1:'',remuneration:'',tSkill2:'',tSkill3:''}	
     	});
 	/* End */
 

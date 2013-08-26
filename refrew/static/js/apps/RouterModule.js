@@ -8,7 +8,8 @@ define(["appl"], function(App){
 				  'jobs/:jobid/refer': 'refer',
 				  'jobs': 'listJobs',
 				  'recruit':'renderRecruitHome',
-				  'recruit/newjob':'addJob'	
+				  'recruit/newjob':'addJob',
+				  'recruit/:jobid':'editJob',	
 				}
 		});
 
@@ -23,8 +24,10 @@ define(["appl"], function(App){
 			listJobs:function(){App.JobsModule.Control.Controller.listJobs();},
 			refer: function(jobid){App.ReferralsModule.Control.Controller.referJob(jobid);},
 			renderRecruitHome: function(){App.RecruitModule.Control.Controller.renderRecruitHome()},
-			addJob:function(){App.RecruitModule.Control.Controller.addJob()}
+			addJob:function(){App.RecruitModule.Control.Controller.addJob()},
+			editJob:function(jobid){App.RecruitModule.Control.Controller.editJob(jobid)}
 		};
+
 
 		App.addInitializer(function(){
 			require(["apps/JobsModule","apps/RewardsModule","apps/ReferralsModule","apps/RecruitModule"],function(){

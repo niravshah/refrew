@@ -32,6 +32,19 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 				App.content.currentLayout.lr2c1.show(recForm);
 				App.content.currentLayout.lr1.show(recFormNav);
 			},
+			editJob : function(jobid){
+				var userid = $('#linkedin-userid').val();
+                                var model = new App.Models.DetailedJobModel({jobid:jobid,user:userid});
+				model.fetch({
+					success:function(){
+						var recForm = new App.RecruitModule.Views.JobForm({model:model});
+                                		var recFormNav = new App.RecruitModule.Views.JobFormNav();
+                                		App.content.currentLayout.lr2c1.show(recForm);
+                                		App.content.currentLayout.lr1.show(recFormNav);
+					},
+					error: function(){console.log('ERROR: RecruitModule.Control editJob model.fetch');}
+				});
+			},
 			onLinkedInAuth : function(){
 				if(App.getCurrentRoute().indexOf('refer') > -1){
 					var userid = $('#linkedin-userid').val();
