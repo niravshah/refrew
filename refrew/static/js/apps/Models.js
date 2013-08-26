@@ -25,7 +25,30 @@ define(["appl"], function(App){
         	idAttribute:"jobid",
 		urlRoot:'/jobs',
         	parse:function(response){return response.item;},
-		defaults:{locationName:'', title:'',jobid:null,user:'',permOrCont:'',tSkill1:'',remuneration:'',tSkill2:'',tSkill3:''}	
+		defaults:{
+			locationName:'', 
+			title:'',
+			jobid:null,
+			user:'',
+			permOrCont:'',
+			tSkill1:'',
+			remuneration:'',
+			tSkill2:'',
+			tSkill3:'',
+			pSkill1: '', 
+			pSkill2: '', 
+			pSkill3: '', 
+			teamChar1: '', 
+			teamChar2: '', 
+			teamChar3: '', 
+			permOrCont: '', 
+			remuneration: '', 
+			qalNeeded: '', 
+			qal: '', 
+			projChar1: '', 
+			projChar2: '', 
+			projChar3: ''
+		}	
     	});
 	/* End */
 
