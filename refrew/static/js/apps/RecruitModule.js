@@ -47,6 +47,9 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 					},
 					error: function(){console.log('ERROR: RecruitModule.Control editJob model.fetch');}
 				});
+				
+				Mod.Controller.displayCurrentRewards();
+				
 			},
 			editJobRewards : function(jobid){
 				App.content.currentLayout.lr2c1.close();
@@ -55,8 +58,16 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 				App.content.currentLayout.lr2c1.show(rewardsView);
 				Mod.Controller.displayCurrentRewards();
 			},
+			
 			displayCurrentRewards : function(){
-				var jobStageCol = new App.Models.JobStageCollection({'url':App.getCurrentRoute()});
+				var jobStageCol = new App.Models.JobStageCollection({
+					'url':function(){
+						if (App.getCurrentRoute().indexOf('rewards')>-1){
+							return App.getCurrentRoute();
+						}else{
+							return App.getCurrentRoute() + '/rewards';
+						}}
+				});
                                 jobStageCol.fetch({
                                         success : function(){
                                                 var jobStageView = new App.Models.JobStagesListView({collection:jobStageCol});
@@ -73,6 +84,19 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 			addNewJobStage : function(){
 				var stageForm = new App.RecruitModule.Views.JobStageForm();
                                 App.content.currentLayout.lr3c2.show(stageForm);
+			},
+			deleteJobStage : function(data){
+				var model = new Backbone.Model(data);
+				if(App.getCurrentRoute().indexOf('rewards')>-1){
+					model.url = App.getCurrentRoute() + '/delete';
+				}else{
+					 model.url = App.getCurrentRoute() + '/rewards/delete';
+				}
+				model.save(null,{
+					success : function(){
+						Mod.Controller.displayCurrentRewards();
+					}
+				});
 			},
 			onLinkedInAuth : function(){
 				if(App.getCurrentRoute().indexOf('refer') > -1){

@@ -66,7 +66,14 @@ define(["appl"], function(App){
 		model: Mod.JobStageModel,
 		template: '#jobstage-item-template',
 		tagName: 'div',
-		className: 'col-lg-12 col-sm-6 col-12 well'
+		className: 'col-lg-12 col-sm-6 col-12 well',
+		events: {
+			'click .close' : 'deleteJobStage'
+		},
+		deleteJobStage : function(evt){
+			var data = Backbone.Syphon.serialize(this);
+			App.RecruitModule.Control.Controller.deleteJobStage(data);
+		}
 	});
 
 	Mod.JobStagesListView = Backbone.Marionette.CollectionView.extend({

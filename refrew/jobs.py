@@ -121,6 +121,15 @@ def stages(jobid):
                    return mongodoc_jsonify(item=model.to_mongo())
                	except ValidationError as e:
                    return jsonify(item=str(e))
+
+
+@app.route('/jobs/<jobid>/rewards/delete',methods=['PUT'])
+@login_required
+def delete_stage(jobid):
+	stage = Stage.objects(id=request.json['id']).first().delete();
+	return mongodoc_jsonify(item='Object Deleted');
+
+
 	
 @app.route('/jobs/<id>/stages/add',methods=['GET','POST'])
 @login_required

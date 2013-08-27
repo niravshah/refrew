@@ -71,8 +71,12 @@
 
 
 <script type="text/template" id="jobstage-item-template">
+   <button type="button" class="close" aria-hidden="true">&times;</button>	
    <p>Stage: <%=stage%></p>
-   <p>Reward Desc: <%=rewardDesc%></p>		
+   <p>Reward Desc: <%=rewardDesc%></p>
+   <form>	
+   <input type="hidden" name="id" value="<%=_id%>">			
+   </form>	
 </script>
 
 <script type="text/html" id="li-referral-form-template">
