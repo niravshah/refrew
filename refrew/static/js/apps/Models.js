@@ -32,7 +32,6 @@ define(["appl"], function(App){
 			user:'',
 			permOrCont:'',
 			tSkill1:'',
-			remuneration:'',
 			tSkill2:'',
 			tSkill3:'',
 			pSkill1: '', 
@@ -41,7 +40,6 @@ define(["appl"], function(App){
 			teamChar1: '', 
 			teamChar2: '', 
 			teamChar3: '', 
-			permOrCont: '', 
 			remuneration: '', 
 			qalNeeded: '', 
 			qal: '', 
@@ -54,19 +52,21 @@ define(["appl"], function(App){
 
 	/*Job Stages Models and Views*/
 	
-	Mod.JobStageModel = Backbone.Model.extend({});
-	
+	Mod.JobStageModel = Backbone.Model.extend({
+	});
+	Mod.JobStageCollection = Backbone.Collection.extend({
+		model:  Mod.JobStageModel,
+		url:'/rewards',
+		parse:function(response){return response.items;},
+		initialize:function(options){
+			this.url = options.url;
+		}
+	});	
 	Mod.JobStageView = Backbone.Marionette.ItemView.extend({
 		model: Mod.JobStageModel,
 		template: '#jobstage-item-template',
 		tagName: 'div',
-		className: 'col-lg-12 col-sm-6 col-12 well',
-		events: {
-			 'click': 'showJobDetail'
-		},
-		showJobDetail: function(){
-			Viewer.navigate('#/jobs/'+this.model.attributes['itemid']+'/refer');
-		}
+		className: 'col-lg-12 col-sm-6 col-12 well'
 	});
 
 	Mod.JobStagesListView = Backbone.Marionette.CollectionView.extend({

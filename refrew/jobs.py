@@ -38,7 +38,7 @@ def jobs():
 			  json_data = json.dumps(request.json,default=json_util.default)
 		          model = Job.from_json(json_data)
 			  model.save()
-			  return mongodoc_jsonify(item=model.to_mongo())
+			  return mongodoc_jsonify(item=model)
 		  except ValidationError as e:
 		         return jsonify(item=str(e))
 		else:
@@ -61,9 +61,6 @@ def job(jobid):
 		stages = Stage.objects(job=job)
 		ref = Referral.objects(job=job)
 	        if request_wants_json():
-                  '''stagesLst = [dict(itemid=stage.description,reward=stage.reward.description)for stage in stages]
-		  itemLst = dict(itemid=job.jobid,description=job.description,stages=stagesLst)
-		  return jsonify(item=itemLst)'''
 		  return mongodoc_jsonify(item=job.to_mongo())
 	        else:
         	  return render_template('list_job.html',job=job,referrals=ref,stages=stages)
@@ -100,22 +97,31 @@ def job(jobid):
 			return render_template('list_job.html',jobs=[job])
 
 
-@app.route('/jobs/<id>/stages',methods=['GET','POST'])
+@app.route('/jobs/<jobid>/rewards',methods=['GET','POST'])
 @login_required
-def stages(id):
-    if request.method == 'GET':	
-      stage = StageForm()	
-      stage.job.data = Job.objects(jobid=id).first().id	
-      return render_template('add_stage.html',form=stage)
+def stages(jobid):
+    if request.method == 'GET':
+	job = Job.objects(jobid=int(jobid)).first()
+	stages = Stage.objects(job=job)
+	itemLst=[dict(stage.to_mongo()) for stage in stages]
+	return mongodoc_jsonify(items=itemLst)	
     if request.method == 'POST':
-      stage = StageForm(request.form)
-      if stage.validate():
-	      stage.save()
-	      stages = Stage.objects(job=stage.job.data)
-	      return render_template('list_stages.html',stages=stages)		      
-      else:
-	print stage.errors
-
+	if request_has_json():
+        	try:
+                   job = Job.objects(jobid=int(jobid)).first()
+		   reward = Reward.objects(itemid=request.json['reward']).first()	
+		   model = Stage()	
+		   model.job = job
+		   model.reward = reward
+		   model.rewardDesc = reward.itemid
+		   model.jobDesc = str(job.jobid)
+		   model.stage = request.json['stage']
+		   model.save()
+		   model.reload()
+                   return mongodoc_jsonify(item=model.to_mongo())
+               	except ValidationError as e:
+                   return jsonify(item=str(e))
+	
 @app.route('/jobs/<id>/stages/add',methods=['GET','POST'])
 @login_required
 def add_job_stage(id):

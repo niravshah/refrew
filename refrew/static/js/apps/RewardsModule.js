@@ -12,7 +12,7 @@ define(["appl","apps/rewards/rewards_views"], function(App){
 			},
 			listRewards:function(){
 				var rewardsCollection =  new Viewer.Models.RewardCollection();
-				var rewardsView = new Viewer.RewardsModule.Views.RewardCollectionView({collection:rewardsCollection});
+				var rewardsView = new Viewer.RewardsModule.Views.RewardCollectionView({collection:rewardsCollection, itemViewOptions:{'viewScreen':'home'}});
 				App.content.currentLayout.rr2.show(rewardsView);
 		   	}		
 		});

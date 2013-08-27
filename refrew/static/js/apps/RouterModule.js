@@ -8,8 +8,9 @@ define(["appl"], function(App){
 				  'jobs/:jobid/refer': 'refer',
 				  'jobs': 'listJobs',
 				  'recruit':'renderRecruitHome',
-				  'recruit/newjob':'addJob',
-				  'recruit/:jobid':'editJob',	
+				  'jobs/newjob':'addJob',
+				  'jobs/:jobid':'editJob',
+				  'jobs/:jobid/rewards':'editJobRewards'		
 				}
 		});
 
@@ -25,7 +26,8 @@ define(["appl"], function(App){
 			refer: function(jobid){App.ReferralsModule.Control.Controller.referJob(jobid);},
 			renderRecruitHome: function(){App.RecruitModule.Control.Controller.renderRecruitHome()},
 			addJob:function(){App.RecruitModule.Control.Controller.addJob()},
-			editJob:function(jobid){App.RecruitModule.Control.Controller.editJob(jobid)}
+			editJob:function(jobid){App.RecruitModule.Control.Controller.editJob(jobid)},
+			editJobRewards: function(jobid){App.RecruitModule.Control.Controller.editJobRewards(jobid)}
 		};
 
 

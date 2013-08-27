@@ -21,7 +21,7 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 							parmData:{'rec':12,'user':userid},
 							itemViewOptions:{'renderingView':'recruit'}}); 
 				
-				recLayout.lr3.show(jobsView);
+				recLayout.lr3c1.show(jobsView);
 			},
 
 			addJob : function(){
@@ -29,12 +29,15 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 				var model = new App.Models.DetailedJobModel({jobid:null,user:userid});
 				var recForm = new App.RecruitModule.Views.JobForm({model:model});	
 				var recFormNav = new App.RecruitModule.Views.JobFormNav();
+				App.content.currentLayout.lr3c1.close();
 				App.content.currentLayout.lr2c1.show(recForm);
 				App.content.currentLayout.lr1.show(recFormNav);
 			},
 			editJob : function(jobid){
 				var userid = $('#linkedin-userid').val();
                                 var model = new App.Models.DetailedJobModel({jobid:jobid,user:userid});
+				App.content.currentLayout.lr3c1.close();
+				App.content.currentLayout.lr1.close();
 				model.fetch({
 					success:function(){
 						var recForm = new App.RecruitModule.Views.JobForm({model:model});
@@ -44,6 +47,32 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 					},
 					error: function(){console.log('ERROR: RecruitModule.Control editJob model.fetch');}
 				});
+			},
+			editJobRewards : function(jobid){
+				App.content.currentLayout.lr2c1.close();
+                                var rewardsCollection =  new App.Models.RewardCollection();
+                                var rewardsView = new App.RewardsModule.Views.RewardCollectionView({collection:rewardsCollection,itemViewOptions:{'className':'col-lg-4','viewScreen':'recruit'}});
+				App.content.currentLayout.lr2c1.show(rewardsView);
+				Mod.Controller.displayCurrentRewards();
+			},
+			displayCurrentRewards : function(){
+				var jobStageCol = new App.Models.JobStageCollection({'url':App.getCurrentRoute()});
+                                jobStageCol.fetch({
+                                        success : function(){
+                                                var jobStageView = new App.Models.JobStagesListView({collection:jobStageCol});
+                                                App.content.currentLayout.lr2c2.show(jobStageView);
+                                        }
+                                });
+
+			},
+			rewardSelected : function(ev,data){
+				var model = new App.Models.RewardModel(data);
+				var stageForm = new App.RecruitModule.Views.JobStageForm({model:model});
+                                App.content.currentLayout.lr3c2.show(stageForm);	
+			},
+			addNewJobStage : function(){
+				var stageForm = new App.RecruitModule.Views.JobStageForm();
+                                App.content.currentLayout.lr3c2.show(stageForm);
 			},
 			onLinkedInAuth : function(){
 				if(App.getCurrentRoute().indexOf('refer') > -1){

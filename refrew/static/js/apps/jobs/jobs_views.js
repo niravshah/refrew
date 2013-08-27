@@ -17,7 +17,7 @@ define(["appl",
 		},    
 		showJobDetail: function(){
 			if(this.options.renderingView == 'recruit'){
-				 App.navigate('#/recruit/'+this.model.attributes['jobid']);
+				 App.navigate('#/jobs/'+this.model.attributes['jobid']);
 			}else{
 				App.navigate('#/jobs/'+this.model.attributes['jobid']+'/refer');	
 			}

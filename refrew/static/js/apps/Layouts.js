@@ -25,7 +25,8 @@ define(["appl"], function(App){
                                 lr1: '#lhs-row-1',
                                 lr2c1: '#lhs-row-2-col-1',
                                 lr2c2: '#lhs-row-2-col-2',
-				lr3:"#lhs-row-3"
+				lr3c1:"#lhs-row-3-col-1",
+				lr3c2:"#lhs-row-3-col-2"
 				}
                 });
 		

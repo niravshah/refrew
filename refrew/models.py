@@ -45,10 +45,10 @@ class User(db.Document, UserMixin):
 
 class Stage(db.Document):
         job = db.ReferenceField('Job')
-	description = db.StringField()
+	stage = db.StringField()
         reward = db.ReferenceField('Reward')
-        def __str__(self):
-                return self.description
+	rewardDesc = db.StringField()
+	jobDesc = db.StringField()
 
 class Job(db.Document):
 	jobid = db.SequenceField()
