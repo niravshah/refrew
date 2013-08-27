@@ -40,7 +40,8 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 				App.content.currentLayout.lr1.close();
 				model.fetch({
 					success:function(){
-						var recForm = new App.RecruitModule.Views.JobForm({model:model});
+						var recForm = new App.RecruitModule.Views.JobForm({model:model,
+									templateHelpers:{editMode:function(){return false;}}});
                                 		var recFormNav = new App.RecruitModule.Views.JobFormNav();
                                 		App.content.currentLayout.lr2c1.show(recForm);
                                 		App.content.currentLayout.lr1.show(recFormNav);
@@ -48,8 +49,12 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 					error: function(){console.log('ERROR: RecruitModule.Control editJob model.fetch');}
 				});
 				
-				Mod.Controller.displayCurrentRewards();
-				
+				Mod.Controller.displayCurrentRewards();	
+			},
+			renderEditForm : function(model){
+				 var recForm = new App.RecruitModule.Views.JobForm({model:model,
+                                                                        templateHelpers:{editMode:function(){return true;}}});
+                                 App.content.currentLayout.lr2c1.show(recForm);
 			},
 			editJobRewards : function(jobid){
 				App.content.currentLayout.lr2c1.close();

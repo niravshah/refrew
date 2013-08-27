@@ -1,27 +1,39 @@
 <div class="well">
-<form id="ex1">	
+<form id="ex1">
+	<%if (!editMode()){%>
+		<button type="button" id='edit-job' class="btn btn-link btn-small">Edit</button>	
+	<%}%>	
 	<div class="form-group">
-                <label  class="bot-pad-20" for="exampleInputEmail1">Where's this job Located?</label>
+                <%if (editMode()){%>
+		<label  class="bot-pad-20" for="exampleInputEmail1">Where's this job Located?</label>
                 <div class="input-group bot-pad-10">
-                        <span class="input-group-addon">Location</span>
-			<% if (jobid != null) {%>
-				<input type="hidden" name="jobid" value="<%=jobid%>">
-			<%}%>
+			<span class="input-group-addon">Location</span>
 			<input type="hidden" name="user" id="recruit-linkedin-userid" value="<%=user%>">
-                        <input type="text" name="locationName" class="form-control" placeholder="London,United Kingdom / NY, United States ..." value="<%=locationName%>">
-                </div>
+			<input type="text" name="locationName" class="form-control" placeholder="London,UK / NY, US ..." value="<%=locationName%>">
+		</div>
+		<%}else{%>
+                         <span>Location: <%=locationName%></span>
+                <%}%>
+		<% if (jobid != null) {%>
+                       <input type="hidden" name="jobid" value="<%=jobid%>">
+                <%}%>
         </div>
 
 	<div class="form-group">
+		<%if (editMode()){%>
                 <label  class="bot-pad-20" for="exampleInputEmail1">Enter a Title for this job:</label>
                 <div class="input-group bot-pad-10">
                         <span class="input-group-addon">Title</span>
                         <input type="text" name="title" class="form-control" value="<%=title%>" placeholder="Javascript Ninja / Super Star Marketing Head / VP, Securities ...">
                 </div>
+		 <%}else{%>
+                         <span>Title: <%=title%></span>
+                <%}%>
         </div>
 	
-	<div class="row bot-pad-20">
-                <div class="col-lg-12">
+                <%if (editMode()){%>
+		<div class="row bot-pad-20">
+		<div class="col-lg-12">
                         <label  class="bot-pad-20" for="exampleInputEmail1">Is this a Permanent or Contract Vacancy?</label>
                 </div>
                 <div class="col-lg-12">
@@ -37,10 +49,16 @@
                 <input type="text" name="remuneration" value="<%=remuneration%>"class="form-control" placeholder="Annual Remuneration / Dail Rate">
                 </div><!-- /input-group -->
                 </div>
-        </div>
+		</div>
+	 	<%}else{%>
+		<div class="form-group">
+			 <span>Permanent/Contract:<%=permOrCont%></span>
+                         <span>Remuneration: <%=remuneration%></span>
+		</div>
+                <%}%>
 		
-
-	 <div class="form-group top-pad-10">
+		 <%if (editMode()){%>
+	 	<div class="form-group top-pad-10">
     		<label  class="bot-pad-20" for="exampleInputEmail1">What are the Top 3 Technical Skills needed for this job?</label>
 		<div class="input-group bot-pad-10">
 			<span class="input-group-addon">Skill #1</span>
@@ -54,7 +72,12 @@
                         <span class="input-group-addon">Skill #3</span>
                         <input name="tSkill3" value="<%=tSkill3%>" type="text" class="form-control" placeholder="Journalizing Financial Transactions / Reconciling Account Balances">
                 </div>
-	</div>
+		</div>
+		<%}else{%>
+		<div class="form-group">
+                         <span>Technical Skills:<%=tSkill1%>,<%=tSkill2%>,<%=tSkill3%></span>
+		</div>
+		<%}%>
 
          <div class="form-group top-pad-10">
                 <label  class="bot-pad-20" for="exampleInputEmail1">What are the Top 3 Interpersonal Skills needed for this job?</label>

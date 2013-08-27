@@ -22,15 +22,17 @@ define(["appl",
 
 	Mod.JobForm = Backbone.Marionette.ItemView.extend({
                         template: recJobFormTpl,
-			initialize: function(){
+			initialize: function(options){
 				 this.listenTo(this.model, "change", this.render);
+				 this.mode = this.options.mode; 	
 			},
 			modelEvents:{'change':'onChange'},
         		onChange : function(){
 				console.log('DetailedJobModel Changed');
 			},
 			events:{
-				'change .form-control' : 'autoSave'
+				'change .form-control' : 'autoSave',
+				'click #edit-job' : 'renderEditForm'
 			},
 			autoSave : function(){
 				var data = Backbone.Syphon.serialize(this);
@@ -39,6 +41,9 @@ define(["appl",
 					success:function(response,model){
 						App.navigate('#/jobs/' + response.attributes.jobid);
 					}});
+			},
+			renderEditForm : function(){
+				App.RecruitModule.Control.Controller.renderEditForm(this.model);
 			}
 	});
 
