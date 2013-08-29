@@ -27,7 +27,8 @@ define(["appl", "apps/recruit/recruit_views"],function(App){
 			addJob : function(){
 				var userid = $('#linkedin-userid').val();
 				var model = new App.Models.DetailedJobModel({jobid:null,user:userid});
-				var recForm = new App.RecruitModule.Views.JobForm({model:model});	
+				var recForm = new App.RecruitModule.Views.JobForm({model:model,
+							templateHelpers:{editMode:function(){return true;}}});	
 				var recFormNav = new App.RecruitModule.Views.JobFormNav();
 				App.content.currentLayout.lr3c1.close();
 				App.content.currentLayout.lr2c1.show(recForm);
