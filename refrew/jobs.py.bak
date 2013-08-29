@@ -38,7 +38,7 @@ def jobs():
 			  json_data = json.dumps(request.json,default=json_util.default)
 		          model = Job.from_json(json_data)
 			  model.save()
-			  return mongodoc_jsonify(item=model.to_mongo())
+			  return mongodoc_jsonify(item=model)
 		  except ValidationError as e:
 		         return jsonify(item=str(e))
 		else:
